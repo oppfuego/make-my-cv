@@ -4,7 +4,11 @@ import { connectDB } from "../config/db";
 export const seoRequestController = {
     async createRequest(userId: string, email: string, body: any) {
         await connectDB();
-        const request = await seoRequestService.createSeoRequest(userId, email, body);
+        const request = await seoRequestService.createSeoRequest(
+            userId,
+            email,
+            body
+        );
         return { request };
     },
 

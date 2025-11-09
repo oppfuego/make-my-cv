@@ -48,7 +48,6 @@ const AuthButtons: React.FC = () => {
                     fullWidth
                     textColor="primary"
                     hoverColor="tertiary"
-
                 />
             </Link>
         </div>

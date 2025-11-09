@@ -27,7 +27,7 @@ const schema: PageSchema = {
 Our experts manually analyse your site and prepare a detailed report with step-by-step recommendations.`,
             image: "image4",
             align: "right",
-            primaryCta: { text: "Request Audit", link: "/contact-us?service=Technical%20Website%20Audit&tokens=30" },
+            primaryCta: { text: "Order Audit", link: "/contact-us?service=Technical%20Website%20Audit&tokens=2000" },
         },
 
         // 💡 INTRO: why it matters

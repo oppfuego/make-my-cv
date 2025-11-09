@@ -14,6 +14,7 @@ export const seoRequestService = {
         const service = body.service;
         const message = body.message || "";
         const tokensUsed = Number(body.tokens || 5);
+        const extras = body.extras || [];
 
         const user = await User.findById(userId);
         if (!user) throw new Error("User not found");
@@ -21,31 +22,34 @@ export const seoRequestService = {
         if (user.tokens < tokensUsed)
             throw new Error(`Insufficient tokens (have ${user.tokens}, need ${tokensUsed})`);
 
-        // 🪙 списуємо токени
         user.tokens -= tokensUsed;
         await user.save();
 
         await transactionService.record(user._id, email, tokensUsed, "spend", user.tokens);
 
-        // 💾 зберігаємо заявку
         const request = await SeoRequest.create({
             userId: user._id,
             email,
             service,
             message,
+            extras,
             tokensUsed,
         });
 
-        // 📧 повідомлення адміну
         const text = `
 New SEO Request Submitted:
 ----------------------------
 User: ${email}
 Service: ${service}
 Tokens Used: ${tokensUsed}
+Extras: ${extras?.length ? extras.join(", ") : "none"}
 Message: ${message || "(none)"}
         `;
-        await sendEmail(COMPANY_EMAIL ?? "", `📈 New SEO Request — ${service}`, text);
+        await sendEmail(
+            COMPANY_EMAIL ?? "",
+            `📈 New SEO Request — ${service}`,
+            text
+        );
 
         return request.toObject({ flattenMaps: true });
     },

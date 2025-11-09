@@ -5,6 +5,7 @@ export interface SeoRequestDocument extends Document {
     email: string;
     service: string;
     message?: string;
+    extras?: string[];
     tokensUsed: number;
     status: "pending" | "completed";
     createdAt: Date;
@@ -17,11 +18,17 @@ const SeoRequestSchema = new Schema<SeoRequestDocument>(
         email: { type: String, required: true },
         service: { type: String, required: true },
         message: { type: String },
+        extras: [{ type: String }],
         tokensUsed: { type: Number, default: 5 },
-        status: { type: String, enum: ["pending", "completed"], default: "pending" },
+        status: {
+            type: String,
+            enum: ["pending", "completed"],
+            default: "pending",
+        },
     },
     { timestamps: true }
 );
 
 export const SeoRequest: Model<SeoRequestDocument> =
-    mongoose.models.SeoRequest || mongoose.model<SeoRequestDocument>("SeoRequest", SeoRequestSchema);
+    mongoose.models.SeoRequest ||
+    mongoose.model<SeoRequestDocument>("SeoRequest", SeoRequestSchema);
