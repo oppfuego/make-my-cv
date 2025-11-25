@@ -27,14 +27,23 @@ const ValuesIcons: React.FC<Props> = ({ title, description, values }) => {
                     {values.map((v, i) => (
                         <motion.div
                             key={i}
-                            className={styles.valueItem}
-                            initial={{ opacity: 0, y: 40 }}
+                            className={styles.valueCard}
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.15, duration: 0.5 }}
-                            viewport={{ once: true, amount: 0.3 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: i * 0.15 }}
+                            whileHover={{ y: -6 }}
                         >
-                            <div className={styles.iconBox}>{v.icon}</div>
-                            <div className={styles.text}>
+                            <div className={styles.iconCircle}>
+                                <motion.div
+                                    className={styles.iconInner}
+                                    whileHover={{ scale: 1.15 }}
+                                >
+                                    {v.icon}
+                                </motion.div>
+                            </div>
+
+                            <div className={styles.textBlock}>
                                 <h3>{v.title}</h3>
                                 <p>{v.description ?? v.text}</p>
                             </div>

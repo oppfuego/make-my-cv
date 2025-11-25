@@ -109,6 +109,7 @@ export const media = {
     team7: team7,
 
     demo: '/videos/demo.mp4',
+    demoAi: '/videos/demoAiWork.mp4',
 
 }
 

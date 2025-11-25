@@ -41,11 +41,11 @@ const Card: React.FC<CardProps> = ({
                 <a href={buttonLink} rel="noopener noreferrer" className={styles.link}>
                     <ButtonUI
                         variant="solid"
-                        shape="rounded"
+                        shape="default"
                         size="md"
                         color="primary"
                         hoverEffect="shadow"
-                        rightIcon={<FaArrowRight />}
+                        endIcon={<FaArrowRight/>}
                     >
                         {buttonText}
                     </ButtonUI>

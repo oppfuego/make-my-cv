@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import styles from "./CVCard.module.scss";
 
@@ -11,9 +13,9 @@ interface CVCardProps {
 const CVCard: React.FC<CVCardProps> = ({ title, description, pdf, preview }) => {
     return (
         <div className={styles.card}>
-            <a href={pdf} target="_blank" rel="noopener noreferrer" className={styles.preview}>
-                <img src={preview} alt={title} className={styles.img} />
-            </a>
+            <div className={styles.previewWrapper}>
+                <img src={preview} className={styles.previewImg} alt={title} />
+            </div>
 
             <h3 className={styles.title}>{title}</h3>
             <p className={styles.description}>{description}</p>

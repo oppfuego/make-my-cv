@@ -1,167 +1,127 @@
-.timelineSection {
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
+@import "@/resources/mixins.scss";
 
-.inner {
-  max-width: 1200px;
-  padding: 0 20px;
-  margin: 0 auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4rem;
+
+.timelineSection {
+  --line-color: #4a57ff;
+  --glow-color: rgba(74, 87, 255, 0.4);
 }
 
 .title {
-  font-size: 2rem;
   font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: -0.01em;
   color: var(--secondary-color);
-}
-
-/* 🟠 Вертикальна лінія */
-.timelineTrack {
-  position: relative;
+  margin-bottom: 40px;
+  line-height: 1.35;
+  max-width: 720px;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  word-break: keep-all;
+
+  /* ✨ легкий сірий акцент нижче замість біфора */
+  & + .description {
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 1.6rem;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.4rem;
+  }
 }
 
-.line {
+.wrapper {
+  @include main-width;
+  position: relative;
+  text-align: center;
+
+  /* компенсуємо глобальний padding конструктора */
+  padding-left: calc(30px + 80px);
+  padding-right: 30px;
+}
+
+/* === ЛІНІЯ === */
+.progressLine {
+  position: absolute;
+  top: 20px;
+  left: calc(30px + 40px); /* 30px padding + 40px offset */
+  width: 4px;
+  bottom: 20px;
+  background: rgba(180, 180, 255, 0.22);
+  border-radius: 4px;
+}
+
+/* === Заповнення === */
+.progressFill {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 50%;
+  left: 0;
   width: 4px;
-  background: linear-gradient(
-                  180deg,
-                  var(--primary-color),
-                  var(--secondary-color)
-  );
-  border-radius: 2px;
-  opacity: 0.4;
+  background: var(--line-color);
+  border-radius: 4px;
+  box-shadow: 0 0 12px var(--glow-color);
 }
 
-/* 💫 Кроки */
-.steps {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-  width: 100%;
-  position: relative;
-  z-index: 2;
+/* === Наконечник === */
+.progressThumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--line-color);
+  box-shadow: 0 0 12px var(--glow-color), 0 0 18px var(--glow-color);
+  z-index: 20;
 }
 
-/* 🔹 Картка */
-.stepCard {
+/* === STEP === */
+.step {
   position: relative;
-  width: 100%;
   display: flex;
   align-items: center;
-  gap: 2rem;
-
-  &:nth-child(even) {
-    flex-direction: row-reverse;
-
-    .content {
-      text-align: right;
-      align-items: flex-end;
-    }
-  }
-
-  &:hover .circle {
-    background: var(--primary-color);
-    color: white;
-    box-shadow: 0 0 20px rgba(255, 122, 0, 0.6);
-    transform: scale(1.1);
-  }
-
-  &:hover .content h4 {
-    color: var(--primary-color);
-  }
+  gap: 1.8rem;
+  margin-bottom: 70px;
+  text-align: left;
 }
 
-/* 🔵 Коло з номером */
-.circle {
-  flex-shrink: 0;
-  width: 60px;
-  height: 60px;
+.badge {
+  position: absolute;
+  left: calc(30px + 40px - 32px); // line - half of badge
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: var(--quaternary-color);
-  color: var(--secondary-color);
-  border: 3px solid var(--primary-color);
-  font-weight: 700;
-  font-size: 1.3rem;
+  background: white;
+  border: 3px solid var(--line-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.4s ease;
-  box-shadow: 0 0 10px rgba(255, 122, 0, 0.15);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--line-color);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* 🧩 Контент */
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-  max-width: 420px;
-  padding: 1.8rem 2rem;
-  border-radius: 16px;
+.badge.active {
+  transform: scale(1.13);
+  box-shadow: 0 0 22px var(--glow-color);
+}
+
+/* === CARD === */
+.card {
+  margin-left: 120px;  /* чіткий стабільний відступ */
   background: white;
-  box-shadow: 0 10px 30px rgba(255, 122, 0, 0.1);
-  border: 1px solid #f6d9bb;
-  transition: all 0.4s ease;
-
-  h4 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin: 0;
-  }
-
-  p {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .stepCard:hover & {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 32px rgba(255, 122, 0, 0.15);
-  }
+  padding: 1.7rem 2rem;
+  border-radius: 16px;
+  border: 1px solid rgba(74,87,255,0.15);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  max-width: 620px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* 📱 Адаптивність */
-@media (max-width: 900px) {
-  .line {
-    left: 10px;
-  }
-
-  .stepCard {
-    flex-direction: row;
-    gap: 1.2rem;
-
-    &:nth-child(even) {
-      flex-direction: row;
-      .content {
-        text-align: left;
-        align-items: flex-start;
-      }
-    }
-  }
-
-  .circle {
-    width: 50px;
-    height: 50px;
-    font-size: 1.1rem;
-  }
-
-  .content {
-    max-width: 100%;
-    padding: 1.4rem 1.2rem;
-  }
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 42px rgba(0,0,0,0.12);
 }

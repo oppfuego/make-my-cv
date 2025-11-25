@@ -9,57 +9,54 @@ interface FAQItem {
     answer: string;
 }
 
-interface FAQProps {
-    items: FAQItem[];
-}
-
-const FAQ: React.FC<FAQProps> = ({ items }) => {
-    const [activeIndex, setActiveIndex] = useState<number | null>(null);
+export default function FAQ({ items }: { items: FAQItem[] }) {
+    const [open, setOpen] = useState<number | null>(null);
 
     return (
-        <section className={styles.section}>
+        <section className={styles.wrapper}>
             <h2 className={styles.title}>Frequently Asked Questions</h2>
 
-            <div className={styles.grid}>
+            <div className={styles.list}>
                 {items.map((item, i) => {
-                    const isActive = activeIndex === i;
+                    const isOpen = open === i;
 
                     return (
-                        <div key={i} className={styles.row}>
-                            {/* LEFT — question */}
+                        <div key={i} className={styles.item}>
+                            {/* QUESTION */}
                             <button
-                                className={`${styles.questionCard} ${isActive ? styles.active : ""}`}
-                                onClick={() => setActiveIndex(isActive ? null : i)}
+                                className={`${styles.question} ${isOpen ? styles.active : ""}`}
+                                onClick={() => setOpen(isOpen ? null : i)}
                             >
-                <span className={styles.number}>
-                  {(i + 1).toString().padStart(2, "0")}
-                </span>
-                                <span className={styles.text}>{item.question}</span>
+                                <span>{item.question}</span>
+                                <motion.span
+                                    animate={{ rotate: isOpen ? 45 : 0 }}
+                                    transition={{ duration: 0.25 }}
+                                    className={styles.plus}
+                                >
+                                    +
+                                </motion.span>
                             </button>
 
-                            {/* RIGHT — answer */}
-                            <div className={styles.answerCell}>
-                                <AnimatePresence>
-                                    {isActive && (
-                                        <motion.div
-                                            key="answer"
-                                            initial={{ opacity: 0, y: -10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -10 }}
-                                            transition={{ duration: 0.3 }}
-                                            className={styles.answerBox}
-                                        >
-                                            <p>{item.answer}</p>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
+                            {/* ANSWER */}
+                            <AnimatePresence initial={false}>
+                                {isOpen && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        transition={{ duration: 0.25 }}
+                                        className={styles.answerWrapper}
+                                    >
+                                        <div className={styles.answer}>
+                                            {item.answer}
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </div>
                     );
                 })}
             </div>
         </section>
     );
-};
-
-export default FAQ;
+}

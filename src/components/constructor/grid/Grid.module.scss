@@ -1,8 +1,9 @@
+@import "@/resources/mixins.scss";
+
 .grid {
   display: grid !important;
-  width: 100% !important;
-  padding: 0 20px;
-    max-width: 1200px !important;
+
+  @include main-width;
 
   @media (max-width: 1024px) {
     grid-template-columns: repeat(2, 1fr) !important;

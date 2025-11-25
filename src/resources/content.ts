@@ -14,9 +14,12 @@ export const headerContent = {
         href: "/"
     },
     links: [
-        {label: "Home", href: "/"},
         {label: "About Us", href: "/about-us"},
         {label: "Plans", href: "/pricing"},
+        {label: "How It Works", href: "/get-started"},
+        {label: "Faq", href: "/faq"},
+        {label: "Contact Us", href: "/contact-us"},
+        {label: "Templates", href: "/templates"},
     ]
 };
 
@@ -30,6 +33,7 @@ export const footerContent = {
                 {label: "Plans", href: "/pricing"},
                 {label: "Contact Us", href: "/contact-us"},
                 {label: "Faq", href: "/faq"},
+
             ]
         },
         {

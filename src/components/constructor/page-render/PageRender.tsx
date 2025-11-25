@@ -41,6 +41,9 @@ import VideoDemo from "@/components/constructor/video-demo/VideoDemo";
 import StoryTimeline from "@/components/constructor/story-timeline/StoryTimeline";
 import InfoBlock from "@/components/constructor/Info-block/InfoBlock";
 import TextWithButton from "@/components/constructor/text-with-button/TextWithButton";
+import ExamplesGrid from "@/components/ui/example-grid/ExamplesGrid";
+import InteractiveShowcase from "@/components/constructor/side-slider-show/SideSliderShow";
+import SideSliderShow from "@/components/constructor/side-slider-show/SideSliderShow";
 
 // ------------------- helpers -------------------
 
@@ -63,8 +66,22 @@ function RenderCustom(b: CustomBlock) {
                     title={b.title}
                     description={b.description}
                     image={b.image ? resolveMedia(b.image) : undefined}
+                    buttonText={b.buttonText}
+                    buttonLink={b.buttonLink}
                 />
             );
+
+        case "SideSliderShowcase":
+            return (
+                <SideSliderShow
+                    slides={b.slides.map(s => ({
+                        ...s,
+                        image: resolveMedia(s.image)
+                    }))}
+                    height={b.height}
+                />
+            );
+
 
         case "HighlightStrip":
             return <HighlightStrip items={b.items ?? []} />;
@@ -76,6 +93,10 @@ function RenderCustom(b: CustomBlock) {
             return <Timeline title={b.title} steps={b.steps ?? []}
             />;
 
+        case "ExamplesGrid":
+            return (
+                <ExamplesGrid />
+            );
 
         case "ContactForm":
             return <ContactUsForm />;
@@ -101,8 +122,23 @@ function RenderCustom(b: CustomBlock) {
                     title={b.title}
                     description={b.description}
                     video={b.video}
+
+                    align={b.align}
+                    textGap={b.textGap}
+                    mediaGap={b.mediaGap}
+                    wrapperGap={b.wrapperGap}
+
+                    titleSize={b.titleSize}
+                    titleWeight={b.titleWeight}
+                    titleColor={b.titleColor}
+
+                    descriptionSize={b.descriptionSize}
+                    descriptionWeight={b.descriptionWeight}
+                    descriptionColor={b.descriptionColor}
                 />
             );
+
+
 
         case "TeamGrid":
             return (
@@ -163,6 +199,8 @@ function RenderCustom(b: CustomBlock) {
                     showTrustBadge={b.showTrustBadge}
                 />
             );
+
+
 
         default:
             return null;
@@ -248,8 +286,19 @@ function mapAlign(a?: AlignInput): "center" | "start" | "end" | undefined {
 }
 
 function RenderSection(b: SectionBlock) {
-    const left = b.left ? renderBlock(b.left, "left") : undefined;
-    const right = b.right ? renderBlock(b.right, "right") : undefined;
+    const renderSide = (data?: PageBlock | PageBlock[]) => {
+        if (!data) return undefined;
+        if (Array.isArray(data)) {
+            return data.map((block, idx) => (
+                <div key={idx}>{renderBlock(block, idx)}</div>
+            ));
+        }
+        return renderBlock(data);
+    };
+
+    const left = renderSide(b.left);
+    const right = renderSide(b.right);
+
     return (
         <Section
             title={b.title}

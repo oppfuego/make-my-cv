@@ -47,14 +47,14 @@ const PricingCard: React.FC<PricingCardProps> = ({
     const [customAmount, setCustomAmount] = useState<number>(0.01);
     const isCustom = price === "dynamic";
 
-    // 💷 Базова ціна у GBP
+    // 💷 Base price in GBP
     const basePriceGBP = useMemo(() => {
         if (isCustom) return 0;
         const num = parseFloat(price.replace(/[^0-9.]/g, ""));
         return isNaN(num) ? 0 : num;
     }, [price, isCustom]);
 
-    // 💰 Конвертація у поточну валюту
+    // 💰 Currency conversion
     const convertedPrice = useMemo(() => {
         if (isCustom) return 0;
         return convertFromGBP(basePriceGBP);
@@ -67,12 +67,11 @@ const PricingCard: React.FC<PricingCardProps> = ({
             return;
         }
 
-        // 💡 Якщо custom — використовуємо введену суму
         let priceToSave = basePriceGBP;
         let tokensToSave = tokens;
 
         if (isCustom) {
-            priceToSave = convertToGBP(customAmount); // з поточної валюти → GBP
+            priceToSave = convertToGBP(customAmount);
             tokensToSave = Math.floor(priceToSave * TOKENS_PER_GBP);
         }
 
@@ -89,7 +88,6 @@ const PricingCard: React.FC<PricingCardProps> = ({
         router.push("/checkout");
     };
 
-    // 🔢 Розрахунок токенів для dynamic input
     const tokensCalculated = useMemo(() => {
         const gbpEquivalent = convertToGBP(customAmount);
         return Math.floor(gbpEquivalent * TOKENS_PER_GBP);
@@ -142,15 +140,19 @@ const PricingCard: React.FC<PricingCardProps> = ({
             )}
 
             <p className={styles.description}>{description}</p>
+
             <ul className={styles.features}>
                 {features.map((f, i) => (
                     <li key={i}>{f}</li>
                 ))}
             </ul>
 
-            <ButtonUI fullWidth onClick={handleBuy}>
-                {user ? buttonText : "Sign Up to Buy"}
-            </ButtonUI>
+            {/* кнопка завжди внизу */}
+            <div className={styles.buttonWrapper}>
+                <ButtonUI fullWidth onClick={handleBuy}>
+                    {user ? buttonText : "Sign Up to Buy"}
+                </ButtonUI>
+            </div>
 
             {badgeBottom && <span className={styles.badgeBottom}>{badgeBottom}</span>}
         </motion.div>

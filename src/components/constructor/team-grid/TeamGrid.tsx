@@ -7,85 +7,69 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "./TeamGrid.module.scss";
-import Text from "@/components/constructor/text/Text";
+import { media as mediaMap } from "@/resources/media";
 import Media from "@/components/constructor/image/Media";
-import ButtonUI from "@/components/ui/button/ButtonUI";
 
 interface TeamMember {
     name: string;
     role: string;
     bio: string;
     image: string;
-    buttonText?: string;
-    buttonLink?: string;
 }
 
-interface TeamGridProps {
+interface Props {
     title?: string;
     description?: string;
     members: TeamMember[];
 }
 
-const TeamGrid: React.FC<TeamGridProps> = ({ title, description, members }) => {
+export default function TeamGrid({ title, description, members }: Props) {
     return (
         <section className={styles.section}>
-            <motion.div
-                className={styles.head}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-            >
-                <Text
-                    title={title}
-                    titleLevel={2}
-                    description={description}
-                    centerTitle
-                    centerDescription
-                />
-            </motion.div>
+            <div className={styles.header}>
+                {title && <h2>{title}</h2>}
+                {description && <p>{description}</p>}
+            </div>
 
             <div className={styles.sliderWrapper}>
                 <Swiper
                     modules={[Autoplay, Pagination, Navigation]}
-                    spaceBetween={30}
+                    spaceBetween={40}
                     slidesPerView={3}
-                    autoplay={{ delay: 5000, disableOnInteraction: false }}
-                    pagination={{ clickable: true }}
-
+                    autoplay={{ delay: 4500 }}
                     navigation={true}
+                    pagination={{ clickable: true }}
                     breakpoints={{
                         0: { slidesPerView: 1 },
                         768: { slidesPerView: 2 },
-                        1024: { slidesPerView: 3 },
+                        1200: { slidesPerView: 3 },
                     }}
                     className={styles.slider}
                 >
                     {members.map((m, i) => (
                         <SwiperSlide key={i}>
                             <motion.div
-                                className={styles.memberCard}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.15, duration: 0.5 }}
+                                className={styles.card}
+                                initial={{ opacity: 0, scale: 0.95, y: 40 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
                                 viewport={{ once: true }}
+                                whileHover={{ y: -8 }}
                             >
-                                <div className={styles.imageWrapper}>
+                                <div className={styles.photo}>
                                     <Media
                                         src={m.image}
                                         type="image"
-                                        width="100%"
-                                        height="100%"
-                                        alt={m.name}
                                         objectFit="cover"
+                                        alt={m.name}
                                     />
+                                    <div className={styles.photoGlow}></div>
                                 </div>
 
                                 <div className={styles.info}>
                                     <h3>{m.name}</h3>
                                     <span className={styles.role}>{m.role}</span>
-                                    <p>{m.bio}</p>
-
+                                    <p >{m.bio}</p>
                                 </div>
                             </motion.div>
                         </SwiperSlide>
@@ -94,6 +78,4 @@ const TeamGrid: React.FC<TeamGridProps> = ({ title, description, members }) => {
             </div>
         </section>
     );
-};
-
-export default TeamGrid;
+}

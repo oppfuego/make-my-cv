@@ -1,39 +1,133 @@
+@use "@/resources/mixins.scss" as *;
+
 .wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  width: 100%;
-  padding: 0 20px;
-  max-width: 1200px;
+  gap: 2rem;
+  margin: 0 auto;
+
+  @include main-width;
+
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+
+  /* subtle glow */
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 160px;
+    height: 100%;
+
+    opacity: 0.6;
+    pointer-events: none;
+  }
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1.5rem 1rem;
   }
 }
 
-.textBlock {
+/* Decorative underline under h2 */
+.textBlock :global(h2) {
+  position: relative;
+  padding-bottom: 0.4rem;
+}
+
+.textBlock :global(h2)::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 42px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(
+                  90deg,
+                  var(--primary-color),
+                  var(--tertiary-color)
+  );
+}
+
+/* Decorative line between text and button */
+.connector {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(
+                  90deg,
+                  var(--primary-color),
+                  var(--secondary-color),
+                  var(--tertiary-color)
+  );
+  opacity: 0.35;
+  margin: 0 10px;
+  position: relative;
+
+  /* glowing start dot */
+  &:before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(108, 92, 231, 0.6);
+  }
+
+  /* glowing end dot */
+  &:after {
+    content: "";
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 10px;
+    height: 10px;
+    background: var(--tertiary-color);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(105, 207, 255, 0.6);
+  }
 }
 
 .buttonLink {
   text-decoration: none;
+  z-index: 3;
+}
+
+.left {
+  text-align: left;
 }
 
 .center {
-  justify-content: center;
+  flex-direction: column;
   text-align: center;
+  align-items: center;
 
-  .textBlock {
-    text-align: center;
+  .connector {
+    width: 100%;
+    margin: 1.2rem 0;
+  }
+
+  .textBlock :global(h2)::after {
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
 .right {
-  justify-content: flex-end;
   text-align: right;
+  justify-content: flex-end;
 
-  .textBlock {
-    text-align: right;
+  .textBlock :global(h2)::after {
+    right: 0;
+    left: auto;
   }
 }

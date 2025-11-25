@@ -12,17 +12,21 @@ const AuthButtons: React.FC = () => {
     if (user) {
         return (
             <div className={styles.userCompact}>
+                <Link href="/dashboard">
+                    <ButtonUI text="Make My CV" color="primary" shape="rounded" hoverEffect="glow" />
+
+                </Link>
                 <Link href="/profile" className={styles.userButton}>
                     <div className={styles.balance}>
-                        <GrMoney className={styles.iconMoney} />
+                        <GrMoney className={styles.iconMoney}/>
                         <span>{user?.tokens ?? 0}</span>
                     </div>
-                    <FaUser className={styles.iconUser} />
+                    <FaUser className={styles.iconUser}/>
                 </Link>
             </div>
 
         )
-        ;
+            ;
     }
 
     // 🔹 Якщо неавторизований
@@ -32,7 +36,7 @@ const AuthButtons: React.FC = () => {
                 <ButtonUI
                     text="Login"
                     color="primary"
-                    shape="rounded"
+                    shape="default"
                     hoverColor="link"
                     hoverEffect="scale"
                     fullWidth
@@ -42,7 +46,7 @@ const AuthButtons: React.FC = () => {
             <Link href="/sign-up">
                 <ButtonUI
                     text="Register"
-                    shape="rounded"
+                    shape="default"
                     color="tertiary"
                     hoverEffect="scale"
                     fullWidth

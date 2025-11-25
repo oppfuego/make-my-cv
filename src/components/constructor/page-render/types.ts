@@ -76,8 +76,8 @@ export type SectionBlock = {
     description?: string;
     align?: AlignInput;
     gap?: string;
-    left?: PageBlock;
-    right?: PageBlock;
+    left?: PageBlock | PageBlock[];
+    right?: PageBlock | PageBlock[];
 };
 
 export type GridItem = {
@@ -125,6 +125,15 @@ export type MissionBannerBlock = {
     title: string;
     description: string;
     image?: string;
+    buttonText?: string;
+    buttonLink?: string;
+};
+
+export type ExamplesGridBlock = {
+    type: "custom";
+    component: "ExamplesGrid";
+    title?: string;
+    description?: string;
 };
 
 export type InfoBlock = {
@@ -171,6 +180,18 @@ export type TeamGridBlock = {
     }[];
 };
 
+export interface SideSliderShowSlide {
+    image: string;
+    title: string;
+    description: string;
+}
+
+export interface SideSliderShowBlock {
+    type: "custom";
+    component: "SideSliderShowcase";
+    slides: SideSliderShowSlide[];
+    height?: string;
+}
 
 export type CardSliderBlock = {
     type: "custom";
@@ -208,7 +229,21 @@ export type VideoDemoBlock = {
     title?: string;
     description?: string;
     video: string;
+
+    align?: "left" | "center" | "right";
+    textGap?: string;
+    mediaGap?: string;
+    wrapperGap?: string;
+
+    titleSize?: string;
+    titleWeight?: number | string;
+    titleColor?: string;
+
+    descriptionSize?: string;
+    descriptionWeight?: number | string;
+    descriptionColor?: string;
 };
+
 
 
 export type TimelineBlock = {
@@ -290,7 +325,9 @@ export type CustomBlock =
     | TestimonialsSliderBlock
     | VideoDemoBlock
     | TextWithButtonBlock
-    | InfoBlock;
+    | InfoBlock
+    | ExamplesGridBlock
+    | SideSliderShowBlock;
 
 export type PageBlock =
     | TextBlock

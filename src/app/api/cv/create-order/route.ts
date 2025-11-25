@@ -4,14 +4,13 @@ import { requireAuth } from "@/backend/middlewares/auth.middleware";
 
 export async function POST(req: NextRequest) {
     try {
-        const payload = await requireAuth(req); // ✅ Тепер беремо реального користувача
+        const payload = await requireAuth(req);
         if (!payload?.sub) {
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
         }
 
         const body = await req.json();
 
-        // ✅ Використовуємо дані з токена
         const userId = payload.sub;
         const email = payload.email;
 

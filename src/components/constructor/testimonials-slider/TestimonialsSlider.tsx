@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import styles from "./TestimonialsSlider.module.scss";
 import { media } from "@/resources/media";
-import { MdStar, MdStarBorder } from "react-icons/md";
+import Text from "@/components/constructor/text/Text";
 
 interface Testimonial {
     name: string;
@@ -25,78 +25,81 @@ interface Props {
     testimonials: Testimonial[];
 }
 
-export default function TestimonialsSlider({ title, description, testimonials }: Props) {
+export default function TestimonialsSlider({
+                                               title,
+                                               description,
+                                               testimonials,
+                                           }: Props) {
     const resolveImage = (key?: string) => {
         if (!key) return undefined;
         const img = media[key as keyof typeof media];
-        if (typeof img === "string") return img;
-        return (img as any)?.src ?? "";
+        return typeof img === "string" ? img : (img as any)?.src ?? "";
     };
 
     return (
         <section className={styles.section}>
-            {title && <h2 className={styles.title}>{title}</h2>}
-            {description && <p className={styles.description}>{description}</p>}
+            <div className={styles.header}>
+                <Text
+                    title={title}
+                    description={description}
+                    titleLevel={2}
+                    centerTitle
+                    centerDescription
+                />
+            </div>
 
-            <Swiper
-                modules={[Pagination, Autoplay, Navigation]}
-                spaceBetween={40}
-                slidesPerView={1}
-                centeredSlides
-                autoplay={{ delay: 6000, disableOnInteraction: false }}
-                pagination={{ clickable: true }}
-                navigation
-                speed={800}
-                className={styles.slider}
-            >
-                {testimonials.map((t, i) => (
-                    <SwiperSlide key={i}>
-                        <motion.div
-                            className={styles.card}
-                            initial={{ opacity: 0, y: 40 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.6 }}
-                            viewport={{ once: true }}
-                        >
-                            {/* Фото користувача */}
-                            {t.image && (
-                                <motion.img
-                                    src={resolveImage(t.image)}
-                                    alt={t.name}
-                                    className={styles.avatar}
-                                    initial={{ scale: 0.9, opacity: 0 }}
-                                    animate={{ scale: 1, opacity: 1 }}
-                                    transition={{ duration: 0.5 }}
-                                />
-                            )}
+            <div className={styles.sliderWrapper}>
+                <Swiper
+                    modules={[Autoplay, Pagination, Navigation]}
+                    spaceBetween={40}
+                    slidesPerView={3}
+                    autoplay={{ delay: 4500 }}
+                    navigation
+                    pagination={{ clickable: true }}
+                    breakpoints={{
+                        0: { slidesPerView: 1 },
+                        768: { slidesPerView: 2 },
+                        1200: { slidesPerView: 3 },
+                    }}
+                    className={styles.slider}
+                >
+                    {testimonials.map((t, i) => (
+                        <SwiperSlide key={i}>
+                            <motion.div
+                                className={styles.card}
+                                initial={{ opacity: 0, scale: 0.95, y: 40 }}
+                                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                                viewport={{ once: true }}
+                                whileHover={{ y: -8 }}
+                            >
+                                {/* Аватар */}
+                                {t.image && (
+                                    <div className={styles.avatarWrapper}>
+                                        <img
+                                            src={resolveImage(t.image)}
+                                            alt={t.name}
+                                            className={styles.avatar}
+                                        />
+                                        <div className={styles.glow}></div>
+                                    </div>
+                                )}
 
-                            {/* Цитата */}
-                            <motion.blockquote className={styles.text}>
-                                “{t.text}”
-                            </motion.blockquote>
+                                {/* Цитата */}
+                                <p className={styles.text}>“{t.text}”</p>
 
-                            {/* Ім’я + роль */}
-                            <div className={styles.footer}>
-                                <div className={styles.info}>
-                                    <h4 className={styles.name}>{t.name}</h4>
-                                    {t.role && <p className={styles.role}>{t.role}</p>}
-                                </div>
-
-                                {/* ⭐ Рейтинг */}
-                                <div className={styles.stars}>
-                                    {Array.from({ length: 5 }).map((_, idx) =>
-                                        idx < (t.rating ?? 5) ? (
-                                            <MdStar key={idx} className={styles.starFilled} />
-                                        ) : (
-                                            <MdStarBorder key={idx} className={styles.starEmpty} />
-                                        )
+                                {/* Ім’я + роль */}
+                                <div className={styles.footer}>
+                                    <h3 className={styles.name}>{t.name}</h3>
+                                    {t.role && (
+                                        <span className={styles.role}>{t.role}</span>
                                     )}
                                 </div>
-                            </div>
-                        </motion.div>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                            </motion.div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+            </div>
         </section>
     );
 }

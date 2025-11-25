@@ -11,6 +11,19 @@ interface TextProps {
     centerTitle?: boolean;
     centerDescription?: boolean;
     centerBullets?: boolean;
+
+    /** NEW — spacing between title, description, bullets */
+    textGap?: string;
+
+    /** NEW — TITLE styling */
+    titleSize?: string;
+    titleWeight?: number | string;
+    titleColor?: string;
+
+    /** NEW — DESCRIPTION styling */
+    descriptionSize?: string;
+    descriptionWeight?: number | string;
+    descriptionColor?: string;
 }
 
 const Text: React.FC<TextProps> = ({
@@ -19,25 +32,53 @@ const Text: React.FC<TextProps> = ({
                                        description,
                                        bullets,
                                        descriptionWithBullets,
+
                                        centerTitle = false,
                                        centerDescription = false,
                                        centerBullets = false,
+
+                                       textGap,
+
+                                       titleSize,
+                                       titleWeight,
+                                       titleColor,
+
+                                       descriptionSize,
+                                       descriptionWeight,
+                                       descriptionColor,
                                    }) => {
     const headingTag = `h${titleLevel}` as keyof JSX.IntrinsicElements;
 
     return (
-        <div className={styles.textBlock}>
+        <div
+            className={styles.textBlock}
+            style={{
+                gap: textGap ?? undefined,
+            }}
+        >
             {title &&
                 React.createElement(
                     headingTag,
                     {
                         className: clsx(styles.title, centerTitle && styles.center),
+                        style: {
+                            fontSize: titleSize,
+                            fontWeight: titleWeight,
+                            color: titleColor,
+                        },
                     },
                     title
                 )}
 
             {description && (
-                <p className={clsx(styles.description, centerDescription && styles.center)}>
+                <p
+                    className={clsx(styles.description, centerDescription && styles.center)}
+                    style={{
+                        fontSize: descriptionSize,
+                        fontWeight: descriptionWeight,
+                        color: descriptionColor,
+                    }}
+                >
                     {description}
                 </p>
             )}
@@ -50,18 +91,27 @@ const Text: React.FC<TextProps> = ({
                 </ul>
             )}
 
-            {Array.isArray(descriptionWithBullets) && descriptionWithBullets.length > 0 && (
-                <div className={styles.descriptionWithBullets}>
-                    <p className={clsx(styles.description, centerDescription && styles.center)}>
-                        Key points:
-                    </p>
-                    <ul className={clsx(styles.bulletList, centerBullets && styles.center)}>
-                        {descriptionWithBullets.map((item, idx) => (
-                            <li key={idx}>{item}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            {Array.isArray(descriptionWithBullets) &&
+                descriptionWithBullets.length > 0 && (
+                    <div className={styles.descriptionWithBullets}>
+                        <p
+                            className={clsx(styles.description, centerDescription && styles.center)}
+                            style={{
+                                fontSize: descriptionSize,
+                                fontWeight: descriptionWeight,
+                                color: descriptionColor,
+                            }}
+                        >
+                            Key points:
+                        </p>
+
+                        <ul className={clsx(styles.bulletList, centerBullets && styles.center)}>
+                            {descriptionWithBullets.map((item, idx) => (
+                                <li key={idx}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
         </div>
     );
 };

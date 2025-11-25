@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import styles from "./TextWithButton.module.scss";
 import Text from "../text/Text";
 import ButtonUI from "@/components/ui/button/ButtonUI";
@@ -21,32 +22,45 @@ const TextWithButton: React.FC<TextWithButtonProps> = ({
                                                            align = "left",
                                                        }) => {
     return (
-        <div
-            className={`${styles.wrapper} ${
-                align === "center"
-                    ? styles.center
-                    : align === "right"
-                        ? styles.right
-                        : ""
-            }`}
+        <motion.div
+            className={`${styles.wrapper} ${styles[align]}`}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
         >
-            <div className={styles.textBlock}>
+            {/* Text block */}
+            <motion.div
+                className={styles.textBlock}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+            >
                 <Text title={title} description={description} />
-            </div>
+            </motion.div>
 
+            {/* Decorative connector line */}
+            {buttonText && buttonLink && <div className={styles.connector} />}
+
+            {/* Button */}
             {buttonText && buttonLink && (
-                <a href={buttonLink} className={styles.buttonLink}>
+                <motion.a
+                    href={buttonLink}
+                    className={styles.buttonLink}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.97 }}
+                >
                     <ButtonUI
                         text={buttonText}
                         color="primary"
-                        shape="rounded"
-                        hoverEffect="scale"
+                        shape="default"
+                        hoverEffect="glow"
                         size="md"
                         hoverColor="primary"
                     />
-                </a>
+                </motion.a>
             )}
-        </div>
+        </motion.div>
     );
 };
 

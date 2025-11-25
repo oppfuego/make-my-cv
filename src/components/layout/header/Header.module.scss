@@ -2,7 +2,6 @@
   position: sticky;
   top: 0;
   z-index: 100;
-
   width: 100%;
   transition: background 0.3s ease, box-shadow 0.3s ease;
   background: var(--background-light);
@@ -23,7 +22,13 @@
   padding: 15px 20px;
   width: 100%;
   gap: 20px;
-  max-width: 1200px;
+  max-width: 1430px;
+}
+
+.leftContainer{
+    display: flex;
+    align-items: center;
+    gap: 30px;
 }
 
 .logo {

@@ -28,8 +28,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                                                      primaryCta,
                                                      secondaryCta,
                                                      image,
-                                                     align = "center",
-                                                     showTrustBadge = false,
+                                                     showTrustBadge = true,
                                                  }) => {
     const bgImage = image
         ? (media as Record<string, string | StaticImageData>)[image]
@@ -41,77 +40,70 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             : (bgImage as StaticImageData)?.src || "";
 
     return (
-        <section className={`${styles.hero} ${styles[`align_${align}`]}`}>
-            {imageSrc && (
-                <Image
-                    src={imageSrc}
-                    alt="Hero Background"
-                    fill
-                    priority
-                    className={styles.bgImage}
-                />
-            )}
-            <div className={styles.overlay} />
+        <section className={styles.hero}>
+            <div className={styles.grid}>
 
-            <motion.div
-                className={styles.content}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1 }}
-            >
-                <div className={styles.textBlock}>
-                    <motion.h1
-                        className={styles.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                    >
+                {/* LEFT SIDE */}
+                <motion.div
+                    className={styles.left}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <h1 className={styles.title}>
                         {title}{" "}
                         {highlight && <span className={styles.highlight}>{highlight}</span>}
-                    </motion.h1>
+                    </h1>
 
-                    <motion.p
-                        className={styles.description}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                    >
-                        {description}
-                    </motion.p>
+                    <p className={styles.description}>{description}</p>
 
-                    <motion.div
-                        className={styles.actions}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6 }}
-                    >
+                    {showTrustBadge && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className={styles.badgeWrapper}
+                        >
+                            <TrustBadge />
+                        </motion.div>
+                    )}
+
+                    <div className={styles.actions}>
                         {primaryCta && (
                             <Link href={primaryCta.link}>
-                                <ButtonUI variant="solid" color="primary" size="lg">
+                                <ButtonUI variant="solid" color="primary" size="lg" hoverEffect={"glow"} fullWidth>
                                     {primaryCta.text}
                                 </ButtonUI>
                             </Link>
                         )}
                         {secondaryCta && (
                             <Link href={secondaryCta.link}>
-                                <ButtonUI variant="outlined" color="secondary" size="lg">
+                                <ButtonUI variant="solid" color="primary" size="lg" hoverEffect={"glow"} fullWidth>
                                     {secondaryCta.text}
                                 </ButtonUI>
                             </Link>
                         )}
-                        {showTrustBadge && (
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 1 }}
-                                className={styles.trustBadge}
-                            >
-                                <TrustBadge />
-                            </motion.div>
-                        )}
-                    </motion.div>
-                </div>
-            </motion.div>
+                    </div>
+                </motion.div>
+
+                {/* RIGHT SIDE — IMAGE */}
+                <motion.div
+                    className={styles.right}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1 }}
+                >
+                    {imageSrc && (
+                        <Image
+                            src={imageSrc}
+                            alt="Hero Visual"
+                            width={650}
+                            height={650}
+                            className={styles.heroImage}
+                        />
+                    )}
+                </motion.div>
+            </div>
         </section>
     );
 };

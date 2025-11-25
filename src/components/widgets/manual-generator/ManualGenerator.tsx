@@ -3,393 +3,570 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import Input from "@mui/joy/Input";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
-import Input from "@mui/joy/Input";
+import Textarea from "@mui/joy/Textarea";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./ManualGenerator.module.scss";
-import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
+import { useAlert } from "@/context/AlertContext";
 
-const BASE_COST = 40;
+// Previews
+import ClassicPreview from "@/components/widgets/cv-preview/ClassicPreview";
+import ModernPreview from "@/components/widgets/cv-preview/ModernPreview";
+import CreativePreview from "@/components/widgets/cv-preview/CreativePreview";
+import ExtrasPreview from "@/components/widgets/cv-preview/ExtrasPreview";
 
-const LANGUAGES = [
-    { value: "English", label: "English (default)", cost: 0 },
-    { value: "Ukrainian", label: "Українська", cost: 5 },
-    { value: "German", label: "Deutsch", cost: 5 },
-    { value: "French", label: "Français", cost: 5 },
-    { value: "Spanish", label: "Español", cost: 5 },
+// =======================================================================
+// TYPES
+// =======================================================================
+
+type ReviewType = "default" | "manager";
+
+type ExtraKey =
+    | "coverLetter"
+    | "linkedin"
+    | "keywords"
+    | "atsCheck"
+    | "jobAdaptation"
+    | "achievements"
+    | "skillsGap"
+    | "customColor";
+
+interface FormValues {
+    fullName: string;
+    phone: string;
+    photo: string | null;
+    cvStyle: "Classic" | "Modern" | "Creative";
+    fontStyle: string;
+    themeColor: string;
+    industry: string;
+    experienceLevel: string;
+    summary: string;
+    workExperience: string;
+    education: string;
+    skills: string;
+    reviewType: ReviewType;
+    extras: ExtraKey[];
+}
+
+// =======================================================================
+// VALIDATION
+// =======================================================================
+
+const CV_SCHEMA = Yup.object().shape({
+    fullName: Yup.string().required("Required"),
+    phone: Yup.string().required("Required"),
+    cvStyle: Yup.string().required("Required"),
+    industry: Yup.string().required("Required"),
+    experienceLevel: Yup.string().required("Required"),
+    summary: Yup.string().required("Required"),
+    workExperience: Yup.string().required("Required"),
+    education: Yup.string().required("Required"),
+    skills: Yup.string().required("Required"),
+});
+
+// =======================================================================
+// CONSTANTS
+// =======================================================================
+
+const CV_STYLES = ["Classic", "Modern", "Creative"] as const;
+const FONTS = ["Helvetica", "Times-Roman", "Courier"] as const;
+
+const COLORS = ["Default", "Blue", "Green", "Purple", "Red"];
+
+const INDUSTRIES = [
+    "IT",
+    "Marketing",
+    "Finance",
+    "Design",
+    "Education",
+    "Healthcare",
+    "Other",
+];
+
+const LEVELS = ["Junior", "Mid-level", "Senior", "Lead"];
+
+const REVIEW_OPTIONS = [
+    { value: "default", label: "AI Instant (30 tokens)" },
+    { value: "manager", label: "Human Review (60 tokens)" },
 ];
 
 const EXTRAS = [
-    { name: "marketingStrategy", label: "Marketing Strategy", cost: 10 },
-    { name: "financialProjection", label: "3-Year Financial Forecast", cost: 15 },
-    { name: "riskAnalysis", label: "Risk & Mitigation Plan", cost: 8 },
-    { name: "growthRoadmap", label: "Growth Roadmap", cost: 10 },
-    { name: "competitorReview", label: "Competitor Analysis", cost: 7 },
-    { name: "pitchDeck", label: "Investor Pitch Deck", cost: 15 },
-    { name: "brandingGuide", label: "Branding & Visual Identity", cost: 12 },
-    { name: "teamStructure", label: "Organizational Structure", cost: 8 },
-    { name: "customerJourney", label: "Customer Journey Map", cost: 10 },
-    { name: "salesForecast", label: "Sales Forecast", cost: 12 },
-    { name: "fundingPlan", label: "Funding Strategy", cost: 9 },
-];
+    { key: "coverLetter", title: "Cover Letter", cost: 10, icon: "📝" },
+    { key: "linkedin", title: "LinkedIn Section", cost: 15, icon: "🔗" },
+    { key: "keywords", title: "Keyword Boost", cost: 12, icon: "🏷️" },
+    { key: "atsCheck", title: "ATS Report", cost: 12, icon: "📊" },
+    { key: "jobAdaptation", title: "Job Adaptation", cost: 20, icon: "🎯" },
+    { key: "achievements", title: "Achievements", cost: 10, icon: "🏆" },
+    { key: "skillsGap", title: "Skills Gap", cost: 15, icon: "📚" },
+    { key: "customColor", title: "Custom Color", cost: 5, icon: "🎨" },
+] as const;
 
-const schema = Yup.object().shape({
-    businessName: Yup.string().required("Required"),
-    niche: Yup.string().required("Required"),
-    businessType: Yup.string().required("Required"),
-    goal: Yup.string().required("Required"),
-});
+const EXTRA_COST = Object.fromEntries(EXTRAS.map((e) => [e.key, e.cost]));
 
-interface FormValues {
-    businessName: string;
-    niche: string;
-    businessType: string;
-    teamSize: string;
-    budget: string;
-    marketDescription: string;
-    productDescription: string;
-    uniqueValue: string;
-    customerPain: string;
-    goal: string;
-    planType: "ai" | "reviewed";
-    language: string;
-    extras: string[];
-}
-
-const stepVariants = {
-    hidden: { opacity: 0, x: 60 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-    exit: { opacity: 0, x: -60, transition: { duration: 0.3 } },
+const BASE_COST: Record<ReviewType, number> = {
+    default: 30,
+    manager: 60,
 };
 
-const BusinessGeneratorForm = () => {
+const calcExtrasCost = (extras: ExtraKey[]) =>
+    extras.reduce((s, k) => s + EXTRA_COST[k], 0);
+
+const stepVariants = {
+    hidden: { opacity: 0, x: 40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.25 } },
+    exit: { opacity: 0, x: -40, transition: { duration: 0.2 } },
+};
+
+// =======================================================================
+// MAIN COMPONENT
+// =======================================================================
+
+export default function ManualGenerator() {
+    const [step, setStep] = useState(1);
+    const [loadingSubmit, setLoadingSubmit] = useState(false);
     const { showAlert } = useAlert();
     const user = useUser();
-    const [step, setStep] = useState(1);
-    const [loading, setLoading] = useState(false);
-
-    const initialValues: FormValues = {
-        businessName: "",
-        niche: "",
-        businessType: "",
-        teamSize: "",
-        budget: "",
-        marketDescription: "",
-        productDescription: "",
-        uniqueValue: "",
-        customerPain: "",
-        goal: "",
-        planType: "ai",
-        language: "English",
-        extras: [],
-    };
-
-    const mockData: FormValues = {
-        businessName: "EcoGrow Solutions",
-        niche: "Sustainable Agriculture",
-        businessType: "AgroTech SaaS",
-        teamSize: "12",
-        budget: "$100,000",
-        marketDescription:
-            "Farmers and agribusinesses in EU markets seeking eco-efficient yield optimization.",
-        productDescription:
-            "AI platform for soil & crop monitoring with satellite and IoT data fusion.",
-        uniqueValue:
-            "Automated sustainability insights and actionable tasks to cut waste by 15–25%.",
-        customerPain:
-            "Lack of affordable, easy-to-use tools to predict yield and reduce resource waste.",
-        goal: "Attract investors and secure pilots with 5 enterprise clients.",
-        planType: "ai",
-        language: "English",
-        extras: ["marketingStrategy", "financialProjection", "pitchDeck", "growthRoadmap"],
-    };
 
     const handleNext = () => setStep((s) => Math.min(5, s + 1));
     const handlePrev = () => setStep((s) => Math.max(1, s - 1));
 
+    const initialValues: FormValues = {
+        fullName: "",
+        phone: "",
+        photo: null,
+        cvStyle: "Classic",
+        fontStyle: "Helvetica",
+        themeColor: "Default",
+        industry: "",
+        experienceLevel: "",
+        summary: "",
+        workExperience: "",
+        education: "",
+        skills: "",
+        reviewType: "default",
+        extras: [],
+    };
+
+    async function convertToBase64(file: File): Promise<string> {
+        return await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.readAsDataURL(file);
+        });
+    }
+
     return (
         <Formik<FormValues>
             initialValues={initialValues}
-            validationSchema={schema}
-            onSubmit={async (values) => {
-                setLoading(true);
+            validationSchema={CV_SCHEMA}
+            onSubmit={async (values, { resetForm }) => {
                 try {
-                    const extraCost = values.extras.reduce((s, n) => {
-                        const e = EXTRAS.find((o) => o.name === n);
-                        return s + (e?.cost || 0);
-                    }, 0);
-                    const languageCost = values.language !== "English" ? 5 : 0;
-                    const totalTokens = BASE_COST + extraCost + languageCost;
+                    setLoadingSubmit(true);
+
+                    const totalTokens =
+                        BASE_COST[values.reviewType] + calcExtrasCost(values.extras);
 
                     const payload = {
-                        category: "business",
-                        planType: values.planType === "reviewed" ? "reviewed" : "default",
-                        language: values.language,
-                        extras: values.extras,
-                        totalTokens,
+                        ...values,
                         email: user?.email,
-                        fields: { ...values }, // все в одне поле
+                        totalTokens,
                     };
 
-                    const res = await fetch("/api/universal/create-order", {
+                    const res = await fetch("/api/cv/create-order", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
-                        credentials: "include",
                         body: JSON.stringify(payload),
                     });
-                    const data = await res.json();
 
-                    if (res.ok)
-                        showAlert("Success", "Business plan generated successfully!", "success");
-                    else showAlert("Error", data.message || "Failed to generate", "error");
-                } catch {
-                    showAlert("Error", "Network or server issue", "error");
+                    const data = await res.json();
+                    if (!res.ok) throw new Error(data.message);
+
+                    showAlert(
+                        "Success",
+                        "Your CV is being generated. You will see it in Orders shortly!",
+                        "success"
+                    );
+
+                    // reset form + go to step 1
+                    resetForm();
+                    setStep(1);
+                } catch (err: any) {
+                    showAlert("Error", err.message, "error");
                 } finally {
-                    setLoading(false);
+                    setLoadingSubmit(false);
                 }
             }}
         >
-            {({ values, setFieldValue, setValues }) => {
-                const extraCost = values.extras.reduce((s, n) => {
-                    const e = EXTRAS.find((o) => o.name === n);
-                    return s + (e?.cost || 0);
-                }, 0);
-                const languageCost = values.language !== "English" ? 5 : 0;
-                const totalTokens = BASE_COST + extraCost + languageCost;
+            {({ values, setFieldValue }) => {
+                const total = BASE_COST[values.reviewType] + calcExtrasCost(values.extras);
+
+                const previewValues = {
+                    fullName: values.fullName,
+                    phone: values.phone,
+                    industry: values.industry,
+                    experienceLevel: values.experienceLevel,
+                    summary: values.summary,
+                    workExperience: values.workExperience,
+                    education: values.education,
+                    skills: values.skills,
+                    photo: values.photo,
+                };
 
                 return (
                     <Form className={styles.form}>
+                        {/* HEADER */}
                         <header className={styles.header}>
-                            <motion.h2
-                                key={step}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.4 }}
-                            >
-                                Business Plan Generator
-                            </motion.h2>
-                            <p>Step {step} of 5</p>
+                            <motion.h2 key={step}>CV Generator</motion.h2>
+                            <p>Step {step} / 5</p>
                         </header>
 
-                        {/* 🧪 Mock Data */}
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <ButtonUI
-                                type="button"
-                                variant="outline"
-                                color="secondary"
-                                onClick={() => setValues(mockData)}
-                            >
-                                🧪 Fill with Mock Data
-                            </ButtonUI>
-                        </div>
+                        <div className={styles.main}>
+                            {/* LEFT SIDE (FORM) */}
+                            <div className={styles.left}>
+                                <AnimatePresence mode="wait">
+                                    {/* STEP 1 */}
+                                    {step === 1 && (
+                                        <motion.div
+                                            key="step1"
+                                            className={styles.step}
+                                            {...stepVariants}
+                                        >
+                                            <h3>Personal Information</h3>
 
-                        <AnimatePresence mode="wait">
-                            {step === 1 && (
-                                <motion.div
-                                    key="step1"
-                                    variants={stepVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                    className={styles.step}
-                                >
-                                    <h3>Basic Information</h3>
-                                    <div className={styles.row}>
-                                        <Field name="businessName" as={Input} placeholder="Business Name" />
-                                        <Field name="niche" as={Input} placeholder="Niche / Industry" />
-                                    </div>
-                                    <Field
-                                        name="businessType"
-                                        as={Input}
-                                        placeholder="Business Type (e.g. SaaS, Retail, Services)"
-                                    />
-                                </motion.div>
-                            )}
+                                            <div className={styles.row}>
+                                                <Field
+                                                    as={Input}
+                                                    name="fullName"
+                                                    placeholder="Full Name"
+                                                />
+                                                <Field
+                                                    as={Input}
+                                                    name="phone"
+                                                    placeholder="Phone"
+                                                />
+                                            </div>
 
-                            {step === 2 && (
-                                <motion.div
-                                    key="step2"
-                                    variants={stepVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                    className={styles.step}
-                                >
-                                    <h3>Team & Market</h3>
-                                    <div className={styles.row}>
-                                        <Field name="teamSize" as={Input} placeholder="Team Size (e.g. 5)" />
-                                        <Field name="budget" as={Input} placeholder="Budget (e.g. $50,000)" />
-                                    </div>
-                                    <Field
-                                        name="marketDescription"
-                                        as={Input}
-                                        placeholder="Target Market Description"
-                                    />
-                                </motion.div>
-                            )}
-
-                            {step === 3 && (
-                                <motion.div
-                                    key="step3"
-                                    variants={stepVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                    className={styles.step}
-                                >
-                                    <h3>Product Details</h3>
-                                    <Field
-                                        name="productDescription"
-                                        as={Input}
-                                        placeholder="Product / Service Description"
-                                    />
-                                    <Field
-                                        name="uniqueValue"
-                                        as={Input}
-                                        placeholder="Unique Value Proposition"
-                                    />
-                                    <Field
-                                        name="customerPain"
-                                        as={Input}
-                                        placeholder="Customer Pain / Problem"
-                                    />
-                                </motion.div>
-                            )}
-
-                            {step === 4 && (
-                                <motion.div
-                                    key="step4"
-                                    variants={stepVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                    className={styles.step}
-                                >
-                                    <h3>Goal & Settings</h3>
-                                    <Field
-                                        name="goal"
-                                        as={Input}
-                                        placeholder="Main Goal (e.g. attract investors)"
-                                    />
-                                    <div className={styles.row}>
-                                        <div className={styles.inputGroup}>
-                                            <label>Language</label>
-                                            <Select
-                                                value={values.language}
-                                                onChange={(_, v) => setFieldValue("language", v || "English")}
-                                            >
-                                                {LANGUAGES.map((lang) => (
-                                                    <Option key={lang.value} value={lang.value}>
-                                                        {lang.label}
-                                                    </Option>
-                                                ))}
-                                            </Select>
-                                        </div>
-                                        <div className={styles.inputGroup}>
-                                            <label>Plan Type</label>
-                                            <Select
-                                                value={values.planType}
-                                                onChange={(_, v) => setFieldValue("planType", v || "ai")}
-                                            >
-                                                <Option value="ai">AI Instant</Option>
-                                                <Option value="reviewed">Reviewed (24h)</Option>
-                                            </Select>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
-
-                            {step === 5 && (
-                                <motion.div
-                                    key="step5"
-                                    variants={stepVariants}
-                                    initial="hidden"
-                                    animate="visible"
-                                    exit="exit"
-                                    className={styles.step}
-                                >
-                                    <h3>Additional Modules</h3>
-                                    <div className={styles.optionsGrid}>
-                                        {EXTRAS.map((opt) => (
-                                            <motion.label
-                                                key={opt.name}
-                                                className={`${styles.option} ${
-                                                    values.extras.includes(opt.name) ? styles.active : ""
-                                                }`}
-                                                whileHover={{ scale: 1.03 }}
-                                                whileTap={{ scale: 0.98 }}
-                                            >
+                                            <div className={styles.inputGroup}>
+                                                <label>Photo</label>
                                                 <input
-                                                    type="checkbox"
-                                                    checked={values.extras.includes(opt.name)}
-                                                    onChange={(e) => {
-                                                        if (e.target.checked)
-                                                            setFieldValue("extras", [...values.extras, opt.name]);
-                                                        else
-                                                            setFieldValue(
-                                                                "extras",
-                                                                values.extras.filter((x) => x !== opt.name)
-                                                            );
+                                                    type="file"
+                                                    accept="image/*"
+                                                    onChange={async (e) => {
+                                                        const f = e.target.files?.[0];
+                                                        if (!f) return;
+
+                                                        const base64 =
+                                                            await convertToBase64(f);
+                                                        setFieldValue("photo", base64);
                                                     }}
                                                 />
-                                                <span>{opt.label}</span>
-                                                <strong>+{opt.cost}</strong>
-                                            </motion.label>
-                                        ))}
-                                    </div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
 
-                        <div className={styles.nav}>
-                            {step > 1 && (
-                                <ButtonUI
-                                    type="button"
-                                    variant="outline"
-                                    color="secondary"
-                                    onClick={handlePrev}
-                                >
-                                    ← Back
-                                </ButtonUI>
-                            )}
-                            {step < 5 && (
-                                <ButtonUI
-                                    type="button"
-                                    color="primary"
-                                    variant="solid"
-                                    onClick={handleNext}
-                                >
-                                    Next →
-                                </ButtonUI>
-                            )}
-                            {step === 5 && (
-                                <ButtonUI type="submit" color="primary" variant="solid" loading={loading}>
-                                    Generate Business Plan
-                                </ButtonUI>
-                            )}
+                                                {values.photo && (
+                                                    <img
+                                                        src={values.photo}
+                                                        alt="preview"
+                                                        className={styles.thumb}
+                                                    />
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    {/* STEP 2 */}
+                                    {step === 2 && (
+                                        <motion.div
+                                            key="step2"
+                                            className={styles.step}
+                                            {...stepVariants}
+                                        >
+                                            <h3>Design Settings</h3>
+
+                                            <div className={styles.row}>
+                                                {/* STYLE */}
+                                                <div className={styles.inputGroup}>
+                                                    <label>CV Style</label>
+                                                    <Select
+                                                        value={values.cvStyle}
+                                                        onChange={(_, v) =>
+                                                            setFieldValue("cvStyle", v)
+                                                        }
+                                                    >
+                                                        {CV_STYLES.map((s) => (
+                                                            <Option key={s} value={s}>
+                                                                {s}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+
+                                                {/* FONT */}
+                                                <div className={styles.inputGroup}>
+                                                    <label>Font</label>
+                                                    <Select
+                                                        value={values.fontStyle}
+                                                        onChange={(_, v) =>
+                                                            setFieldValue(
+                                                                "fontStyle",
+                                                                v || "Helvetica"
+                                                            )
+                                                        }
+                                                    >
+                                                        {FONTS.map((f) => (
+                                                            <Option key={f} value={f}>
+                                                                {f}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+
+                                                {/* COLOR */}
+                                                <div className={styles.inputGroup}>
+                                                    <label>Theme Color</label>
+                                                    <Select
+                                                        value={values.themeColor}
+                                                        onChange={(_, v) =>
+                                                            setFieldValue("themeColor", v)
+                                                        }
+                                                    >
+                                                        {COLORS.map((c) => (
+                                                            <Option key={c} value={c}>
+                                                                {c}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    {/* STEP 3 */}
+                                    {step === 3 && (
+                                        <motion.div
+                                            key="step3"
+                                            className={styles.step}
+                                            {...stepVariants}
+                                        >
+                                            <h3>Professional Info</h3>
+
+                                            <div className={styles.row}>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Industry</label>
+                                                    <Select
+                                                        value={values.industry}
+                                                        onChange={(_, v) =>
+                                                            setFieldValue("industry", v)
+                                                        }
+                                                    >
+                                                        {INDUSTRIES.map((i) => (
+                                                            <Option key={i} value={i}>
+                                                                {i}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+
+                                                <div className={styles.inputGroup}>
+                                                    <label>Experience</label>
+                                                    <Select
+                                                        value={values.experienceLevel}
+                                                        onChange={(_, v) =>
+                                                            setFieldValue(
+                                                                "experienceLevel",
+                                                                v
+                                                            )
+                                                        }
+                                                    >
+                                                        {LEVELS.map((l) => (
+                                                            <Option key={l} value={l}>
+                                                                {l}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+
+                                    {/* STEP 4 */}
+                                    {step === 4 && (
+                                        <motion.div
+                                            key="step4"
+                                            className={styles.step}
+                                            {...stepVariants}
+                                        >
+                                            <h3>CV Content</h3>
+
+                                            <Field
+                                                as={Textarea}
+                                                name="summary"
+                                                minRows={3}
+                                                placeholder="Summary"
+                                            />
+                                            <Field
+                                                as={Textarea}
+                                                name="workExperience"
+                                                minRows={3}
+                                                placeholder="Work Experience"
+                                            />
+                                            <Field
+                                                as={Textarea}
+                                                name="education"
+                                                minRows={3}
+                                                placeholder="Education"
+                                            />
+                                            <Field
+                                                as={Textarea}
+                                                name="skills"
+                                                minRows={3}
+                                                placeholder="Skills"
+                                            />
+                                        </motion.div>
+                                    )}
+
+                                    {/* STEP 5 */}
+                                    {step === 5 && (
+                                        <motion.div
+                                            key="step5"
+                                            className={styles.step}
+                                            {...stepVariants}
+                                        >
+                                            <h3>Extras</h3>
+
+                                            <div className={styles.optionsGrid}>
+                                                {EXTRAS.map((e) => {
+                                                    const active = values.extras.includes(
+                                                        e.key as ExtraKey
+                                                    );
+
+                                                    return (
+                                                        <button
+                                                            key={e.key}
+                                                            type="button"
+                                                            disabled={loadingSubmit}
+                                                            className={`${styles.option} ${
+                                                                active
+                                                                    ? styles.optionActive
+                                                                    : ""
+                                                            }`}
+                                                            onClick={() => {
+                                                                if (active) {
+                                                                    setFieldValue(
+                                                                        "extras",
+                                                                        values.extras.filter(
+                                                                            (x) =>
+                                                                                x !==
+                                                                                e.key
+                                                                        )
+                                                                    );
+                                                                } else {
+                                                                    setFieldValue(
+                                                                        "extras",
+                                                                        [
+                                                                            ...values.extras,
+                                                                            e.key,
+                                                                        ]
+                                                                    );
+                                                                }
+                                                            }}
+                                                        >
+                                                            <span>{e.icon}</span>
+                                                            <div>{e.title}</div>
+                                                            <small>
+                                                                +{e.cost} tokens
+                                                            </small>
+                                                        </button>
+                                                    );
+                                                })}
+                                            </div>
+
+                                            <div className={styles.inputGroup}>
+                                                <label>Review type</label>
+                                                <Select
+                                                    value={values.reviewType}
+                                                    onChange={(_, v) =>
+                                                        setFieldValue(
+                                                            "reviewType",
+                                                            v || "default"
+                                                        )
+                                                    }
+                                                >
+                                                    {REVIEW_OPTIONS.map((o) => (
+                                                        <Option
+                                                            key={o.value}
+                                                            value={o.value}
+                                                        >
+                                                            {o.label}
+                                                        </Option>
+                                                    ))}
+                                                </Select>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+
+                                {/* NAVIGATION */}
+                                <div className={styles.nav}>
+                                    {step > 1 && (
+                                        <ButtonUI
+                                            type="button"
+                                            onClick={handlePrev}
+                                            disabled={loadingSubmit}
+                                        >
+                                            ← Back
+                                        </ButtonUI>
+                                    )}
+
+                                    {step < 5 && (
+                                        <ButtonUI
+                                            type="button"
+                                            onClick={handleNext}
+                                            disabled={loadingSubmit}
+                                        >
+                                            Next →
+                                        </ButtonUI>
+                                    )}
+
+                                    {step === 5 && (
+                                        <ButtonUI
+                                            type="submit"
+                                            color="primary"
+                                            loading={loadingSubmit}
+                                            disabled={loadingSubmit}
+                                        >
+                                            {loadingSubmit ? "Generating..." : "Generate CV"}
+                                        </ButtonUI>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* RIGHT PREVIEW */}
+                            <div className={styles.right}>
+                                {values.cvStyle === "Classic" && (
+                                    <ClassicPreview values={previewValues} />
+                                )}
+                                {values.cvStyle === "Modern" && (
+                                    <ModernPreview values={previewValues} />
+                                )}
+                                {values.cvStyle === "Creative" && (
+                                    <CreativePreview values={previewValues} />
+                                )}
+
+                                <ExtrasPreview extras={values.extras} values={previewValues} />
+                            </div>
                         </div>
 
-                        <motion.div
-                            className={styles.tokenBar}
-                            initial={{ opacity: 0, y: 40 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.4 }}
-                        >
-                            <p>
-                                Base: {BASE_COST} | Extras: +{extraCost} | Language: +{languageCost}
-                            </p>
-                            <h4>
-                                Total: <span>{totalTokens}</span> tokens
-                            </h4>
-                        </motion.div>
+                        {/* TOTAL PRICE */}
+                        <footer className={styles.tokenBar}>
+                            <p>Base: {BASE_COST[values.reviewType]} • Extras: +{calcExtrasCost(values.extras)}</p>
+                            <h4>Total: {total} tokens</h4>
+                        </footer>
                     </Form>
                 );
             }}
         </Formik>
     );
-};
-
-export default BusinessGeneratorForm;
+}

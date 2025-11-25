@@ -19,12 +19,12 @@ const TrustBadge = () => {
                         readOnly
                         size="small"
                         sx={{
-                            color: "#fbbf24",
+                            color: "#5a24fb",
                             "& .MuiRating-iconEmpty": {
                                 color: "rgba(255,255,255,0.25)",
                             },
                             "& .MuiRating-iconFilled": {
-                                color: "#fbbf24",
+                                color: "#5a24fb",
                             },
                         }}
                     />

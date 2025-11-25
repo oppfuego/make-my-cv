@@ -2,215 +2,144 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 3rem 2rem;
-  border-radius: 1.6rem;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  transition: all 0.4s ease;
-  overflow: hidden;
-  height: 100%;
-  z-index: 1;
+
+  height: 100%;            // 👈 ВАЖЛИВО
+  justify-content: flex-start;
+
+  gap: 1.4rem;
+  padding: 2rem 1.6rem;
+  border-radius: 16px;
+  box-sizing: border-box;
+
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 45px rgba(255, 122, 0, 0.25);
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
   }
 
-  /* Світловий ореол */
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-                    circle at top right,
-                    rgba(255, 200, 150, 0.25),
-                    transparent 70%
-    );
-    z-index: -1;
-    transition: opacity 0.3s ease;
+  /* PRO package */
+  &.pro {
+    border: 2px solid var(--primary-color);
+    background: var(--surface-muted);
+
+    transform: scale(1.04);
+    padding: 2.4rem 1.8rem;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.12);
+    }
   }
 
-  &:hover::before {
-    opacity: 0.9;
-  }
-
-  /* 🏷️ Верхній бейдж */
   .badgeTop {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--primary-color);
-    color: #fff;
-    font-size: 0.75rem;
+    top: -15px;
+    left: 1rem;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 5px;
     text-transform: uppercase;
-    padding: 0.35rem 0.8rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    letter-spacing: 0.5px;
+  }
+
+  &.pro .badgeTop {
+    background: var(--secondary-color);
   }
 
   .title {
-    font-size: 1.6rem;
-    font-weight: 800;
+    font-size: 1.45rem;
+    font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 1rem;
-    letter-spacing: -0.01em;
+    margin: 0;
   }
 
-  /* 💰 Ціна */
   .price {
-    font-size: 2.6rem;
-    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 2.1rem;
+    font-weight: 700;
     color: var(--primary-color);
-    margin-bottom: 1.2rem;
 
     .tokens {
       display: block;
+      margin-top: 0.2rem;
       font-size: 1rem;
       color: var(--text-secondary);
-      margin-top: 0.2rem;
       font-weight: 500;
     }
   }
 
   .dynamicPrice {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: .9rem;
     color: var(--text-secondary);
-    margin-top: 0.5rem;
+    margin-top: -.3rem;
   }
 
   .description {
+    margin: .4rem 0 .6rem;
+    font-size: .95rem;
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0.8rem 0 1.8rem;
-    max-width: 90%;
+    line-height: 1.55;
   }
 
-  /* ✅ Features list */
   .features {
     list-style: none;
     padding: 0;
-    margin: 0 0 2rem;
-    width: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: .55rem;
 
     li {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      transition: color 0.3s ease;
+      align-items: flex-start;
+      gap: .45rem;
+      font-size: 1rem;
+      color: var(--text-primary);
 
       &::before {
-        content: "✓";
-        color: var(--primary-color);
-        font-weight: 700;
-      }
-
-      &:hover {
-        color: var(--text-primary);
+        content: "";
+        width: 6px;
+        height: 6px;
+        margin-top: .45rem;
+        background: var(--primary-color);
+        border-radius: 50%;
       }
     }
   }
 
   .inputWrapper {
     width: 100%;
-    margin-bottom: 1rem;
-
-    input {
-      width: 100%;
-      border-radius: 0.6rem;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 0.75rem 1rem;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.7);
-      transition: all 0.3s ease;
-
-      &:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.2);
-        outline: none;
-      }
-    }
+    margin-bottom: .5rem;
   }
 
-  /* 👇 Нижній бейдж */
-  .badgeBottom {
-    margin-top: 1.5rem;
-    background: rgba(255, 122, 0, 0.1);
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 0.4rem 1rem;
-    border-radius: 0.5rem;
-  }
-
-  /* 💡 Кнопка */
-  button {
+  /* кнопка завжди знизу */
+  .buttonWrapper {
+    margin-top: auto;      // 👈 ПІДНІМАЄ ВСЕ ВГОРУ, КНОПКА ВНИЗУ
     width: 100%;
-    border: none;
-    border-radius: 0.8rem;
-    background: linear-gradient(135deg, #ff8c00, #ff5e00);
-    color: #fff;
-    font-size: 1.05rem;
-    font-weight: 700;
-    padding: 1rem 1.5rem;
-    box-shadow: 0 8px 20px rgba(255, 122, 0, 0.25);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    margin-top: auto;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(255, 122, 0, 0.35);
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
   }
 
-  /* 🌈 Варіанти */
-  &.starter {
-    --primary-color: #ff7a00;
-    --button-hover: #ff5400;
+  .badgeBottom {
+    margin-top: .6rem;
+    align-self: center;
+    background: var(--surface-muted);
+    padding: .35rem .8rem;
+    border-radius: 6px;
+    color: var(--primary-color);
+    font-size: .8rem;
+    font-weight: 600;
   }
+}
 
-  &.pro {
-    --primary-color: #3b82f6;
-    background: rgba(240, 248, 255, 0.6);
-    --button-hover: #2563eb;
-  }
-
-  &.premium {
-    --primary-color: #facc15;
-    background: rgba(255, 250, 205, 0.5);
-    --button-hover: #eab308;
-  }
-
-  &.custom {
-    --primary-color: #9333ea;
-    background: rgba(250, 245, 255, 0.5);
-    --button-hover: #7e22ce;
-  }
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-    .price {
-      font-size: 2rem;
-    }
-    .features li {
-      font-size: 0.9rem;
-    }
+@media (max-width: 900px) {
+  .card.pro {
+    transform: scale(1.02);
   }
 }

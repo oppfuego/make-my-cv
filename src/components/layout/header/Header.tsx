@@ -26,7 +26,6 @@ const Header: React.FC = () => {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // динамічні стилі при скролі
     const scrolledStyle: React.CSSProperties = {};
     if (isScrolled && headerStyles.type !== "default") {
         switch (headerStyles.scrollMode) {
@@ -56,72 +55,29 @@ const Header: React.FC = () => {
             >
                 <div className={styles.headerInner}>
                     {/* Ліва частина — логотип */}
-                    <a href={headerContent.logo.href} className={styles.logo}>
-                        <Image
-                            width={190}
-                            height={60}
-                            src={headerContent.logo.src}
-                            alt={headerContent.logo.alt}
-                        />
-                    </a>
+                    <div className={styles.leftContainer}>
+                        <a href={headerContent.logo.href} className={styles.logo}>
+                            <Image
+                                width={190}
+                                height={60}
+                                src={headerContent.logo.src}
+                                alt={headerContent.logo.alt}
+                            />
+                        </a>
 
-                    {/* Центр — навігація */}
-                    <nav className={styles.nav}>
-                        {headerContent.links.map((link) => (
-                            <a key={link.label} href={link.href} className={styles.link}>
-                                {link.label}
-                            </a>
-                        ))}
-                        {/* 🔽 Dropdown 1 — Services */}
-                        <div className={styles.dropdown}>
-                            <button className={styles.dropbtn}>
-                                Services
-                                <span className={styles.arrow}><IoMdArrowDropright/></span>
-                            </button>
-                            <div className={styles.dropdownMenu}>
-                                <a href="/cases/audit" className={styles.dropdownLink}>Technical Website Audit</a>
-                                <a href="/cases/on-page" className={styles.dropdownLink}>On-Page SEO</a>
-                                <a href="/cases/off-page" className={styles.dropdownLink}>Off-Page SEO</a>
-                                <a href="/cases/local" className={styles.dropdownLink}>Local SEO</a>
-                                <a href="/cases/copywriting" className={styles.dropdownLink}>SEO Copywriting</a>
-                                <a href="/cases/analysis" className={styles.dropdownLink}>Competitor Analysis</a>
-                            </div>
-                        </div>
-
-                        {/* 🔽 Dropdown 2 — Resources */}
-                        <div className={styles.dropdown}>
-                            <button className={styles.dropbtn}>
-                                Resources
-                                <span className={styles.arrow}>
-                                   <IoMdArrowDropright/>
-                                </span>
-                            </button>
-                            <div className={styles.dropdownMenu}>
-                                <a href="/faq" className={styles.dropdownLink}>FAQ</a>
-                                <a href="/contact-us" className={styles.dropdownLink}>Contact Us</a>
-                            </div>
-                        </div>
-                    </nav>
-
-
-                    {/* Права частина — кнопки */}
-                    {/*<div className={styles.actionsNav}>
-                        <AuthButtons/>
-                        <div className={styles.currencySwitch}>
-                            <div
-                                className={`${styles.toggle} ${currency === "EUR" ? styles.active : ""}`}
-                                onClick={() => setCurrency(currency === "GBP" ? "EUR" : "GBP")}
-                            >
-                                <span className={styles.labelLeft}>GBP</span>
-                                <span className={styles.labelRight}>EUR</span>
-                                <div className={styles.thumb}/>
-                            </div>
-                        </div>
-                    </div>*/}
+                        {/* Центр — навігація */}
+                        <nav className={styles.nav}>
+                            {headerContent.links.map((link) => (
+                                <a key={link.label} href={link.href} className={styles.link}>
+                                    {link.label}
+                                </a>
+                            ))}
+                        </nav>
+                    </div>
 
                     <div className={styles.actionsNav}>
-                        <AuthButtons/>
                         <CurrencySwitch/>
+                        <AuthButtons/>
                     </div>
 
 
