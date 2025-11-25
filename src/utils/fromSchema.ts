@@ -42,7 +42,7 @@ export async function metadataFromSchema(meta: MetaSchema): Promise<Metadata> {
             title,
             description,
             url: canonicalAbs,
-            siteName: "Jetreex",
+            siteName: "MakeMyCV",
             type: "website",
             locale: "uk_UA",
             images: [

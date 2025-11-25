@@ -18,7 +18,7 @@ const refundPolicySchema: PageSchema = {
         ogImage: {
             title: "Jetreex – Refund / Return Policy",
             description:
-                "Transparent refund and return policy for Jetreex AI workout plans and token system.",
+                "Transparent refund and return policy for MakeMyCV AI workout plans and token system.",
             bg: "#ffffff",
             color: "#000000",
         },

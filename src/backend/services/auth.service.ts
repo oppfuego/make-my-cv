@@ -28,8 +28,8 @@ export const authService = {
         const result = await this.issueTokensAndSession(user._id, user.email, user.role, undefined, undefined);
         await sendEmail(
             user.email,
-            "Welcome to Jetreex 🎉",
-            `Hi ${user.name}, thanks for registering at Jetreex.`
+            "Welcome to MakeMyCV 🎉",
+            `Hi ${user.name}, thanks for registering at MakeMyCV.`
         );
 
         return { user, ...result };
