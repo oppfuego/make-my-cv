@@ -50,6 +50,8 @@ const schema: PageSchema = {
                 ],
                 image: "image2",
                 align: "left",
+                imageHeight: "360px",
+
             },
             right: {
                 type: "custom",
@@ -65,6 +67,7 @@ const schema: PageSchema = {
                 ],
                 image: "image3",
                 align: "left",
+                imageHeight: "360px",
             },
         },
 
@@ -131,8 +134,6 @@ const schema: PageSchema = {
             height: "420px"
         },
 
-
-
         // 🟡 TIMELINE — процес для Manual
         {
             type: "custom",
@@ -179,11 +180,11 @@ const schema: PageSchema = {
             title: "How It Works In Actions",
             description:
                 "See how our formatting and design enhance the CV's professionalism and readability.",
-            gap: "0",
+            gap: "2rem",
             left: {
                 type: "custom",
                 title: "How Specialist-Made CV Looks",
-                description: "See the step-by-step transformation of a CV crafted by our expert.",
+                description: "Step-by-step transformation of CV compiled by our expert.",
 
                 align: "left",
                 textGap: "0rem",
@@ -231,7 +232,7 @@ const schema: PageSchema = {
                             description:
                                 "A personalised cover letter that increases your interview chances.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=coverLetter",
+                            buttonLink: "/dashboard",
                         },
                     },
                     {
@@ -243,7 +244,7 @@ const schema: PageSchema = {
                             description:
                                 "Professional rewriting of your LinkedIn About & Experience.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=linkedin",
+                            buttonLink: "/dashboard",
                         },
                     },
                     {
@@ -255,7 +256,7 @@ const schema: PageSchema = {
                             description:
                                 "Test your CV for Applicant Tracking Systems and fix issues.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=atsCheck",
+                            buttonLink: "/dashboard",
                         },
                     },
                     {
@@ -267,7 +268,7 @@ const schema: PageSchema = {
                             description:
                                 "Tailoring your CV to a specific job description.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=jobAdaptation",
+                            buttonLink: "/dashboard",
                         },
                     },
                     {
@@ -279,7 +280,7 @@ const schema: PageSchema = {
                             description:
                                 "Transform responsibilities into measurable achievements.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=achievements",
+                            buttonLink: "/dashboard",
                         },
                     },
                     {
@@ -291,7 +292,7 @@ const schema: PageSchema = {
                             description:
                                 "Identify and fill skill gaps in your CV.",
                             buttonText: "Add to CV",
-                            buttonLink: "/order/extras?type=skillsGap",
+                            buttonLink: "/dashboard",
                         },
                     },
                 ],
@@ -308,31 +309,31 @@ const schema: PageSchema = {
                 {
                     name: "Alexander",
                     role: "Software Engineer",
-                    image: "review4",
+                    image: "review9",
                     text: "MakeMyCV completely transformed my outdated CV. Recruiters finally started replying — got an interview in 3 days.",
                 },
                 {
                     name: "John",
                     role: "Business Analyst",
-                    image: "review5",
+                    image: "review10",
                     text: "The AI-rewritten experience section looks cleaner and more professional than anything I’ve ever done manually.",
                 },
                 {
                     name: "Olena",
                     role: "UI/UX Designer",
-                    image: "review6",
+                    image: "review12",
                     text: "The CV design looks premium and modern. HRs even complimented the structure during the interview.",
                 },
                 {
                     name: "Janet",
                     role: "Project Manager",
-                    image: "review7",
+                    image: "review13",
                     text: "The generator fixed all my wording issues. Clear, structured, and tailored exactly to my role.",
                 },
                 {
                     name: "Samuel",
                     role: "QA Engineer",
-                    image: "review8",
+                    image: "review11",
                     text: "Didn’t expect AI to write such strong bullet points. My CV finally looks senior-level.",
                 },
             ],
@@ -347,8 +348,8 @@ const schema: PageSchema = {
                     type: "pricing",
                     variant: "starter",
                     title: "Professional CV Creation",
-                    price: "€6",
-                    tokens: 60,
+                    price: "€10",
+                    tokens: 1000,
                     badgeTop: "For Serious Applicants",
                     description: "Hand-crafted CV made by a specialist in 24 hours.",
                     features: [
@@ -363,8 +364,8 @@ const schema: PageSchema = {
                     type: "pricing",
                     variant: "pro",
                     title: "AI CV Generator",
-                    price: "€3",
-                    tokens: 30,
+                    price: "€25",
+                    tokens: 2500,
                     badgeTop: "Fast & Affordable",
                     description: "Instant AI-generated CV with rewriting and clean design.",
                     features: [
@@ -380,8 +381,8 @@ const schema: PageSchema = {
                     type: "pricing",
                     variant: "premium",
                     title: "Cover Letter",
-                    price: "€2",
-                    tokens: 20,
+                    price: "€50",
+                    tokens: 5000,
                     badgeTop: "Most Popular Add-on",
                     description:
                         "A personalised cover letter that improves recruiter response rates.",

@@ -15,26 +15,53 @@ type Block =
     | { type: "ul"; items: string[] }
     | { type: "ol"; items: string[] };
 
+// 🔥 Універсальний очищувач тексту від усіх артефактів
+export function superClean(raw?: string): string {
+    if (!raw) return "";
+
+    return String(raw)
+        .normalize("NFKD")
+
+        // приховані службові символи
+        .replace(/[\u200B-\u200F\u202A-\u206F\uFEFF]/g, "")
+
+        // непотрібні спецсимволи
+        .replace(/[™©®•●▪◆▶◼◾◽◈✓·…—–]/g, "")
+
+        // markdown
+        .replace(/\*\*(.*?)\*\*/g, "$1")   // bold
+        .replace(/\*(.*?)\*/g, "$1")       // italic
+
+        // заголовки та сміття на початку рядка
+        .replace(/^[=\-*+>#\s]+/gm, "")
+
+        // роздільники типу --- ___ ***
+        .replace(/^[-_*]{2,}$/gm, "")
+
+        // подвійні тире
+        .replace(/[-–—]{2,}/g, "")
+
+        // видаляємо не-ASCII символи (але залишаємо \n)
+        .replace(/[^\x20-\x7E\n]/g, "")
+
+        // зайві пробіли
+        .replace(/\s{2,}/g, " ")
+
+        .trim();
+}
+
+
 // 🧹 Мінімальне очищення тексту
 function cleanText(raw: string) {
-    if (!raw) return "";
-    return String(raw).normalize("NFKC");
+    return superClean(raw);
 }
 
 function cleanTitle(raw: string) {
-    if (!raw) return "";
-    return String(raw)
-        .normalize("NFKC")
-        .replace(/\uFEFF/g, "")
-        // удалить явные артефакты и кавычки
-        .replace(/[=¡!~_*•·«»"“”'`>]/g, "")
-        // удалить ведущие hash-символы и любые прочие небуквенно-цифровые символы в начале
-        .replace(/^#{1,3}\s*/u, "")
-        .replace(/^[^\p{L}\p{N}]+/u, "")
-        // нормализовать пробелы и обрезать
-        .replace(/\s{2,}/g, " ")
+    return superClean(raw)
+        .replace(/^h[1-3]\s*/i, "")
         .trim();
 }
+
 
 // 🔤 Інлайн форматування Markdown (**bold**)
 function renderInlineMarkdown(text: string, styles: PDFStyles) {
@@ -58,12 +85,9 @@ function renderInlineMarkdown(text: string, styles: PDFStyles) {
     return parts.length ? parts : [text];
 }
 
-// 📦 Парсинг у блоки (заголовки, абзаци, списки)
 function parseBlocks(raw: string): Block[] {
-    let cleaned = cleanText(raw)
-        .replace(/^[-_*]{3,}$/gm, "") // прибрати роздільники --- ___ ***
-        .replace(/^#{1,3}([^#\s])/gm, (_, c) => `# ${c}`) // прибрати заголовки без пробілу
-        .replace(/\uFEFF/g, "")
+    let cleaned = superClean(raw)
+        .replace(/^#{1,3}([^#\s])/gm, (_, c) => `# ${c}`)
         .trim();
 
     const lines = cleaned.split(/\r?\n/).map((l) => l.trimEnd());
@@ -78,19 +102,23 @@ function parseBlocks(raw: string): Block[] {
         }
         const t = line.trim();
 
-        // Заголовки ###, ##, #
+        // H3 ###
         const h3 = t.match(/^#{3}\s*(.+)$/);
         if (h3) {
             blocks.push({ type: "h3", text: cleanTitle(h3[1]) });
             i++;
             continue;
         }
+
+        // H2 ##
         const h2 = t.match(/^#{2}\s*(.+)$/);
         if (h2) {
             blocks.push({ type: "h2", text: cleanTitle(h2[1]) });
             i++;
             continue;
         }
+
+        // H1 #
         const h1 = t.match(/^#\s*(.+)$/);
         if (h1) {
             blocks.push({ type: "h1", text: cleanTitle(h1[1]) });
@@ -98,48 +126,50 @@ function parseBlocks(raw: string): Block[] {
             continue;
         }
 
-        // Списки UL
+        // UL
         if (/^[-–—•*]\s+/.test(t)) {
             const items: string[] = [];
             while (i < lines.length) {
                 const ln = lines[i]?.trim();
                 if (!ln || !/^[-–—•*]\s+/.test(ln)) break;
-                items.push(ln.replace(/^[-–—•*]\s+/, "").trim());
+                items.push(superClean(ln.replace(/^[-–—•*]\s+/, "")));
                 i++;
             }
             blocks.push({ type: "ul", items });
             continue;
         }
 
-        // Списки OL
+        // OL
         if (/^\d+\.\s+/.test(t)) {
             const items: string[] = [];
             while (i < lines.length) {
                 const ln = lines[i]?.trim();
                 if (!ln || !/^\d+\.\s+/.test(ln)) break;
-                items.push(ln.replace(/^\d+\.\s+/, "").trim());
+                items.push(superClean(ln.replace(/^\d+\.\s+/, "")));
                 i++;
             }
             blocks.push({ type: "ol", items });
             continue;
         }
 
-        // Абзаци
+        // P
         const pLines: string[] = [t];
         i++;
         while (i < lines.length) {
-            const ln = lines[i];
-            const trimmed = ln.trim();
-            if (!trimmed) break;
-            if (/^#{1,3}\s*/.test(trimmed)) break;
-            if (/^[-–—•*]\s+/.test(trimmed)) break;
-            if (/^\d+\.\s+/.test(trimmed)) break;
-            if (/^[-_*]{3,}$/.test(trimmed)) break;
-            pLines.push(trimmed);
+            const ln = lines[i]?.trim();
+            if (!ln) break;
+            if (/^#{1,3}\s*/.test(ln)) break;
+            if (/^[-–—•*]\s+/.test(ln)) break;
+            if (/^\d+\.\s+/.test(ln)) break;
+            if (/^[-_*]{2,}$/.test(ln)) break;
+
+            pLines.push(ln);
             i++;
         }
-        blocks.push({ type: "p", text: pLines.join(" ") });
+
+        blocks.push({ type: "p", text: superClean(pLines.join(" ")) });
     }
+
     return blocks;
 }
 

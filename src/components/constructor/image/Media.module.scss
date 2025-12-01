@@ -1,42 +1,38 @@
 .mediaWrapper {
-  position: relative;
   width: 100%;
+  height: 100%;       // <-- найважливіше
+  position: relative; // <-- для next/image fill
   overflow: hidden;
   border-radius: 12px;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-
-  &.hoverable:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  }
+  padding: 0 20px;
 }
 
-.image,
+
+.image {
+  object-fit: cover;
+}
+
 .video {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
-  object-position: center;
-  border-radius: inherit;
+  object-fit: cover;
+  border-radius: 20px;
 }
 
-/* 🧾 Overlay */
+.hoverable {
+  cursor: pointer;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: rgba(0, 0, 0, 0.4);
   opacity: 0;
-  transition: opacity 0.35s ease;
-  padding: 1.5rem;
-  text-align: center;
-  gap: 1rem;
-  border-radius: inherit;
+  transition: 0.25s ease;
 }
 
 .hoverable:hover .overlay {
@@ -44,7 +40,7 @@
 }
 
 .hoverText {
-  font-size: 1.1rem;
-  line-height: 1.5;
-  max-width: 80%;
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 10px;
 }

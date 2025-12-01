@@ -1,11 +1,11 @@
 @import "@/resources/mixins.scss";
 
-
 .timelineSection {
   --line-color: #4a57ff;
   --glow-color: rgba(74, 87, 255, 0.4);
 }
 
+/* ---------------- TITLE ---------------- */
 .title {
   font-weight: 500;
   font-size: 2rem;
@@ -14,45 +14,50 @@
   margin-bottom: 40px;
   line-height: 1.35;
   max-width: 720px;
-  width: 100%;
-  word-break: keep-all;
-
-  /* ✨ легкий сірий акцент нижче замість біфора */
-  & + .description {
-    margin-top: 0.5rem;
-  }
 
   @media (max-width: 1024px) {
     font-size: 1.6rem;
   }
-
   @media (max-width: 768px) {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
+    margin-bottom: 4rem;
   }
 }
 
+/* ---------------- WRAPPER ---------------- */
 .wrapper {
   @include main-width;
   position: relative;
   text-align: center;
-
-  /* компенсуємо глобальний padding конструктора */
   padding-left: calc(30px + 80px);
   padding-right: 30px;
+
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 
-/* === ЛІНІЯ === */
+/* ---------------- LINE ---------------- */
 .progressLine {
   position: absolute;
-  top: 20px;
-  left: calc(30px + 40px); /* 30px padding + 40px offset */
+  top: 50px;
+  left: calc(30px + 40px);
   width: 4px;
   bottom: 20px;
   background: rgba(180, 180, 255, 0.22);
   border-radius: 4px;
+
+  @media (max-width: 768px) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 480px) {
+    top: 80px;
+  }
 }
 
-/* === Заповнення === */
 .progressFill {
   position: absolute;
   top: 0;
@@ -63,7 +68,6 @@
   box-shadow: 0 0 12px var(--glow-color);
 }
 
-/* === Наконечник === */
 .progressThumb {
   position: absolute;
   left: 50%;
@@ -76,7 +80,7 @@
   z-index: 20;
 }
 
-/* === STEP === */
+/* ---------------- STEP ---------------- */
 .step {
   position: relative;
   display: flex;
@@ -84,11 +88,18 @@
   gap: 1.8rem;
   margin-bottom: 70px;
   text-align: left;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
 }
 
+/* ---------------- BADGE ---------------- */
 .badge {
   position: absolute;
-  left: calc(30px + 40px - 32px); // line - half of badge
+  left: calc(30px + 40px - 32px);
   width: 64px;
   height: 64px;
   border-radius: 50%;
@@ -101,24 +112,41 @@
   font-weight: 700;
   color: var(--line-color);
   box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+
+  @media (max-width: 768px) {
+    position: relative;
+    left: 0;
+    margin-bottom: 0.2rem;
+  }
 }
 
 .badge.active {
-  transform: scale(1.13);
+  transform: scale(1.15);
   box-shadow: 0 0 22px var(--glow-color);
 }
 
-/* === CARD === */
+/* ---------------- CARD ---------------- */
 .card {
-  margin-left: 120px;  /* чіткий стабільний відступ */
+  margin-left: 120px;
   background: white;
   padding: 1.7rem 2rem;
   border-radius: 16px;
   border: 1px solid rgba(74,87,255,0.15);
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   max-width: 620px;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: 0.3s ease;
+
+  @media (max-width: 1024px) {
+    margin-left: 90px;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    width: 100%;
+    padding: 1.4rem 1.5rem;
+    text-align: center;
+  }
 }
 
 .card:hover {

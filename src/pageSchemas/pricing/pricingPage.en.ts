@@ -3,15 +3,15 @@ import { COMPANY_NAME } from "@/resources/constants";
 
 const schema: PageSchema = {
     meta: {
-        title: `SEO Plans & Pricing — ${COMPANY_NAME}`,
-        description: `Transparent SEO pricing for audits, optimisation, link building and full SEO campaigns. Request your quote today.`,
+        title: `CV Builder & ATS-Friendly Resume Generator — ${COMPANY_NAME}`,
+        description: `Create a professional CV in minutes. AI-powered resume builder, modern templates, instant PDF export and ATS-friendly formatting.`,
         keywords: [
-            "SEO pricing",
-            "SEO packages",
-            "SEO services cost",
-            "technical SEO audit",
-            "link building pricing",
-            "local SEO packages",
+            "CV builder",
+            "resume generator",
+            "AI CV",
+            "create CV online",
+            "ATS friendly resume",
+            "professional templates",
         ],
         canonical: "/pricing",
     },
@@ -21,103 +21,130 @@ const schema: PageSchema = {
         {
             type: "custom",
             component: "HeroSection",
-            title: "Choose Your SEO Plan",
-            highlight: "Transparent. Effective. Tailored to You.",
-            description: `${COMPANY_NAME} offers clear SEO packages for every goal — from one-time technical audits to full monthly optimisation.  
-Each plan includes a detailed report and real results tracking.`,
+            title: "Create Your Perfect CV",
+            highlight: "in Minutes with AI",
+            description: `${COMPANY_NAME} helps you build a modern, clean and ATS-friendly CV.  
+Choose a template, fill in details, let AI enhance your experience — and export to PDF instantly.`,
             image: "image18",
             align: "right",
-            primaryCta: { text: "Request Consultation", link: "/contact-us" },
+            primaryCta: { text: "Start Building CV", link: "/dashboard" },
         },
 
+        // 🎨 PRICING (TOKEN PLANS)
         {
             type: "grid",
-            columns: 2,
+            columns: 4,
             gap: "2rem",
             cards: [
                 {
                     type: "pricing",
                     variant: "starter",
-                    title: "Starter SEO Audit",
-                    price: "€15",
-                    tokens: 1500,
-                    badgeTop: "Entry Plan",
-                    description:
-                        "Get a full site scan, ranking report, and 10-page audit with actionable fixes.",
+                    title: "Professional CV Creation",
+                    price: "€10",
+                    tokens: 1000,
+                    badgeTop: "For Serious Applicants",
+                    description: "Hand-crafted CV made by a specialist in 24 hours.",
                     features: [
-                        "Technical check",
-                        "Mobile performance",
-                        "Speed recommendations",
-                        "Basic keyword analysis",
+                        "Human-crafted writing",
+                        "ATS-friendly formatting",
+                        "Modern layout",
+                        "Delivered in PDF & DOCX",
                     ],
-                    buttonText: "Buy Tokens",
-                    buttonLink: "/pricing",
+                    buttonText: "Order Now",
                 },
                 {
                     type: "pricing",
                     variant: "pro",
-                    title: "Full SEO Package",
-                    price: "€45",
-                    tokens: 4500,
-                    badgeTop: "Popular",
-                    description:
-                        "Everything you need for growth: audit, link strategy, and content plan.",
+                    title: "AI CV Generator",
+                    price: "€25",
+                    tokens: 2500,
+                    badgeTop: "Fast & Affordable",
+                    description: "Instant AI-generated CV with rewriting and clean design.",
                     features: [
-                        "Complete audit report",
-                        "10 backlinks / mo",
-                        "Content strategy",
-                        "Monthly tracking",
+                        "Instant PDF/DOCX export",
+                        "AI bullet rewrite",
+                        "Modern design",
+                        "Optimized structure",
                     ],
-                    buttonText: "Start SEO Campaign",
-                    buttonLink: "/pricing",
+                    buttonText: "Order Now",
+
                 },
                 {
                     type: "pricing",
                     variant: "premium",
-                    title: "Enterprise SEO",
-                    price: "€90",
-                    tokens: 9000,
-                    badgeTop: "All-In Plan",
+                    title: "Cover Letter",
+                    price: "€50",
+                    tokens: 5000,
+                    badgeTop: "Most Popular Add-on",
                     description:
-                        "For large businesses and e-commerce. Dedicated team, analytics & continuous growth.",
+                        "A personalised cover letter that improves recruiter response rates.",
                     features: [
-                        "Dedicated SEO manager",
-                        "20+ backlinks / mo",
-                        "Custom dashboards",
-                        "Priority support",
+                        "Tailored for your role",
+                        "ATS-friendly",
+                        "Professional tone",
                     ],
-                    buttonText: "Contact for Setup",
-                    buttonLink: "/contact",
+                    buttonText: "Order Now",
+
                 },
+
+                // ⭐ CUSTOM PACKAGE — ПОВНІСТЮ ВИГЛЯДАЄ ЯК ДИНАМІЧНИЙ ОПЦІОН
                 {
                     type: "pricing",
                     variant: "custom",
-                    title: "Custom SEO Solutions",
+                    title: "Custom Package",
                     price: "dynamic",
                     tokens: 0,
-                    badgeTop: "Tailored Plan",
+                    badgeTop: "Flexible Option",
                     description:
-                        "Need something specific? We create bespoke SEO strategies for unique needs.",
+                        "Choose any combination of services and pay only for what you need.",
                     features: [
-                        "Personalised strategy",
-                        "Flexible services",
-                        "Scalable solutions",
-                        "Dedicated support",
+                        "Mix & match extras",
+                        "Flexible pricing",
+                        "Perfect for complex CV needs",
                     ],
-                    buttonText: "Get a Quote",
-                    buttonLink: "/contact",
-                }
+                    buttonText: "Order Now",
+
+                },
             ],
         },
 
-        // 🚀 CTA
+        // ❓ FAQ
+        {
+            type: "faq",
+            items: [
+                {
+                    question: "Is my CV ATS-friendly?",
+                    answer:
+                        "Yes. All templates and AI-generated content follow ATS-safe formatting rules.",
+                },
+                {
+                    question: "Can I edit my CV after exporting?",
+                    answer:
+                        "Yes, you can return anytime, update the data and generate a new PDF.",
+                },
+                {
+                    question: "Does AI write experience for me?",
+                    answer:
+                        "AI enhances your bullet points, rewrites them professionally and adds achievements.",
+                },
+                {
+                    question: "How many templates are available?",
+                    answer:
+                        "You get access to all templates: Classic, Modern, Creative and Minimalist.",
+                },
+            ],
+        },
+
+        // 🚀 CTA (MISSION BANNER)
         {
             type: "custom",
             component: "MissionBanner",
-            title: "Get Your Personal SEO Quote",
+            title: "Build Your Winning CV Today",
             description:
-                "Contact us today to discuss your goals. We’ll analyse your website and prepare a transparent SEO plan with clear deliverables.",
-            image: "ctaPricing",
+                "Start with AI now — no design skills needed. Create a clean, professional resume and get hired faster.",
+            image: "image1",
+            buttonText: "Start Building",
+            buttonLink: "/create",
         },
     ],
 };

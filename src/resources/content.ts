@@ -31,20 +31,12 @@ export const footerContent = {
             links: [
                 {label: "About Us", href: "/about-us"},
                 {label: "Plans", href: "/pricing"},
-                {label: "Contact Us", href: "/contact-us"},
+                {label: "How It Works", href: "/get-started"},
                 {label: "Faq", href: "/faq"},
+                {label: "Contact Us", href: "/contact-us"},
+                {label: "Templates", href: "/templates"},
 
-            ]
-        },
-        {
-            title: "Services",
-            links: [
-                {label: "Technical Website Audit", href: "/cases/audit"},
-                {label: "On-Page SEO", href: "/cases/on-page"},
-                {label: "Off-Page SEO", href: "/cases/off-page"},
-                {label: "Local SEO", href: "/cases/local"},
-                {label: "SEO Copywriting", href: "/cases/copywriting"},
-                {label: "Competitor Analysis", href: "/cases/analysis"},
+
             ]
         },
         {

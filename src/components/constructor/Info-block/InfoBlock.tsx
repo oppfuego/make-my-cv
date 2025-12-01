@@ -1,6 +1,5 @@
-"use client";
 import React from "react";
-import styles from "./InfoBlock.module.scss";
+import styles from './InfoBlock.module.scss';
 import Media from "../image/Media";
 import Text from "../text/Text";
 
@@ -11,7 +10,10 @@ interface InfoBlockProps {
     image?: string;
     bullets?: string[];
     align?: "left" | "center" | "right";
+    imageHeight?: string;   // <-- НОВЕ
 }
+
+import { media as mediaMap } from "@/resources/media";
 
 const InfoBlock: React.FC<InfoBlockProps> = ({
                                                  title,
@@ -20,18 +22,22 @@ const InfoBlock: React.FC<InfoBlockProps> = ({
                                                  image,
                                                  bullets,
                                                  align = "left",
+                                                 imageHeight
                                              }) => {
+    const resolvedImage = image ? mediaMap[image] : undefined;
+
     return (
         <div className={`${styles.infoBlock} ${styles[align]}`}>
             {icon && <div className={styles.icon}>{icon}</div>}
 
-            {image && (
-                <div className={styles.imageWrapper}>
+            {resolvedImage && (
+                <div
+                    className={styles.imageWrapper}
+                    style={{ height: imageHeight || "220px" }}
+                >
                     <Media
-                        src={image}
+                        src={resolvedImage}
                         type="image"
-                        width="100%"
-                        height="220px"
                         alt={title || "Info"}
                         objectFit="cover"
                     />

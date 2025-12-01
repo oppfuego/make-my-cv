@@ -11,6 +11,7 @@ import Text from "@/components/constructor/text/Text";
 import { media as mediaMap } from "@/resources/media";
 import Section from "@/components/constructor/section/Section";
 import VideoDemo from "@/components/constructor/video-demo/VideoDemo";
+import Media from "@/components/constructor/image/Media";
 
 function resolveMedia(key?: string) {
     if (!key) return undefined;
@@ -35,7 +36,8 @@ const Page = () => {
             <Section
                 title="Why Our Templates Are Better"
                 description="Every template is crafted according to modern HR expectations, ensuring that your CV is visually impressive and ATS-compliant."
-                left={
+                left={[
+                    <Media src="image3" alt="CV Example" key="media1" />,
                     <InfoBlock
                         title="Built for Success"
                         description="Our CV templates follow real hiring standards used by recruiters and HR managers. Each layout is structured to highlight your strengths and communicate your value clearly."
@@ -48,6 +50,7 @@ const Page = () => {
                         image={resolveMedia("image2")}
                         align="center"
                     />
+                    ]
                 }
                 right={[
                     <InfoBlock

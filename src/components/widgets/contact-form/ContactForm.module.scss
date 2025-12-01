@@ -1,153 +1,109 @@
-.section {
-  padding: 2rem 2rem;
-  max-width: 1250px;
+.wrapper {
+  max-width: 760px;
   margin: 0 auto;
-  color: var(--text-primary);
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 4rem;
-
-  h2 {
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: var(--secondary-color);
-    margin-bottom: 0.8rem;
-  }
-
-  p {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.6;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-}
-
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-
-  @media (max-width: 992px) {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-}
-
-/* === LEFT CARD === */
-.infoCard {
-  background: var(--quaternary-color);
+.infoStrip {
+  width: 100%;
   border-radius: 20px;
-  padding: 2.5rem 2rem;
-  box-shadow: 0 12px 32px rgba(255, 122, 0, 0.08);
-  border: 1px solid var(--border-color);
+  border: 1px solid rgba(120, 82, 255, 0.2);
+  padding: 1.4rem 2rem;
+
   display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+
+  @media (max-width: 768px) {
     flex-direction: column;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-
-  h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.6rem;
-    color: var(--primary-color);
-    text-align: center;
-  }
-
-  p {
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-  }
-
-  .infoItem {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    font-size: 1rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-
-    svg {
-      color: var(--primary-color);
-      font-size: 1.2rem;
-    }
-
-    a {
-      color: inherit;
-      transition: color 0.2s ease;
-      &:hover {
-        color: var(--primary-color);
-      }
-    }
+    justify-content: center;
+    align-items: start;
+    text-align: left;
   }
 }
 
-/* === RIGHT FORM CARD === */
-.formCard {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(8px);
-  border-radius: 20px;
-  padding: 2.8rem 2.2rem;
-  box-shadow: 0 8px 30px rgba(255, 122, 0, 0.1);
-  border: 1px solid rgba(255, 184, 107, 0.4);
-  transition: all 0.3s ease;
+.infoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+
+  svg {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    flex-shrink: 0;
+  }
+
+  a, span {
+    color: var(--text-primary);
+    text-decoration: none;
+    line-height: 1.35;
+    word-break: break-word;
+  }
+}
+
+.address {
+  max-width: 220px;
+  display: block;
+  line-height: 1.35;
+}
+
+
+.formBox {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 18px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.05);
 
   &:hover {
     transform: translateY(-4px);
-    box-shadow: 0 14px 38px rgba(255, 122, 0, 0.25);
+    box-shadow: 0 18px 60px rgba(0,0,0,0.08);
   }
+
+  transition: all .3s ease;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 1.2rem;
 
-  .row {
-    display: flex;
-    gap: 1rem;
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
-
-  input,
-  textarea {
-    border: 1.5px solid #f1e0d0 !important;
-    background: var(--surface-color);
-    border-radius: 12px !important;
-    font-size: 1rem;
+  input, textarea {
+    width: 100%;
     padding: 1rem 1.1rem;
-    transition: all 0.25s ease;
-    color: var(--text-primary);
+    border-radius: 12px;
+    border: 1.5px solid var(--border-color);
+    background: var(--surface-color);
+    font-size: 1rem;
+
+    transition: all .25s ease;
 
     &:focus {
-      border-color: var(--primary-color) !important;
-      box-shadow: 0 0 0 3px rgba(255, 122, 0, 0.15);
-      background: #fffdfb;
+      border-color: var(--primary-color);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(98, 89, 255, 0.18);
     }
-  }
-
-  button {
-    margin-top: 1rem;
-    height: 3.2rem;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    border-radius: 12px;
-    text-transform: none;
   }
 }
 
-.successMsg {
-  font-size: 1.2rem;
-  color: var(--success-color);
-  background: #f0fdf4;
-  border: 1px solid #bbf7d0;
-  border-radius: 1rem;
-  padding: 2.5rem;
+.twoCols {
+  display: flex;
+  gap: 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.successBox {
   text-align: center;
-  font-weight: 600;
+
+  h3 {
+    font-size: 1.9rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-secondary);
+  }
 }

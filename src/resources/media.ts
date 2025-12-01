@@ -37,6 +37,12 @@ import review5 from "@/assets/images/review5.jpg";
 import review6 from "@/assets/images/review6.jpg";
 import review7 from "@/assets/images/review7.jpg";
 import review8 from "@/assets/images/review8.jpg";
+import review9 from "@/assets/images/review9.jpg";
+import review10 from "@/assets/images/review10.jpg";
+import review11 from "@/assets/images/review11.jpg";
+import review12 from "@/assets/images/review12.jpg";
+import review13 from "@/assets/images/review13.jpg";
+
 
 import team1 from "@/assets/images/team1.jpg";
 import team2 from "@/assets/images/team2.jpg";
@@ -52,7 +58,7 @@ import logo3 from "@/assets/images/logo3.png";
 import logo4 from "@/assets/images/logo4.png";
 import logo5 from "@/assets/images/logo5.svg";
 
-export const media = {
+export const media: Record<string, any> = {
     logo: logo,
     logo_black: logo_black,
 
@@ -84,6 +90,10 @@ export const media = {
     image20: image20,
     image21: image21,
 
+    templates_classic: "/templates/classic.png",
+    templates_creative: "/templates/creative.png",
+    templates_modern: "/templates/modern.png",
+
     portfolio1: portfolio1,
     portfolio2: portfolio2,
     portfolio3: portfolio3,
@@ -99,6 +109,11 @@ export const media = {
     review6: review6,
     review7: review7,
     review8: review8,
+    review9: review9,
+    review10: review10,
+    review11: review11,
+    review12: review12,
+    review13: review13,
 
     team1: team1,
     team2: team2,

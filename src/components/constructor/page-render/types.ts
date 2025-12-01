@@ -43,10 +43,14 @@ export type MediaBlock = {
     autoPlay?: boolean;
     muted?: boolean;
 
+    objectFit?: "cover" | "contain" | "fill";
+    aspectRatio?: string;
+
     hoverEnabled?: boolean;
     hoverText?: string;
     hoverButton?: { text: string; link: string };
 };
+
 
 export type SliderBlock = {
     type: "slider";
@@ -141,11 +145,13 @@ export type InfoBlock = {
     component: "InfoBlock";
     title?: string;
     description?: string;
-    icon?: string;       // emoji або svg-клас
-    image?: string;      // ключ з media
+    icon?: string;
+    image?: string;
     bullets?: string[];
     align?: "left" | "center" | "right";
+    imageHeight?: string;   // ← ДОДАТИ
 };
+
 
 export type ValuesIconsBlock = {
     type: "custom";

@@ -30,6 +30,10 @@
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2.4rem;
   width: 100%;
+
+  @media (max-width: 480px) {
+    gap: 1rem;
+  }
 }
 
 /* ===== FEATURE CARD ===== */
@@ -94,7 +98,7 @@
 /* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .valueCard {
-    padding: 1.6rem;
+    padding: 1rem;
   }
 
   .iconCircle {

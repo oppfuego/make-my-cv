@@ -24,19 +24,20 @@
 
   /* 🖼️ Зображення */
   .imageWrapper {
-    max-width: 600px;
     width: 100%;
+    max-width: 600px;
+    height: 100%;              // ⬅ найважливіше
+    min-height: 220px;         // ⬅ fallback щоб fill працював
+    position: relative;        // ⬅ ОБОВ’ЯЗКОВО
     overflow: hidden;
     border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--quaternary-color);
+
     img {
       width: 100%;
-      height: auto;
       object-fit: cover;
       display: block;
+      height: auto;
+
     }
 
   }

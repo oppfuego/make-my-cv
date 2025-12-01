@@ -168,11 +168,13 @@ function RenderCustom(b: CustomBlock) {
                     title={b.title}
                     description={b.description}
                     icon={b.icon}
-                    image={b.image ? resolveMedia(b.image) : undefined}
+                    image={b.image}
                     bullets={b.bullets}
                     align={b.align}
+                    imageHeight={b.imageHeight}   // ← ДОДАТИ
                 />
             );
+
 
         case "TextWithButton":
             return (
@@ -222,6 +224,7 @@ function RenderText(b: TextBlock) {
 
 function RenderMedia(b: MediaBlock) {
     return (
+
         <Media
             src={resolveMedia(b.src)}
             type={b.mediaType}
@@ -232,12 +235,17 @@ function RenderMedia(b: MediaBlock) {
             loop={b.loop}
             autoPlay={b.autoPlay}
             muted={b.muted}
+            objectFit={b.objectFit}
+            aspectRatio={b.aspectRatio}
             hoverEnabled={b.hoverEnabled}
             hoverText={b.hoverText}
             hoverButton={b.hoverButton}
         />
+
     );
 }
+
+
 
 function RenderSlider(b: SliderBlock) {
     return <Slider images={b.images.map(resolveMedia)} />;

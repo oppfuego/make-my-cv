@@ -60,14 +60,20 @@
 .right {
   flex: 1;
   min-width: 300px;
+  min-height: 200px;
   height: auto;
+  display: flex;
+  align-items: center;      // ← фото не стискається
+  justify-content: center;  // ← вирівнювання
   box-sizing: border-box;
 
   @media screen and (max-width: 768px) {
     width: 100%;
     min-width: unset;
+    min-height: unset;      // мобільний авто
   }
 }
+
 
 .single .left,
 .single .right {
