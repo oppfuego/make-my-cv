@@ -2,163 +2,254 @@ import { PageSchema } from "@/components/constructor/page-render/types";
 
 const termsSchema: PageSchema = {
     meta: {
-        title: "Terms and Conditions – Averis",
+        title: "Terms and Conditions – MakeMyCV",
         description:
-            "Official Terms and Conditions for using Averis.co.uk – rules, payments, tokens, refunds, liability, and user rights.",
+            "Official Terms and Conditions for using makemy-cv.co.uk – tokens, CV services, refunds, liability, and user rights.",
         keywords: [
             "terms and conditions",
-            "averis",
+            "makemycv",
+            "cv builder",
+            "resume generator",
             "tokens",
             "refunds",
-            "workout plan",
-            "AI fitness",
-            "digital content",
+            "career documents",
         ],
         canonical: "/terms-and-conditions",
         ogImage: {
-            title: "Averis – Terms and Conditions",
-            description: "Full Terms and Conditions for Averis AI Workout Platform.",
+            title: "MakeMyCV – Terms and Conditions",
+            description: "Full Terms and Conditions for the MakeMyCV platform.",
             bg: "#ffffff",
             color: "#000000",
         },
     },
+
     blocks: [
         {
             type: "text",
             title: "Terms and Conditions",
-            description:
-                "Effective date: 18 October 2025\n\nThese Terms and Conditions govern your access to and use of averis.co.uk and related services provided by SHIREDON LIMITED.",
+            bullets: [
+                "Effective date: 1 September 2025",
+                "These Terms and Conditions govern your access to and use of makemy-cv.co.uk and related services operated by DOMESTIC DREAMS LIMITED."
+            ],
         },
+
         {
             type: "text",
             title: "1. Introduction",
-            description:
-                "1.1. These Terms and Conditions (“Terms”) govern your access to and use of averis.co.uk, our related web pages, applications, and downloadable documents (the “Service”), operated by SHIREDON LIMITED (company number 15799662, registered office: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF) (“Averis”, “we”, “us”, “our”). These Terms constitute a legally binding agreement between Averis and each person who uses the Service (“you”, “User”, “Customer”).\n\n1.2. By creating an account, purchasing Tokens, or generating any workout plan or PDF through the Service, you agree to these Terms. If you do not agree, do not use the Service.",
+            bullets: [
+                "1.1. These Terms and Conditions (“Terms”) govern your access to and use of makemy-cv.co.uk and any related pages, applications or downloadable content (the “Service”), operated by DOMESTIC DREAMS LIMITED (company number 15925893, registered office: 31 Auctioneers Way, Northampton, United Kingdom, NN1 1HF) (“MakeMyCV”, “we”, “us”, “our”).",
+                "1.2. By creating an account, purchasing Tokens or using any CV, cover letter or related career-document features, you agree to be legally bound by these Terms. If you do not agree, you must not use the Service.",
+                "1.3. The Service provides an online platform for creating, generating and downloading professional CVs, cover letters and related career documents using Tokens.",
+                "1.4. Services may be performed by artificial intelligence, human specialists, or a combination of both.",
+                "1.5. We do not provide legal, immigration, financial, tax, HR or employment-agency services and do not guarantee any hiring or career outcome."
+            ],
         },
+
         {
             type: "text",
             title: "2. Definitions",
             bullets: [
-                "Account – your user profile on the Service.",
-                "Tokens – our internal, prepaid digital credits that enable you to use specific features of the Service (e.g., plan generation, PDF export). Tokens are not cash, e-money, or financial instruments.",
-                "Workout Plan / Plan – any personalised or template workout program, exercise schedule, recommendations, trackers, and any related digital content generated or supplied via the Service, including PDFs.",
-                "Add-ons / Extras – optional paid features or modules (e.g., extended program duration, multiple goal variants, enriched analytics, nutrition companion module where available).",
-                "Order – a confirmed transaction to purchase Tokens and/or to redeem Tokens for Services.",
-                "Services – the Averis platform and its features including the fitness intake forms, AI-assisted plan generation, optional human-coach review (if available in your region/plan), PDF creation, and delivery of digital content.",
-                "Checkout Currency – GBP (£) or EUR (€), as selected at checkout.",
+                "2.1. Account – your user profile on the Service.",
+                "2.2. Tokens / Wallet – prepaid, non-transferable digital credits used to access paid features. Tokens are not cash, e-money or financial instruments.",
+                "2.3. Services – all tools and features provided via the Service, including CV creation, AI rewriting, specialist-written documents, templates and add-ons.",
+                "2.4. Client Content – all information, text and files you submit, including personal and professional data.",
+                "2.5. Documents / Outputs – CVs, resumes, cover letters, LinkedIn texts, ATS reports or other materials generated via the Service.",
+                "2.6. Third-Party Platforms – external systems such as job boards, ATS, LinkedIn or cloud storage services.",
+                "2.7. Order / Transaction – a confirmed purchase of Tokens or paid features."
             ],
         },
+
         {
             type: "text",
             title: "3. Eligibility & Account Registration",
-            description:
-                "3.1. You must be 18 years or older to use the Service. If you use the Service on behalf of a company or organisation, you confirm that you have authority to bind that entity.\n\n3.2. You must provide accurate, current information and keep your credentials secure. You are responsible for all activity under your Account.\n\n3.3. Notify us immediately of any suspected unauthorised access or security incident at info@averis.co.uk.",
-        },
-        {
-            type: "text",
-            title: "4. Tokens",
-            description:
-                "4.1. Tokens prepay access to features of the Service. Tokens have no cash value, are non-transferable, and may not be exchanged, traded, or resold.\n\n4.2. Tokens are issued after successful card payment. The current rate is displayed at the time of purchase (e.g., £1.00 ≈ 100 Tokens, €1.17 ≈ 100 Tokens).\n\n4.3. Features and Plans are priced in Tokens, with conversion shown for reference.\n\n4.4. If a generation fails for technical reasons attributable to us, Tokens are restored automatically or via support.\n\n4.5. Tokens do not expire unless otherwise stated; inactive accounts (24 months) may be archived.\n\n4.6. Promotional or bonus Tokens may be subject to additional rules shown at the time of offer.\n\n4.7. Standard generation price and extras are shown before confirmation; prices may change from time to time.",
-        },
-        {
-            type: "text",
-            title: "5. Ordering, Payment & Checkout",
-            description:
-                "Accepted payment methods: Visa, Mastercard · Accepted currencies: GBP (£), EUR (€)\n\n5.1. Orders are subject to acceptance; we may refuse to prevent fraud or technical errors.\n\n5.2. By paying, you confirm you are authorised to use the selected card.\n\n5.3. Prices are shown in GBP or EUR; VAT may apply depending on billing country.\n\n5.4. Plans and PDFs are delivered electronically; generation time varies by system load.",
-        },
-        {
-            type: "text",
-            title: "6. Cancellations, Refunds & Consumer Rights",
-            description:
-                "6.1. By starting a generation, you request immediate performance and acknowledge loss of the statutory right to cancel.\n\n6.2. Unused Token top-ups may be cancelled within 14 days of purchase if unused.\n\n6.3. Used Tokens are non-refundable unless required by law.\n\n6.4. If a PDF is defective, contact info@averis.co.uk within 14 days citing your Order ID.\n\n6.5. Unwarranted chargebacks may result in suspension or removal of equivalent Tokens.",
-        },
-        {
-            type: "text",
-            title: "7. Health, Fitness & Safety Disclaimer",
-            description:
-                "7.1. Averis provides AI-generated workout plans for informational purposes only and does not provide medical advice.\n\n7.2. Consult a healthcare professional before starting any exercise program.\n\n7.3. You are responsible for ensuring proper form, safe environment, and appropriate equipment.\n\n7.4. Exercise carries risks; you accept these by using the Service.",
-        },
-        {
-            type: "text",
-            title: "8. Your Inputs & Acceptable Use",
-            description:
-                "8.1. You must provide lawful, truthful inputs and avoid uploading illegal or harmful content.\n\n8.2. You must not misuse the Service (e.g., reverse engineering, scraping, disrupting, or circumventing limits).",
-        },
-        {
-            type: "text",
-            title: "9. Intellectual Property & Licences",
-            description:
-                "9.1. The Service and its content are owned by Averis or its licensors.\n\n9.2. Upon valid redemption, you receive a personal, non-transferable licence to use your generated Plans and PDFs.\n\n9.3. You retain rights to your inputs and grant Averis a limited licence to use anonymised data for service improvement.",
-        },
-        {
-            type: "text",
-            title: "10. Warranties & Disclaimers",
-            description:
-                "10.1. We warrant that we are entitled to provide the Service.\n\n10.2. Except as stated, the Service is provided “as is” and “as available.”\n\n10.3. No specific health or fitness outcome is guaranteed.",
-        },
-        {
-            type: "text",
-            title: "11. Limitation of Liability",
-            description:
-                "11.1. Nothing limits liability for death or injury caused by negligence or fraud.\n\n11.2. Our total liability in any 12-month period shall not exceed the total amount paid for Tokens/Services.\n\n11.3. We are not liable for indirect or consequential losses.",
-        },
-        {
-            type: "text",
-            title: "12. Indemnity",
-            description:
-                "You agree to indemnify Averis and its staff against claims or damages arising from unlawful use of the Service or violation of these Terms.",
-        },
-        {
-            type: "text",
-            title: "13. Data Protection & Privacy",
-            description:
-                "13.1. We process personal data in accordance with UK GDPR and the Data Protection Act 2018.\n\n13.2. By using the Service, you accept our Privacy Policy and acknowledge your data rights.",
-        },
-        {
-            type: "text",
-            title: "14. Third-Party Services & Links",
-            description:
-                "The Service may include links or integrations with third-party services (e.g., payment processors). We are not responsible for their practices or content.",
-        },
-        {
-            type: "text",
-            title: "15. Suspension & Termination",
-            description:
-                "15.1. We may suspend or terminate access if you breach these Terms or create security/fraud risks.\n\n15.2. Upon termination, your licence to use the Service ceases, and minimal records may be retained as required by law.",
-        },
-        {
-            type: "text",
-            title: "16. Changes to the Service or Terms",
-            description:
-                "16.1. We may update these Terms for legal, technical, or business reasons.\n\n16.2. Material updates will be communicated by email or in-product notice. Continued use constitutes acceptance.",
-        },
-        {
-            type: "text",
-            title: "17. Notices",
-            description:
-                "Formal notices: info@averis.co.uk or post to our registered office. We may contact you via email or in-app messages.",
-        },
-        {
-            type: "text",
-            title: "18. Governing Law & Jurisdiction",
-            description:
-                "These Terms are governed by the laws of England and Wales. Courts of England and Wales have exclusive jurisdiction, except that EU or UK consumers may bring claims locally.",
-        },
-        {
-            type: "text",
-            title: "19. Miscellaneous",
-            description:
-                "19.1. Invalid provisions do not affect validity of others.\n\n19.2. No delay or omission constitutes a waiver.\n\n19.3. You may not transfer your rights without written consent.\n\n19.4. These Terms are the full agreement between you and Averis.",
-        },
-        {
-            type: "text",
-            title: "20. Contact Details",
             bullets: [
-                "SHIREDON LIMITED",
-                "Registered office: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
-                "Company number: 15799662",
-                "Email: info@averis.co.uk",
-                "Tel: +44 7441 393249",
+                "3.1. You must be at least 18 years old or have valid corporate authority to use the Service.",
+                "3.2. You must provide accurate, current and complete information and keep your credentials secure.",
+                "3.3. You are responsible for all activities performed under your Account.",
+                "3.4. Any suspected unauthorised access or security incident must be reported immediately to info@makemy-cv.co.uk."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "4. Nature of Services",
+            bullets: [
+                "4.1. Documents may be generated by AI, prepared by a human specialist, or created using a combination of both.",
+                "4.2. We do not verify the accuracy or legality of Client Content.",
+                "4.3. You remain fully responsible for all information contained in your documents.",
+                "4.4. We do not guarantee acceptance, ranking or outcomes with employers, recruiters, ATS or third parties.",
+                "4.5. AI-generated Outputs may contain errors and must be reviewed before use."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "5. Scope of Services",
+            bullets: [
+                "5.1. Services may include CV creation, cover letters, AI rewriting, ATS checks, LinkedIn text generation, templates and add-ons.",
+                "5.2. Incomplete or inaccurate inputs may result in sub-optimal Outputs.",
+                "5.3. Additional revisions typically require additional Tokens.",
+                "5.4. The Service is not intended as permanent document storage."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "6. Client Content & Responsibilities",
+            bullets: [
+                "6.1. You confirm that you have all rights and permissions to upload Client Content.",
+                "6.2. Client Content must be lawful and must not infringe third-party rights.",
+                "6.3. You must not upload malware, unlawful data or misleading information.",
+                "6.4. You are responsible for compliance with data-protection laws for personal data you submit."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "7. Acceptable Use",
+            bullets: [
+                "7.1. You must not misuse the Service, bypass limits, scrape data, automate abuse, manipulate payments or engage in unlawful activity.",
+                "7.2. We may suspend or terminate access where abuse, legal risk or system integrity issues are suspected."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "8. Tokens, Pricing & Payment",
+            bullets: [
+                "8.1. Accepted payment methods include Visa and Mastercard.",
+                "8.2. Reference rate: 100 Tokens ≈ £1.00 / €1.17 / $1.29 (approximate).",
+                "8.3. Token packages and prices are displayed at checkout and may change.",
+                "8.4. Tokens represent advance payment for digital services.",
+                "8.5. Tokens are deducted when features are used and are non-refundable once consumed.",
+                "8.6. Tokens do not expire unless explicitly stated otherwise."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "9. Delivery of Digital Content",
+            bullets: [
+                "9.1. All Services result in digital content only; no physical documents are shipped.",
+                "9.2. Delivery is complete when Outputs are made available in your Account, via download link or email.",
+                "9.3. Re-downloading the same Output does not consume additional Tokens.",
+                "9.4. Outputs may be generated by AI, human specialists, or both.",
+                "9.5. If delivery fails due to a technical issue attributable to us, Tokens may be restored or the service re-performed.",
+                "9.6. Support requests should be sent to info@makemy-cv.co.uk with Order details."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "10. Cancellations, Refunds & Chargebacks",
+            bullets: [
+                "10.1. By using Tokens, you consent to immediate digital performance.",
+                "10.2. Unused Tokens are generally non-refundable except where required by law.",
+                "10.3. Where a fault is attributable to us, we may re-credit Tokens or issue a partial refund.",
+                "10.4. Unwarranted chargebacks may result in account suspension or recovery action."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "11. Intellectual Property",
+            bullets: [
+                "11.1. All platform software, design and content are owned by MakeMyCV or its licensors.",
+                "11.2. You receive a limited, non-transferable licence to use Outputs for personal or internal business purposes.",
+                "11.3. You retain ownership of Client Content but grant us a licence to process it to operate the Service."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "12. Confidentiality",
+            bullets: [
+                "12.1. Each party agrees to protect confidential information received in connection with the Service.",
+                "12.2. Disclosure is permitted where required by law."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "13. Third-Party Platforms",
+            bullets: [
+                "13.1. We are not responsible for availability or performance of third-party platforms.",
+                "13.2. Use of third-party services is at your own risk."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "14. Warranties & Disclaimers",
+            bullets: [
+                "14.1. The Service is provided on an “as is” and “as available” basis.",
+                "14.2. We do not guarantee outcomes, availability or error-free operation."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "15. Limitation of Liability",
+            bullets: [
+                "15.1. Our total liability in any 12-month period shall not exceed the amount paid by you.",
+                "15.2. We are not liable for indirect or consequential losses."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "16. Indemnity",
+            bullets: [
+                "16.1. You agree to indemnify MakeMyCV against claims arising from unlawful use or breach of these Terms."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "17. Data Protection & Privacy",
+            bullets: [
+                "17.1. Personal data is processed in accordance with UK GDPR and the Data Protection Act 2018.",
+                "17.2. Full details are available in our Privacy Policy."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "18. Suspension & Termination",
+            bullets: [
+                "18.1. We may suspend or terminate access for breach, fraud, legal or security reasons.",
+                "18.2. Account closure does not entitle you to a refund of unused Tokens."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "19. Governing Law & Jurisdiction",
+            bullets: [
+                "19.1. These Terms are governed by the laws of England and Wales.",
+                "19.2. Courts of England and Wales have exclusive jurisdiction, subject to consumer rights."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "20. Miscellaneous",
+            bullets: [
+                "20.1. If any provision is invalid, the remainder remains effective.",
+                "20.2. These Terms constitute the entire agreement between you and MakeMyCV."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "21. Contact Details",
+            bullets: [
+                "MakeMyCV",
+                "Operated by DOMESTIC DREAMS LIMITED",
+                "Registered office: 31 Auctioneers Way, Northampton, United Kingdom, NN1 1HF",
+                "Company number: 15925893",
+                "Email: info@makemy-cv.co.uk",
+                "Tel: +44 7418 638973"
             ],
         },
     ],
