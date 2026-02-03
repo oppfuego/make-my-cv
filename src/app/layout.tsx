@@ -9,6 +9,7 @@ import {currentFont} from "@/resources/styles-config";
 import {I18nProvider} from "@/context/i18nContext";
 import {AllOrdersProvider} from "@/context/AllOrdersContext";
 import {CurrencyProvider} from "@/context/CurrencyContext";
+import SandboxCheckoutInterceptor from "@/components/sandbox/SandboxCheckoutInterceptor";
 
 function Layout({children}: { children: React.ReactNode }) {
     return (
@@ -25,6 +26,7 @@ function Layout({children}: { children: React.ReactNode }) {
                 <AllOrdersProvider>
                     <ProtectedRoute>
                         <CurrencyProvider>
+                            <SandboxCheckoutInterceptor />
                             <Header/>
                             <PageWrapper>
                                 {children}

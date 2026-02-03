@@ -39,7 +39,6 @@ export async function POST(req: Request) {
             description: "Deposit via website",
             amount: amountEUR,
             currency: "EUR",
-            paymentMethod: "BASIC_CARD",
             customer: {
                 referenceId: email ?? referenceId,
                 email: email ?? undefined,
