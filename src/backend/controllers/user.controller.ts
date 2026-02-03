@@ -3,6 +3,7 @@ import { userService } from "../services/user.service";
 import { UserType } from "@/backend/types/user.types";
 import { sendEmail } from "@/backend/utils/sendEmail";
 import { transactionService } from "@/backend/services/transaction.service";
+import {User} from "@/backend/models/user.model";
 
 export const userController = {
     async buyTokens(userId: string, amount: number): Promise<UserType> {
@@ -23,14 +24,15 @@ export const userController = {
         return formatUser(user);
     },
 
+
+
+
     async buyTokensByEmail(email: string, tokens: number) {
         await connectDB();
 
-        const user = await userService.getUserByEmail(email);
-        if (!user) throw new Error("User not found");
+        const user = await userService.incrementTokensByEmail(email, tokens);
 
-        user.tokens += tokens;
-        await user.save();
+        if (!user) throw new Error("User not found");
 
         await transactionService.record(
             user._id,

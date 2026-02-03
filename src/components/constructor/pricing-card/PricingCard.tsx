@@ -60,6 +60,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
         return convertFromGBP(basePriceGBP);
     }, [basePriceGBP, convertFromGBP, isCustom]);
 
+    const CHECKOUT_KEY = "sandbox_checkout";
+
     const handleBuy = async () => {
         if (!user) {
             showAlert("Please sign up", "You need to be signed in", "info");
@@ -70,7 +72,7 @@ const PricingCard: React.FC<PricingCardProps> = ({
         let amountEUR: number;
 
         if (isCustom) {
-            amountEUR = customAmount; // customAmount уже в currency UI
+            amountEUR = Number(customAmount);
         } else {
             amountEUR = convertFromGBP(basePriceGBP);
         }
@@ -80,19 +82,40 @@ const PricingCard: React.FC<PricingCardProps> = ({
             return;
         }
 
+        // 🧪 SANDBOX — save intent
+        if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox") {
+            localStorage.setItem(
+                CHECKOUT_KEY,
+                JSON.stringify({
+                    email: user.email,
+                    amountEUR,
+                    createdAt: Date.now(),
+                    status: "pending",
+                })
+            );
+        }
+
         try {
             const res = await fetch("/api/myaccept/create-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    amountEUR,
-                    email: user.email,
-                }),
+                body: JSON.stringify({ amountEUR, email: user.email }),
             });
 
             const data = await res.json();
 
             if (!res.ok || !data.redirectUrl) {
+                if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox") {
+                    localStorage.setItem(
+                        "sandbox_checkout",
+                        JSON.stringify({
+                            email: user.email,
+                            amountEUR,
+                            status: "pending",
+                            createdAt: Date.now(),
+                        })
+                    );
+                }
                 throw new Error(data.error || "Payment init failed");
             }
 
