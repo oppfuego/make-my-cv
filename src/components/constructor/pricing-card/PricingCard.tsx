@@ -60,32 +60,46 @@ const PricingCard: React.FC<PricingCardProps> = ({
         return convertFromGBP(basePriceGBP);
     }, [basePriceGBP, convertFromGBP, isCustom]);
 
-    const handleBuy = () => {
+    const handleBuy = async () => {
         if (!user) {
-            showAlert("Please sign up", "You need to be signed in to purchase", "info");
+            showAlert("Please sign up", "You need to be signed in", "info");
             setTimeout(() => (window.location.href = "/sign-up"), 1200);
             return;
         }
 
-        let priceToSave = basePriceGBP;
-        let tokensToSave = tokens;
+        let amountEUR: number;
 
         if (isCustom) {
-            priceToSave = convertToGBP(customAmount);
-            tokensToSave = Math.floor(priceToSave * TOKENS_PER_GBP);
+            amountEUR = customAmount; // customAmount уже в currency UI
+        } else {
+            amountEUR = convertFromGBP(basePriceGBP);
         }
 
-        const plan = {
-            title,
-            price: priceToSave,
-            tokens: tokensToSave,
-            currency,
-            variant,
-        };
+        if (!amountEUR || amountEUR < 0.01) {
+            showAlert("Invalid amount", "Minimum is 0.01 EUR", "error");
+            return;
+        }
 
-        setPlan(plan);
-        localStorage.setItem("selectedPlan", JSON.stringify(plan));
-        router.push("/checkout");
+        try {
+            const res = await fetch("/api/myaccept/create-payment", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    amountEUR,
+                    email: user.email,
+                }),
+            });
+
+            const data = await res.json();
+
+            if (!res.ok || !data.redirectUrl) {
+                throw new Error(data.error || "Payment init failed");
+            }
+
+            window.location.href = data.redirectUrl;
+        } catch (err: any) {
+            showAlert("Payment error", err.message, "error");
+        }
     };
 
     const tokensCalculated = useMemo(() => {
@@ -99,11 +113,9 @@ const PricingCard: React.FC<PricingCardProps> = ({
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
-        >
+            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}>
             {badgeTop && <span className={styles.badgeTop}>{badgeTop}</span>}
             <h3 className={styles.title}>{title}</h3>
-
             {isCustom ? (
                 <>
                     <div className={styles.inputWrapper}>
