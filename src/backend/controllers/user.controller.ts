@@ -23,6 +23,30 @@ export const userController = {
         return formatUser(user);
     },
 
+    async buyTokensByEmail(email: string, tokens: number) {
+        await connectDB();
+
+        const user = await userService.getUserByEmail(email);
+        if (!user) throw new Error("User not found");
+
+        user.tokens += tokens;
+        await user.save();
+
+        await transactionService.record(
+            user._id,
+            user.email,
+            tokens,
+            "add",
+            user.tokens
+        );
+
+        sendEmail(
+            user.email,
+            "Tokens Purchased",
+            `You received ${tokens} tokens. Balance: ${user.tokens}`
+        );
+    },
+
     async spendTokens(userId: string, amount: number, reason?: string): Promise<UserType> {
         await connectDB();
 
