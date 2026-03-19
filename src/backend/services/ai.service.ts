@@ -2,6 +2,8 @@ import { AiOrder } from "../models/aiOrder.model";
 import { User } from "../models/user.model";
 import { ENV } from "../config/env";
 import OpenAI from "openai";
+import { transactionService } from "@/backend/services/transaction.service";
+import { mailService } from "@/backend/services/mail.service";
 
 const openai = new OpenAI({ apiKey: ENV.OPENAI_API_KEY });
 
@@ -22,6 +24,9 @@ export const aiService = {
 
         user.tokens -= finalCost;
         await user.save();
+        await transactionService.record(user._id, user.email, finalCost, "spend", user.tokens, {
+            description: "AI order completed",
+        });
 
         let chunksCount = 1;
         for (const key in LENGTH_MAP) {
@@ -56,6 +61,20 @@ export const aiService = {
             prompt,
             response: polishedText.trim(),
         });
+
+        mailService
+            .sendOrderConfirmation({
+                to: user.email,
+                firstName: user.firstName,
+                orderId: order._id.toString(),
+                service: "AI generation",
+                summary: "Your AI request was completed successfully.",
+                tokensUsed: finalCost,
+                items: [`Prompt summary: ${prompt.slice(0, 120)}`],
+            })
+            .catch((error) => {
+                console.error("Failed to send AI order confirmation email:", error);
+            });
 
         return order;
     },

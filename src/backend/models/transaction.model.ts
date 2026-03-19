@@ -6,6 +6,9 @@ export interface TransactionDocument extends Document {
     amount: number;
     type: "add" | "spend";
     balanceAfter: number;
+    description?: string;
+    referenceKey?: string;
+    metadata?: Record<string, unknown>;
     createdAt: Date;
 }
 
@@ -15,6 +18,9 @@ const transactionSchema = new Schema<TransactionDocument>({
     amount: { type: Number, required: true },
     type: { type: String, enum: ["add", "spend"], required: true },
     balanceAfter: { type: Number, required: true },
+    description: { type: String },
+    referenceKey: { type: String, unique: true, sparse: true },
+    metadata: { type: Schema.Types.Mixed },
     createdAt: { type: Date, default: Date.now },
 });
 

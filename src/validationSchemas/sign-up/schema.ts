@@ -1,42 +1,62 @@
 import { AlertColor } from "@mui/material/Alert";
+import {
+    registrationInitialValues,
+    validateRegistrationPayload,
+    type RegistrationFormValues,
+} from "@/resources/registration";
 
-export const signUpInitialValues = {
-    name: "",
-    email: "",
-    password: "",
-    terms: false,
-};
+export const signUpInitialValues = registrationInitialValues;
 
 type SignUpErrors = {
-    name?: string;
+    firstName?: string;
+    lastName?: string;
+    phoneNumber?: string;
+    dateOfBirth?: string;
     email?: string;
+    street?: string;
+    city?: string;
+    country?: string;
+    postCode?: string;
     password?: string;
+    confirmPassword?: string;
     terms?: string;
 };
 
-export const signUpValidation = (values: typeof signUpInitialValues) => {
-    const errors: SignUpErrors = {};
+export const signUpValidation = (values: RegistrationFormValues) => {
+    const { errors } = validateRegistrationPayload(values, {
+        confirmPassword: values.confirmPassword,
+    });
 
-    if (!values.name) errors.name = "Required";
-    if (!values.email) errors.email = "Required";
-    if (!values.password) errors.password = "Required";
     if (!values.terms)
         errors.terms = "You must agree to the Terms and Conditions";
 
-    return errors;
+    return errors as SignUpErrors;
 };
 
 export const signUpOnSubmit = async (
-    values: typeof signUpInitialValues,
+    values: RegistrationFormValues,
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void },
     showAlert: (msg: string, desc?: string, severity?: AlertColor) => void,
     router: { replace: (url: string) => void; refresh: () => void }
 ) => {
     try {
+        const payload = {
+            firstName: values.firstName.trim(),
+            lastName: values.lastName.trim(),
+            phoneNumber: values.phoneNumber.trim(),
+            dateOfBirth: values.dateOfBirth,
+            email: values.email.trim().toLowerCase(),
+            street: values.street.trim(),
+            city: values.city.trim(),
+            country: values.country.trim().toUpperCase(),
+            postCode: values.postCode.trim(),
+            password: values.password,
+        };
+
         const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(values),
+            body: JSON.stringify(payload),
         });
 
         const data = await res.json();

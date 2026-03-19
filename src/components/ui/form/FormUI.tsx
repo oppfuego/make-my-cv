@@ -8,7 +8,9 @@ import ButtonUI from "@/components/ui/button/ButtonUI";
 interface FieldConfig {
     name: string;
     type: string;
+    label?: string;
     placeholder?: string;
+    options?: Array<{ value: string; label: string }>;
 }
 
 interface FormUIProps {
@@ -18,6 +20,8 @@ interface FormUIProps {
     fields?: FieldConfig[];
     submitLabel?: string;
     showTerms?: boolean; // показувати чекбокс тільки при реєстрації
+    containerClassName?: string;
+    formClassName?: string;
 }
 
 const defaultFields: FieldConfig[] = [
@@ -32,6 +36,8 @@ const FormUI: React.FC<FormUIProps> = ({
                                            fields = defaultFields,
                                            submitLabel = "Sign In",
                                            showTerms = false,
+                                           containerClassName,
+                                           formClassName,
                                        }) => {
     const { values } = useFormikContext<any>(); // отримуємо поточні значення форми
 
@@ -41,13 +47,20 @@ const FormUI: React.FC<FormUIProps> = ({
 
     return (
         <div className={styles.wrapper}>
-            <div className={styles.formContainer}>
+            <div className={[styles.formContainer, containerClassName].filter(Boolean).join(" ")}>
                 <h2 className={styles.title}>{title}</h2>
                 {description && <p className={styles.description}>{description}</p>}
 
-                <Form className={styles.formContent}>
+                    <Form className={[styles.formContent, formClassName].filter(Boolean).join(" ")}>
                     {fields.map((field) => (
-                        <InputUI key={field.name} {...field} formik />
+                        <div key={field.name} className={styles.fieldBlock}>
+                            {field.label && (
+                                <label className={styles.fieldLabel} htmlFor={field.name}>
+                                    {field.label}
+                                </label>
+                            )}
+                            <InputUI {...field} id={field.name} formik />
+                        </div>
                     ))}
 
                     {/* ✅ чекбокс показуємо лише якщо showTerms === true */}

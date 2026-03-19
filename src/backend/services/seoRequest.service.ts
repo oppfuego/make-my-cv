@@ -4,6 +4,7 @@ import { User } from "../models/user.model";
 import { transactionService } from "../services/transaction.service";
 import { sendEmail } from "../utils/sendEmail";
 import { COMPANY_EMAIL } from "@/resources/constants";
+import { mailService } from "@/backend/services/mail.service";
 
 export const seoRequestService = {
     /** Create new SEO request */
@@ -45,11 +46,31 @@ Tokens Used: ${tokensUsed}
 Extras: ${extras?.length ? extras.join(", ") : "none"}
 Message: ${message || "(none)"}
         `;
-        await sendEmail(
+        sendEmail(
             COMPANY_EMAIL ?? "",
             `📈 New SEO Request — ${service}`,
             text
-        );
+        ).catch((error) => {
+            console.error("Failed to send internal SEO request email:", error);
+        });
+
+        mailService
+            .sendOrderConfirmation({
+                to: user.email,
+                firstName: user.firstName,
+                orderId: request._id.toString(),
+                service,
+                summary: `Your ${service} request has been submitted successfully.`,
+                tokensUsed,
+                items: [
+                    `Service: ${service}`,
+                    `Message: ${message || "No additional message provided"}`,
+                    ...(extras || []).map((extra: string) => `Extra: ${extra}`),
+                ],
+            })
+            .catch((error) => {
+                console.error("Failed to send SEO request confirmation email:", error);
+            });
 
         return request.toObject({ flattenMaps: true });
     },

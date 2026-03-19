@@ -9,7 +9,7 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const { email, amountEUR } = await req.json();
+    const { email, amountEUR, referenceKey } = await req.json();
 
     if (!email || !amountEUR) {
         return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
@@ -17,7 +17,11 @@ export async function POST(req: Request) {
 
     const tokens = Math.floor(amountEUR * TOKENS_PER_EUR);
 
-    await userController.buyTokensByEmail(email, tokens);
+    await userController.buyTokensByEmail(email, tokens, {
+        currency: "EUR",
+        amountValue: amountEUR,
+        referenceKey: referenceKey || `sandbox:${email}:${amountEUR}`,
+    });
 
     console.log("🧪 SANDBOX TOKENS ADDED", { email, amountEUR, tokens });
 

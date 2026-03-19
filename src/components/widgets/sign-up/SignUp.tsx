@@ -12,13 +12,27 @@ import {
 import FormUI from "@/components/ui/form/FormUI";
 import Avatar from "@mui/material/Avatar";
 import styles from "./SignUp.module.scss";
+import { getRegistrationCountryOptions } from "@/resources/registration";
 
 export type SignUpValues = {
-    name: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    dateOfBirth: string;
     email: string;
+    street: string;
+    city: string;
+    country: string;
+    postCode: string;
     password: string;
+    confirmPassword: string;
     terms: boolean;
 };
+
+const countryOptions = getRegistrationCountryOptions().map((country) => ({
+    value: country.code,
+    label: country.name,
+}));
 
 export default function SignUpPage() {
     const { showAlert } = useAlert();
@@ -70,10 +84,26 @@ export default function SignUpPage() {
                                 title="Sign Up"
                                 description="Create your account and start generating your perfect CV."
                                 isSubmitting={isSubmitting}
+                                containerClassName={styles.signUpFormContainer}
+                                formClassName={styles.signUpFormGrid}
                                 fields={[
-                                    { name: "name", type: "text", placeholder: "Full Name" },
-                                    { name: "email", type: "email", placeholder: "Email" },
-                                    { name: "password", type: "password", placeholder: "Password" },
+                                    { name: "firstName", label: "First name", type: "text", placeholder: "Enter your first name" },
+                                    { name: "lastName", label: "Last name", type: "text", placeholder: "Enter your last name" },
+                                    { name: "dateOfBirth", label: "Date of birth", type: "date", placeholder: "YYYY-MM-DD" },
+                                    { name: "email", label: "Email", type: "email", placeholder: "Enter your email address" },
+                                    { name: "phoneNumber", label: "Phone number", type: "text", placeholder: "Enter your phone number" },
+                                    { name: "street", label: "Street", type: "text", placeholder: "Enter your street address" },
+                                    { name: "city", label: "City", type: "text", placeholder: "Enter your city" },
+                                    {
+                                        name: "country",
+                                        label: "Country",
+                                        type: "select",
+                                        placeholder: "Select your country",
+                                        options: countryOptions,
+                                    },
+                                    { name: "postCode", label: "Post code", type: "text", placeholder: "Enter your post code" },
+                                    { name: "password", label: "Password", type: "password", placeholder: "Create a password" },
+                                    { name: "confirmPassword", label: "Confirm password", type: "password", placeholder: "Confirm your password" },
                                 ]}
                                 submitLabel="Create Account"
                                 showTerms

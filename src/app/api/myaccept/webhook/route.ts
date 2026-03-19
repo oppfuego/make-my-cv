@@ -34,6 +34,11 @@ export async function POST(req: Request) {
 
     const email = payment.customer?.email;
     const amountEUR = payment.amount;
+    const referenceKey = payment.id
+        ? `myaccept:${payment.id}`
+        : payment.referenceId
+            ? `myaccept:${payment.referenceId}`
+            : undefined;
 
     if (!email || !amountEUR) {
         console.error("❌ Missing email or amount");
@@ -47,7 +52,11 @@ export async function POST(req: Request) {
 
 
 
-    await userController.buyTokensByEmail(email, tokens);
+    await userController.buyTokensByEmail(email, tokens, {
+        currency: "EUR",
+        amountValue: amountEUR,
+        referenceKey,
+    });
 
     return NextResponse.json({ ok: true });
 }

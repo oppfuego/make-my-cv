@@ -39,6 +39,9 @@ export default function SuccessPage() {
             body: JSON.stringify({
                 email: checkout.email,
                 amountEUR: checkout.amountEUR,
+                referenceKey: checkout.createdAt
+                    ? `sandbox:${checkout.email}:${checkout.amountEUR}:${checkout.createdAt}`
+                    : undefined,
             }),
         })
             .then((r) => r.json())

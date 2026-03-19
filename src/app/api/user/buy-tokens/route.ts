@@ -27,7 +27,10 @@ export async function POST(req: NextRequest) {
 
             const tokens = Math.floor(amountEUR * TOKENS_PER_EUR);
 
-            await userController.buyTokensByEmail(email, tokens);
+            await userController.buyTokensByEmail(email, tokens, {
+                currency: "EUR",
+                amountValue: amountEUR,
+            });
 
             return NextResponse.json({
                 ok: true,
@@ -64,7 +67,10 @@ export async function POST(req: NextRequest) {
             }
 
             const tokens = Math.floor(gbpEquivalent * TOKENS_PER_GBP);
-            const user = await userController.buyTokens(payload.sub, tokens);
+            const user = await userController.buyTokens(payload.sub, tokens, {
+                currency,
+                amountValue: amount,
+            });
 
             return NextResponse.json({
                 user,

@@ -1,10 +1,6 @@
 .wrapper {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 40vh;
   width: 100%;
-  padding: 20px;
 }
 
 .formContainer {
@@ -63,9 +59,21 @@
   }
 }
 
+.fieldBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldLabel {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
 @media (max-width: 480px) {
   .formContainer {
-    padding: 24px;
+    padding: 20px;
     border-radius: 16px;
   }
 
