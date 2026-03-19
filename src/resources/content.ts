@@ -1,6 +1,19 @@
 import {media} from "@/resources/media";
-import {FaTwitter, FaFacebook, FaLinkedin} from "react-icons/fa";
 import {COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_LEGAL_NAME, COMPANY_NUMBER, COMPANY_PHONE} from "@/resources/constants";
+
+/** Footer “Follow Us” — only platforms we actively use */
+export const footerSocialLinks = [
+    {
+        id: "instagram" as const,
+        href: "https://www.instagram.com/makemy_cv.uk?igsh=bmhyOXo3bWF1NXc=",
+        ariaLabel: "Instagram — Make My CV UK",
+    },
+    {
+        id: "x" as const,
+        href: "https://x.com/Makemycvonline",
+        ariaLabel: "X — Makemycvonline",
+    },
+];
 
 export const baseURL =
     typeof window !== "undefined"
@@ -62,6 +75,6 @@ export const footerContent = {
         email: COMPANY_EMAIL,
         phone: COMPANY_PHONE,
     },
-    socials: [],
+    socialLinks: footerSocialLinks,
 };
 

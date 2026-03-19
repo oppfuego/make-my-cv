@@ -11,12 +11,15 @@ import {SmartLinkProps} from "@/types/smart-link";
 import visaLogo from "@/assets/cards/visa.png";
 import mastercardLogo from "@/assets/cards/mastercard.png";
 import pciDssLogo from "@/assets/cards/pci-dss-compliant-logo-vector.svg";
-import {
-    FaFacebookF,
-    FaInstagram,
-    FaLinkedinIn,
-    FaTwitter
-} from "react-icons/fa";
+import {FaInstagram} from "react-icons/fa";
+import {FaXTwitter} from "react-icons/fa6";
+
+type FooterSocialId = (typeof footerContent)["socialLinks"][number]["id"];
+
+function FooterSocialIcon({id}: {id: FooterSocialId}) {
+    if (id === "instagram") return <FaInstagram/>;
+    return <FaXTwitter/>;
+}
 
 const SmartLink: React.FC<SmartLinkProps> = ({
                                                  href,
@@ -50,7 +53,7 @@ const SmartLink: React.FC<SmartLinkProps> = ({
 };
 
 const Footer: React.FC = () => {
-    const {logo, columns, contact, legal} = footerContent;
+    const {logo, columns, contact, legal, socialLinks} = footerContent;
 
     const LegalAddress = () =>
         Array.isArray(legal?.addressLines) && legal.addressLines.length ? (
@@ -200,22 +203,18 @@ const Footer: React.FC = () => {
                         <div className={styles["footer__column"]}>
                             <div className={styles["footer__column-title"]}>Follow Us</div>
                             <div className={styles["footer__socials"]}>
-                                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
-                                   aria-label="Facebook" className={styles["footer__social-link"]}>
-                                    <FaFacebookF/>
-                                </a>
-                                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-                                   aria-label="Instagram" className={styles["footer__social-link"]}>
-                                    <FaInstagram/>
-                                </a>
-                                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
-                                   aria-label="LinkedIn" className={styles["footer__social-link"]}>
-                                    <FaLinkedinIn/>
-                                </a>
-                                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
-                                   aria-label="Twitter" className={styles["footer__social-link"]}>
-                                    <FaTwitter/>
-                                </a>
+                                {socialLinks.map(({id, href, ariaLabel}) => (
+                                    <a
+                                        key={id}
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={ariaLabel}
+                                        className={styles["footer__social-link"]}
+                                    >
+                                        <FooterSocialIcon id={id}/>
+                                    </a>
+                                ))}
                             </div>
                         </div>
                     </div>
