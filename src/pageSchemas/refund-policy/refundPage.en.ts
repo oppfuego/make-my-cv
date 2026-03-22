@@ -1,145 +1,210 @@
 import { PageSchema } from "@/components/constructor/page-render/types";
+import {COMPANY_ADDRESS, COMPANY_PHONE} from "@/resources/constants";
 
 const refundPolicySchema: PageSchema = {
     meta: {
-        title: "Refund / Return Policy – Averis",
+        title: "Refund / Return Policy – MakeMyCV",
         description:
-            "Official Refund / Return Policy for Averis: refunds for tokens, workout plans, digital services, and consumer rights.",
+            "Official Refund / Return Policy for MakeMyCV: refunds for tokens, CV services, digital content, and consumer rights.",
         keywords: [
             "refund policy",
             "return policy",
-            "averis",
+            "makemycv",
             "tokens",
-            "AI fitness",
+            "CV builder",
             "digital content",
             "consumer rights",
         ],
         canonical: "/refund-policy",
         ogImage: {
-            title: "Jetreex – Refund / Return Policy",
+            title: "MakeMyCV – Refund / Return Policy",
             description:
-                "Transparent refund and return policy for MakeMyCV AI workout plans and token system.",
+                "Transparent refund and return policy for MakeMyCV token purchases and digital document services.",
             bg: "#ffffff",
             color: "#000000",
         },
     },
+
     blocks: [
         {
             type: "text",
-            title: "Refund / Return Policy",
-            description: "Effective date: 18 October 2025",
-        },
-        {
-            type: "text",
-            title: "1. Summary (customer-facing)",
+            title: "Refund & Return Policy",
             bullets: [
-                "Refunds are assessed under this Policy and applicable consumer law.",
-                "Typical processing time: 5–10 business days after approval (payment-provider timelines may vary).",
-                "A refund will not exceed the amount originally paid for the relevant Token top-up or transaction.",
-                "Spent Tokens (i.e., redeemed for Workout Plans/Services) are non-refundable, except as set out in §4.2.",
-                "Tokens are account-bound, non-transferable, and cannot be exchanged for real currency.",
-                "Promotional/bonus Tokens are non-refundable in all circumstances.",
-                "Submit requests to info@averis.co.uk with your order reference and details.",
-                "This Policy may be updated; material changes will be notified as described in §8.",
-                "If you consented to immediate supply and opened/downloaded the digital content, your statutory right to cancel may be lost (see §4.7).",
-                "Accepted currencies: GBP (£), EUR (€). Payment methods: Visa, Mastercard.",
+                "Effective date: 1 September 2025"
             ],
         },
+
         {
             type: "text",
-            title: "2. Scope and Legal Note",
-            description:
-                "This Policy governs refunds for Tokens (internal credits) and digital Workout Plans/Services supplied by SHIREDON LIMITED via averis.co.uk. Nothing in this Policy overrides statutory consumer rights under UK law, including the Consumer Contracts Regulations 2013 and the Consumer Rights Act 2015.",
-        },
-        {
-            type: "text",
-            title: "3. Definitions",
+            title: "1. Summary",
             bullets: [
-                "Tokens / Credits — internal prepaid credits used on the Service. The current purchase rate (e.g., £1.00 ≈ 100 Tokens or €1.17 ≈ 100 Tokens) is displayed at the time of purchase and may change from time to time.",
-                "Unused Tokens — Tokens credited to your Account but not yet redeemed.",
-                "Redeemed / Spent Tokens — Tokens already used to access or generate a Workout Plan/Service.",
-                "Promotional / Bonus Tokens — Tokens issued as part of a promotion, bonus, or incentive and marked as such.",
+                "Refund requests are handled under this Policy and applicable UK consumer law.",
+                "Typical processing time is 5–10 business days after approval.",
+                "Any refund will not exceed the amount originally paid for the relevant Token top-up or paid feature.",
+                "Tokens already used for CVs, cover letters or other digital services are non-refundable.",
+                "Wallet Credit is linked to your Account only and cannot be transferred or exchanged for cash.",
+                "Promotional, bonus or goodwill credits are non-refundable.",
+                "The Service provides digital tools and digital career documents only; there are no physical items to return.",
+                "To submit a request, email info@makemy-cv.co.uk with your account email, order reference and a description of the issue.",
+                "Accepted currencies: GBP (£), EUR (€), USD ($). Payment methods: Visa, Mastercard.",
+                "Reference exchange rate for Tokens: 100 Tokens = £1.00 / €1.17 / $1.29."
             ],
         },
+
         {
             type: "text",
-            title: "4. Refund Principles (binding rules)",
-            description:
-                "4.1. Refund amount cap. Any refund will not exceed the original amount paid for the relevant Token top-up or transaction, net of any non-refundable processor fees (where permitted by law and the provider’s rules).\n\n" +
-                "4.2. No refund for spent Tokens (exceptions). Redeemed Tokens are non-refundable, except where:\n(a) the Workout Plan or Service is defective or not as described; or\n(b) Averis fails to supply the Service as contracted; or\n(c) a refund is otherwise required by law.\n\n" +
-                "4.3. Unused Tokens. Unused Tokens are generally refundable at the original purchase price if requested before any redemption from that top-up. Non-recoverable payment-processing fees may be deducted.\n\n" +
-                "4.4. Account-bound. Tokens are tied to your Account and cannot be transferred between accounts.\n\n" +
-                "4.5. No cash-out. Tokens cannot be exchanged for cash or other currencies, unless required by law.\n\n" +
-                "4.6. Promotional Tokens. Bonus/promotional Tokens are non-refundable under all circumstances.\n\n" +
-                "4.7. Immediate supply of digital content. If you consent to immediate delivery and open/download the content (e.g., generated PDF), you acknowledge your statutory right to cancel may not apply. Refunds are only available under §4.2 or where required by law.\n\n" +
-                "4.8. Bespoke/custom work. Custom Workout Plans are non-refundable once preparation has substantially begun, unless otherwise agreed in writing.\n\n" +
-                "4.9. Standard plan & add-ons (pricing clarity). Standard generation and add-ons have clear token prices shown before confirmation; once redeemed, non-refundable except under §4.2.",
-        },
-        {
-            type: "text",
-            title: "5. How to Request a Refund (Procedure)",
+            title: "2. Scope and legal notice",
             bullets: [
-                "Order reference number.",
-                "Account email used for purchase.",
-                "Whether the request concerns Unused Tokens or a Redeemed item.",
-                "For redeemed items: a description of the issue and supporting evidence (screenshots, file details).",
-                "Preferred refund method (original payment method is standard).",
-                "Upon receipt we will: acknowledge within 5 business days, investigate and, if needed, request more details, provide a decision, and if approved, process the refund within 5–10 business days (subject to provider timelines).",
+                "This Policy explains how cancellations and refunds are handled for purchases made via makemy-cv.co.uk, including Wallet top-ups and paid features.",
+                "The Service supplies digital-only tools and outputs such as CVs, resumes, cover letters, LinkedIn text and related documents.",
+                "There are no physical goods supplied or accepted under this Policy.",
+                "Nothing in this Policy limits your statutory rights under UK law, including the Consumer Contracts Regulations 2013 and the Consumer Rights Act 2015."
             ],
         },
+
         {
             type: "text",
-            title: "6. Investigation, Evidence and Decisions",
-            description:
-                "6.1. For claims involving redeemed content, we may review token transaction logs, checkout confirmations, delivery/access logs, and customer evidence.\n\n" +
-                "6.2. Refunds are normally processed to the original payment method; if not possible, an alternative (e.g., bank transfer) may be offered after verification.\n\n" +
-                "6.3. If a claim is rejected, we will provide reasons and inform you of options to escalate or pursue legal remedies.",
-        },
-        {
-            type: "text",
-            title: "7. Chargebacks, Fraud and Abuse",
-            description:
-                "If a chargeback is initiated while a refund request is pending, we treat it as a dispute and submit full transaction evidence to the payment provider. We may refuse refunds and suspend Accounts in cases of suspected fraud, abuse, or repeated chargebacks. Where funds are reversed, equivalent Tokens and access to related content may be removed.",
-        },
-        {
-            type: "text",
-            title: "8. Changes to this Policy",
-            description:
-                "We may update this Policy at any time. Material changes will be notified by email or in-product notice. Changes apply prospectively and do not affect previously completed transactions unless required by law.",
-        },
-        {
-            type: "text",
-            title: "9. Record Keeping and Retention",
-            description:
-                "We retain records relevant to refund requests and disputes — including order IDs, token purchase/redemption history, checkout acceptance, timestamps, IP, and device information — for at least 24 months, and up to 6 years for enterprise or disputed transactions, in line with our Privacy Policy and applicable data-protection law.",
-        },
-        {
-            type: "text",
-            title: "10. Escalation and Disputes",
-            description:
-                "If you disagree with a decision, you may escalate by emailing info@averis.co.uk with full reasons and your order reference. We will review within 10 business days. This Policy does not affect your statutory rights; you may pursue ADR or court proceedings as applicable.",
-        },
-        {
-            type: "text",
-            title: "11. Examples (Practical, Illustrative)",
+            title: "3. Key definitions",
             bullets: [
-                "Unused Tokens (GBP): Purchase 2,000 Tokens; spend 300; unused 1,700 → refund equals the pro-rata amount based on the original GBP purchase price (minus fees).",
-                "Unused Tokens (EUR): Same as above, but refund is in EUR at the original amount paid.",
-                "Opened Workout Plan: If you consented to immediate supply and downloaded the PDF, refunds apply only if defective or not as described (§4.2).",
-                "Promotional Tokens: 100 bonus Tokens awarded in a promotion → non-refundable.",
-                "Add-ons: Base 60 Tokens + add-on Token prices displayed before confirmation; once redeemed, non-refundable except under §4.2.",
+                "Wallet / Wallet Credit – prepaid Token balance in your Account used for paid features.",
+                "Tokens – units deducted from your Wallet when you use paid features.",
+                "Documents / Outputs – digital documents and related files generated or prepared using your information.",
+                "Order / Transaction – a confirmed Wallet top-up or purchase of a paid feature.",
+                "Abuse / Fraud – activity that breaches the Terms, such as unauthorised payments or attempts to bypass limits."
             ],
         },
+
         {
             type: "text",
-            title: "12. Contact Details",
+            title: "4. General refund principles",
             bullets: [
-                "SHIREDON LIMITED",
-                "Registered office: Academy House, 11 Dunraven Place, Bridgend, Mid Glamorgan, United Kingdom, CF31 1JF",
-                "Email: info@averis.co.uk",
-                "Tel: +44 7441 393249",
-                "Accepted currencies: GBP (£), EUR (€)",
-                "Payment methods: Visa, Mastercard",
+                "Any refund will not exceed the original amount paid for the relevant Order, minus non-recoverable processor fees where legally permitted.",
+                "By purchasing Tokens and using them to start a service, you agree that performance may begin immediately and statutory cooling-off rights may no longer apply where allowed by law.",
+                "Consumed Tokens are non-returnable and non-refundable.",
+                "If your inputs are incorrect, incomplete, outdated or misleading, additional revisions or regenerated versions will consume new Tokens and are not refundable.",
+                "Refunds are normally made in the original payment currency and to the original payment method.",
+                "We do not control or reimburse FX differences or card-provider fees.",
+                "Promotional, bonus or trial credits are non-refundable and may expire under separate promotion terms.",
+                "We may refuse refunds and suspend or terminate Accounts where we reasonably suspect fraud, abuse or chargeback abuse."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "5. Wallet top-ups (Tokens)",
+            bullets: [
+                "Wallet top-ups are prepayments for access to digital features of the Service.",
+                "Your Wallet is not a bank account, payment account or e-money account.",
+                "Unused Token balances are generally not withdrawable and not redeemable for cash.",
+                "In exceptional cases such as technical errors or duplicate payments, unused Tokens may be refunded at our reasonable discretion.",
+                "If a top-up has been partly used, only the unused portion may be considered for refund, up to the original amount paid for that top-up.",
+                "Wallet Credit is personal to your Account and cannot be sold, gifted, exchanged or transferred."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "6. Cancellations of paid features",
+            bullets: [
+                "If no Tokens have been consumed and no work or generation has begun, you may request cancellation and a refund.",
+                "Once performance begins, such as AI generation, specialist drafting or Token deduction, cancellation and refunds are generally not available.",
+                "Any non-excludable statutory consumer rights still apply."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "7. Quality issues and re-runs",
+            bullets: [
+                "If you believe a Document or Output is materially defective due to a technical issue, contact us within 7 days of generation or delivery.",
+                "Please include screenshots, timestamps, file names and error messages where relevant.",
+                "If we confirm a technical fault on our side, our primary remedy is to re-run or re-deliver the affected service at no extra Token cost.",
+                "If a re-run is not reasonably possible, we may credit your Wallet with an equivalent number of Tokens.",
+                "Lack of interviews, offers or third-party acceptance is not by itself a defect in the Service and does not entitle you to a refund."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "8. How to request a refund",
+            bullets: [
+                "Send your request to info@makemy-cv.co.uk.",
+                "Include your Account email address and Order / Transaction reference.",
+                "Specify whether the request relates to a Wallet top-up or a specific paid feature.",
+                "Provide a clear description of the issue and any supporting evidence such as screenshots, timestamps, error messages or bank confirmations.",
+                "We will acknowledge receipt within 5 business days.",
+                "We may request additional information if needed.",
+                "If approved, we will initiate the refund within 5–10 business days, although your bank or provider may take longer."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "9. Chargebacks, disputes and investigations",
+            bullets: [
+                "If you initiate a chargeback or payment dispute, we may treat it as a formal dispute and provide supporting evidence to the payment provider.",
+                "We may temporarily suspend or limit your Account while the dispute is being investigated.",
+                "If a chargeback results in reversed funds, we may remove equivalent Wallet Credit or Tokens from your Account.",
+                "We may also seek recovery of any outstanding amounts lawfully due, including reasonable investigation and administrative costs.",
+                "In many cases, contacting support first leads to a faster resolution."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "10. Taxes and invoicing",
+            bullets: [
+                "We issue electronic receipts and/or invoices for Token purchases and paid features.",
+                "Applicable VAT or other indirect taxes are displayed where required based on your billing details and our tax obligations.",
+                "Where a refund is processed, the refunded amount may be net of taxes we are legally unable to reclaim, unless law requires those taxes to be refunded as well."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "11. Record-keeping and data protection",
+            bullets: [
+                "We keep records relevant to refunds, chargebacks and disputes, including order identifiers, payment data, Token usage, timestamps, device or IP information and error traces.",
+                "These records are retained for at least 24 months, and up to 6 years for enterprise clients or disputed transactions.",
+                "Personal data is processed under the UK GDPR and the Data Protection Act 2018.",
+                "Further details are set out in our Privacy Policy."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "12. Illustrative examples",
+            bullets: [
+                "Immediate performance: if you purchase Tokens and immediately generate CVs or cover letters, used Tokens are not refundable.",
+                "Not yet performed: if you purchase a Cover Letter package and cancel before any work starts and before any Tokens are deducted, we may refund the relevant amount.",
+                "Technical fault: if a generated file is empty or corrupted due to a system issue, we may re-run the generation or credit equivalent Tokens.",
+                "Unused top-up: if you top up your Wallet and never use the Tokens, we may at our discretion refund the unused amount minus non-recoverable processing fees.",
+                "No job offer: if you use the Service but do not receive interviews or offers, this alone does not entitle you to a refund."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "13. Changes to this Policy",
+            bullets: [
+                "We may update this Policy from time to time.",
+                "Material changes will be communicated by email and/or a prominent notice within the Service.",
+                "Changes apply on a forward-looking basis and do not affect refunds already processed or completed Orders unless required by law."
+            ],
+        },
+
+        {
+            type: "text",
+            title: "14. Contact details",
+            bullets: [
+                "MakeMyCV",
+                "Operated by DOMESTIC DREAMS LIMITED",
+                `${COMPANY_ADDRESS}`,
+                "Company number: 15925893",
+                "Email (support): info@makemy-cv.co.uk",
+                `Tel: ${COMPANY_PHONE}`,
+                "Accepted currencies: GBP (£), EUR (€), USD ($)",
+                "Payment methods: Visa, Mastercard"
             ],
         },
     ],
