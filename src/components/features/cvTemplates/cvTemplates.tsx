@@ -699,20 +699,12 @@ export const CreativeCV = (o: CVOrderType) => {
             marginBottom: 16,
             border: `1pt solid ${line}`,
         },
-        cardTitleRow: {
-            flexDirection: "row",
-            alignItems: "center",
-            marginBottom: 8,
-        },
         cardTitle: {
             fontSize: 12,
             fontWeight: "bold",
             textTransform: "uppercase",
             color: baseTheme.primary,
-        },
-        cardIcon: {
-            fontSize: 12,
-            marginRight: 6,
+            marginBottom: 8,
         },
         contactLine: {
             fontSize: 10.5,
@@ -796,17 +788,13 @@ export const CreativeCV = (o: CVOrderType) => {
                     <View style={s.leftCol}>
                         {/* PROFILE */}
                         <View style={s.card}>
-                            <View style={s.cardTitleRow}>
-                                <Text style={s.cardTitle}>My Profile</Text>
-                            </View>
+                            <Text style={s.cardTitle}>My Profile</Text>
                             {renderParagraphs(sections.summary, s.text)}
                         </View>
 
                         {/* SKILLS */}
                         <View style={s.card}>
-                            <View style={s.cardTitleRow}>
-                                <Text style={s.cardTitle}>Skills</Text>
-                            </View>
+                            <Text style={s.cardTitle}>Skills</Text>
                             <View>
                                 {skillItems.map((sk, i) => (
                                     <View key={i} style={s.skillBarRow}>
@@ -821,10 +809,7 @@ export const CreativeCV = (o: CVOrderType) => {
 
                         {/* CONTACT */}
                         <View style={s.card}>
-                            <View style={s.cardTitleRow}>
-                                <Text style={s.cardIcon}>☎️</Text>
-                                <Text style={s.cardTitle}>Contact</Text>
-                            </View>
+                            <Text style={s.cardTitle}>Contact</Text>
                             <Text style={s.contactLine}>{o.phone}</Text>
                             <Text style={s.contactLine}>{o.email}</Text>
                         </View>
