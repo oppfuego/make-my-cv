@@ -777,7 +777,7 @@ export const CreativeCV = (o: CVOrderType) => {
                     <View style={s.nameBlock}>
                         <Text style={s.name}>{o.fullName}</Text>
                         <Text style={s.subtitle}>
-                            {o.industry || "Professional"} • {o.experienceLevel || "Level"}
+                            {o.industry || "Professional"} - {o.experienceLevel || "Level"}
                         </Text>
                         {renderParagraphs(sections.summary, s.introText)}
                     </View>
