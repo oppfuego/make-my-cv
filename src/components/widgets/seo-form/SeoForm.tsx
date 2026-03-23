@@ -6,6 +6,7 @@ import {useAlert} from "@/context/AlertContext";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import styles from "./SeoForm.module.scss";
 import {useCurrency} from "@/context/CurrencyContext";
+import { convertGBPToCurrency } from "@/resources/pricing";
 
 interface SeoRequestFormProps {
     service: string;
@@ -64,7 +65,7 @@ export default function SeoRequestForm({
                                        }: SeoRequestFormProps) {
     const user = useUser();
     const {showAlert} = useAlert();
-    const {currency, sign, convertFromGBP} = useCurrency();
+    const {currency, sign} = useCurrency();
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -100,9 +101,8 @@ export default function SeoRequestForm({
     const totalGBP = totalTokens * 0.01;
 
     // 💱 Перерахунок у поточну валюту
-    const convertedPrice = useMemo(() => convertFromGBP(totalGBP), [
+    const convertedPrice = useMemo(() => convertGBPToCurrency(totalGBP, currency), [
         totalGBP,
-        convertFromGBP,
         currency,
     ]);
 
@@ -192,7 +192,7 @@ export default function SeoRequestForm({
                                             </div>
                                             <span className={styles.extraPrice}>
                         +{extra.price} tokens ({sign}
-                                                {convertFromGBP(extra.price * 0.01).toFixed(2)} {currency})
+                                                {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)} {currency})
                       </span>
                                         </>
                                     )}
@@ -204,7 +204,7 @@ export default function SeoRequestForm({
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
                           +{extra.price} tokens ({sign}
-                                                    {convertFromGBP(extra.price * 0.01).toFixed(2)}{" "}
+                                                    {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
                                             </label>
@@ -226,7 +226,7 @@ export default function SeoRequestForm({
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
                           +{extra.price} tokens ({sign}
-                                                    {convertFromGBP(extra.price * 0.01).toFixed(2)}{" "}
+                                                    {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
                                             </label>
@@ -249,7 +249,7 @@ export default function SeoRequestForm({
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
                           +{extra.price} tokens ({sign}
-                                                    {convertFromGBP(extra.price * 0.01).toFixed(2)}{" "}
+                                                    {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
                                             </label>
@@ -269,7 +269,7 @@ export default function SeoRequestForm({
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
                           +{extra.price} tokens ({sign}
-                                                    {convertFromGBP(extra.price * 0.01).toFixed(2)}{" "}
+                                                    {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
                                             </label>

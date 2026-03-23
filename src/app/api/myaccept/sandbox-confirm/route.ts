@@ -1,29 +1,28 @@
-
 import { NextResponse } from "next/server";
-import { userController } from "@/backend/controllers/user.controller";
-
-const TOKENS_PER_EUR = 85;
+import { topUpQuoteService } from "@/backend/services/topUpQuote.service";
 
 export async function POST(req: Request) {
     if (process.env.MYACCEPT_ENV === "prod") {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
-    const { email, amountEUR, referenceKey } = await req.json();
+    const { referenceId } = await req.json();
 
-    if (!email || !amountEUR) {
-        return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
+    if (!referenceId || typeof referenceId !== "string") {
+        return NextResponse.json({ error: "referenceId is required" }, { status: 400 });
     }
 
-    const tokens = Math.floor(amountEUR * TOKENS_PER_EUR);
+    try {
+        const result = await topUpQuoteService.fulfillQuote(referenceId, {
+            providerState: "COMPLETED",
+        });
 
-    await userController.buyTokensByEmail(email, tokens, {
-        currency: "EUR",
-        amountValue: amountEUR,
-        referenceKey: referenceKey || `sandbox:${email}:${amountEUR}`,
-    });
-
-    console.log("🧪 SANDBOX TOKENS ADDED", { email, amountEUR, tokens });
-
-    return NextResponse.json({ ok: true, tokens });
+        return NextResponse.json({
+            ok: true,
+            fulfilled: result.fulfilled,
+            tokens: result.quote.tokens,
+        });
+    } catch (error: any) {
+        return NextResponse.json({ error: error.message }, { status: 400 });
+    }
 }

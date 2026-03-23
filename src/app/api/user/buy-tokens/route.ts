@@ -1,35 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/backend/middlewares/auth.middleware";
 import { userController } from "@/backend/controllers/user.controller";
+import { convertCurrencyToGBP, SupportedCurrency, tokensFromGBP } from "@/resources/pricing";
 
-const TOKENS_PER_EUR = 85;
-const TOKENS_PER_GBP = 100;
-const RATES_TO_GBP = { GBP: 1, EUR: 1.17 };
+function isSupportedCurrency(value: unknown): value is SupportedCurrency {
+    return value === "GBP" || value === "EUR" || value === "USD";
+}
 
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
 
-        /**
-         * ===============================
-         * 🧪 SANDBOX MODE (NO AUTH)
-         * ===============================
-         */
         if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox") {
-            const { email, amountEUR } = body;
+            const sandboxCurrency = isSupportedCurrency(body.currency) ? body.currency : "EUR";
+            const sandboxAmount =
+                typeof body.amount === "number"
+                    ? body.amount
+                    : typeof body.amountEUR === "number"
+                        ? body.amountEUR
+                        : 0;
 
-            if (!email || !amountEUR || amountEUR <= 0) {
-                return NextResponse.json(
-                    { error: "Invalid sandbox payload" },
-                    { status: 400 }
-                );
+            if (!body.email || sandboxAmount <= 0) {
+                return NextResponse.json({ error: "Invalid sandbox payload" }, { status: 400 });
             }
 
-            const tokens = Math.floor(amountEUR * TOKENS_PER_EUR);
+            const tokens = tokensFromGBP(convertCurrencyToGBP(sandboxAmount, sandboxCurrency));
 
-            await userController.buyTokensByEmail(email, tokens, {
-                currency: "EUR",
-                amountValue: amountEUR,
+            await userController.buyTokensByEmail(body.email, tokens, {
+                currency: sandboxCurrency,
+                amountValue: sandboxAmount,
             });
 
             return NextResponse.json({
@@ -39,51 +38,29 @@ export async function POST(req: NextRequest) {
             });
         }
 
-        /**
-         * ===============================
-         * 🚀 PRODUCTION MODE (AUTH)
-         * ===============================
-         */
         const payload = await requireAuth(req);
+        const { currency, amount } = body as { currency?: SupportedCurrency; amount?: number };
 
-        if (body.currency && body.amount) {
-            const { currency, amount } = body;
-
-            if (!["GBP", "EUR"].includes(currency)) {
-                return NextResponse.json(
-                    { message: "Unsupported currency" },
-                    { status: 400 }
-                );
-            }
-
-            const gbpEquivalent =
-                amount / RATES_TO_GBP[currency as "GBP" | "EUR"];
-
-            if (gbpEquivalent < 0.01) {
-                return NextResponse.json(
-                    { message: "Minimum is 0.01" },
-                    { status: 400 }
-                );
-            }
-
-            const tokens = Math.floor(gbpEquivalent * TOKENS_PER_GBP);
-            const user = await userController.buyTokens(payload.sub, tokens, {
-                currency,
-                amountValue: amount,
-            });
-
-            return NextResponse.json({
-                user,
-                info: `Converted ${amount} ${currency} → ${tokens} tokens`,
-            });
+        if (!isSupportedCurrency(currency) || typeof amount !== "number") {
+            return NextResponse.json({ message: "Invalid request" }, { status: 400 });
         }
 
-        return NextResponse.json(
-            { message: "Invalid request" },
-            { status: 400 }
-        );
+        const gbpEquivalent = convertCurrencyToGBP(amount, currency);
+        if (gbpEquivalent < 0.01) {
+            return NextResponse.json({ message: "Minimum is 0.01" }, { status: 400 });
+        }
+
+        const tokens = tokensFromGBP(gbpEquivalent);
+        const user = await userController.buyTokens(payload.sub, tokens, {
+            currency,
+            amountValue: amount,
+        });
+
+        return NextResponse.json({
+            user,
+            info: `Converted ${amount} ${currency} -> ${tokens} tokens`,
+        });
     } catch (err: any) {
-        console.error("buy-tokens error:", err);
         return NextResponse.json(
             { message: err.message || "Server error" },
             { status: 400 }

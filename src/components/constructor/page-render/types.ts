@@ -1,4 +1,5 @@
 import type {CSSProperties} from "react";
+import type { PricingMode, TopUpPackageId } from "@/resources/pricing";
 
 export type TextBlock = {
     type: "text";
@@ -109,14 +110,16 @@ export type GridBlock = {
 
 export type PricingBlock = {
     type: "pricing";
-    variant?: "basic" | "highlight" | "premium";
+    variant?: "starter" | "pro" | "premium" | "custom";
+    packageId: TopUpPackageId;
+    pricingMode: PricingMode;
     title: string;
-    price: string;
-    tokens: number;
+    priceGBP?: number;
+    tokens?: number;
     description: string;
     features: string[];
     buttonText: string;
-    buttonLink: string;
+    buttonLink?: string;
     badgeTop?: string;
     badgeBottom?: string;
 };

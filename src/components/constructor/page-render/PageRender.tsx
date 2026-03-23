@@ -271,13 +271,14 @@ function RenderPricingCard(b: PricingBlock) {
     return (
         <PricingCard
             variant={b.variant}
+            packageId={b.packageId}
+            pricingMode={b.pricingMode}
             title={b.title}
-            price={b.price}
+            priceGBP={b.priceGBP}
             tokens={b.tokens}
             description={b.description}
             features={b.features}
             buttonText={b.buttonText}
-            buttonLink={b.buttonLink}
             badgeTop={b.badgeTop}
             badgeBottom={b.badgeBottom}е
         />

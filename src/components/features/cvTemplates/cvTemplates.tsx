@@ -797,7 +797,6 @@ export const CreativeCV = (o: CVOrderType) => {
                         {/* PROFILE */}
                         <View style={s.card}>
                             <View style={s.cardTitleRow}>
-                                <Text style={s.cardIcon}>👤</Text>
                                 <Text style={s.cardTitle}>My Profile</Text>
                             </View>
                             {renderParagraphs(sections.summary, s.text)}
@@ -806,7 +805,6 @@ export const CreativeCV = (o: CVOrderType) => {
                         {/* SKILLS */}
                         <View style={s.card}>
                             <View style={s.cardTitleRow}>
-                                <Text style={s.cardIcon}>⚙️</Text>
                                 <Text style={s.cardTitle}>Skills</Text>
                             </View>
                             <View>

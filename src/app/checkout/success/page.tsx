@@ -10,7 +10,6 @@ export default function SuccessPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // ❗ тільки sandbox
         if (process.env.NEXT_PUBLIC_MYACCEPT_ENV !== "sandbox") {
             setLoading(false);
             return;
@@ -18,31 +17,28 @@ export default function SuccessPage() {
 
         const raw = localStorage.getItem(CHECKOUT_KEY);
         if (!raw) {
-            // нема даних → просто показуємо success
             setLoading(false);
             return;
         }
 
-        const checkout = JSON.parse(raw);
+        const checkout = JSON.parse(raw) as { referenceId?: string; status?: string };
 
-        // ❌ якщо вже помічено як failed
         if (checkout.status === "failed") {
             localStorage.removeItem(CHECKOUT_KEY);
             router.replace("/checkout/failed");
             return;
         }
 
-        // 🧪 емулюємо webhook
+        if (!checkout.referenceId) {
+            localStorage.removeItem(CHECKOUT_KEY);
+            router.replace("/checkout/failed");
+            return;
+        }
+
         fetch("/api/myaccept/sandbox-confirm", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: checkout.email,
-                amountEUR: checkout.amountEUR,
-                referenceKey: checkout.createdAt
-                    ? `sandbox:${checkout.email}:${checkout.amountEUR}:${checkout.createdAt}`
-                    : undefined,
-            }),
+            body: JSON.stringify({ referenceId: checkout.referenceId }),
         })
             .then((r) => r.json())
             .then((res) => {
@@ -65,7 +61,7 @@ export default function SuccessPage() {
         return (
             <div style={styles.wrapper}>
                 <div style={styles.card}>
-                    <p style={{ color: "#64748b" }}>Finalizing payment…</p>
+                    <p style={{ color: "#64748b" }}>Finalizing payment...</p>
                 </div>
             </div>
         );
@@ -74,7 +70,7 @@ export default function SuccessPage() {
     return (
         <div style={styles.wrapper}>
             <div style={styles.card}>
-                <div style={styles.iconSuccess}>✓</div>
+                <div style={styles.iconSuccess}>OK</div>
 
                 <h1 style={styles.title}>Payment Successful</h1>
 
@@ -127,7 +123,7 @@ const styles: Record<string, React.CSSProperties> = {
         borderRadius: "50%",
         background: "linear-gradient(135deg, #22c55e, #16a34a)",
         color: "#fff",
-        fontSize: 36,
+        fontSize: 24,
         fontWeight: 700,
         display: "flex",
         alignItems: "center",

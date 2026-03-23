@@ -2,65 +2,89 @@
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
+import Input from "@mui/joy/Input";
 import styles from "./PricingCard.module.scss";
 import ButtonUI from "@/components/ui/button/ButtonUI";
 import { useAlert } from "@/context/AlertContext";
 import { useUser } from "@/context/UserContext";
-import Input from "@mui/joy/Input";
 import { useCurrency } from "@/context/CurrencyContext";
-import { useRouter } from "next/navigation";
-import { useCheckoutStore } from "@/utils/store";
-
-const TOKENS_PER_GBP = 100;
+import {
+    convertGBPToCurrency,
+    getFixedPackage,
+    getTopUpQuote,
+    PricingMode,
+    TopUpPackageId,
+} from "@/resources/pricing";
 
 interface PricingCardProps {
     variant?: "starter" | "pro" | "premium" | "custom";
+    packageId?: TopUpPackageId;
+    pricingMode?: PricingMode;
     title: string;
-    price: string;
-    tokens: number;
+    priceGBP?: number;
+    tokens?: number;
     description: string;
     features: string[];
     buttonText: string;
+    buttonLink?: string;
     badgeTop?: string;
     badgeBottom?: string;
     index?: number;
 }
 
+const CHECKOUT_KEY = "sandbox_checkout";
+
 const PricingCard: React.FC<PricingCardProps> = ({
-                                                     variant = "starter",
-                                                     title,
-                                                     price,
-                                                     tokens,
-                                                     description,
-                                                     features,
-                                                     buttonText,
-                                                     badgeTop,
-                                                     badgeBottom,
-                                                     index = 0,
-                                                 }) => {
+    variant = "starter",
+    packageId,
+    pricingMode,
+    title,
+    priceGBP,
+    tokens,
+    description,
+    features,
+    buttonText,
+    badgeTop,
+    badgeBottom,
+    index = 0,
+}) => {
     const { showAlert } = useAlert();
     const user = useUser();
-    const { currency, sign, convertFromGBP, convertToGBP } = useCurrency();
-    const router = useRouter();
-    const { setPlan } = useCheckoutStore();
-
+    const { currency, sign } = useCurrency();
     const [customAmount, setCustomAmount] = useState<number>(0.01);
-    const isCustom = price === "dynamic";
 
-    // 💷 Base price in GBP
-    const basePriceGBP = useMemo(() => {
-        if (isCustom) return 0;
-        const num = parseFloat(price.replace(/[^0-9.]/g, ""));
-        return isNaN(num) ? 0 : num;
-    }, [price, isCustom]);
+    const resolvedPackageId: TopUpPackageId =
+        packageId ??
+        (variant === "pro" || variant === "premium" || variant === "custom" ? variant : "starter");
+    const resolvedPricingMode: PricingMode =
+        pricingMode ?? (resolvedPackageId === "custom" ? "custom" : "fixed");
+    const isCustom = resolvedPricingMode === "custom";
+    const fixedPackage = useMemo(
+        () => (isCustom ? null : getFixedPackage(resolvedPackageId as Exclude<TopUpPackageId, "custom">)),
+        [isCustom, resolvedPackageId]
+    );
 
-    // 💰 Currency conversion
-    const convertedPrice = useMemo(() => {
-        if (isCustom) return 0;
-        return convertFromGBP(basePriceGBP);
-    }, [basePriceGBP, convertFromGBP, isCustom]);
+    const fixedPriceGBP = fixedPackage?.priceGBP ?? priceGBP ?? 0;
+    const fixedTokens = fixedPackage?.tokens ?? tokens ?? 0;
 
-    const CHECKOUT_KEY = "sandbox_checkout";
+    const convertedPrice = useMemo(
+        () => convertGBPToCurrency(fixedPriceGBP, currency),
+        [fixedPriceGBP, currency]
+    );
+
+    const tokensCalculated = useMemo(() => {
+        if (!isCustom) return fixedTokens;
+
+        try {
+            return getTopUpQuote({
+                packageId: "custom",
+                amount: customAmount,
+                currency,
+            }).tokens;
+        } catch {
+            return 0;
+        }
+    }, [currency, customAmount, fixedTokens, isCustom]);
 
     const handleBuy = async () => {
         if (!user) {
@@ -69,54 +93,44 @@ const PricingCard: React.FC<PricingCardProps> = ({
             return;
         }
 
-        let amountEUR: number;
+        const payload = isCustom
+            ? {
+                packageId: resolvedPackageId,
+                amount: Number(customAmount),
+                currency,
+                email: user.email,
+            }
+            : {
+                packageId: resolvedPackageId,
+                email: user.email,
+            };
 
-        if (isCustom) {
-            amountEUR = Number(customAmount);
-        } else {
-            amountEUR = convertFromGBP(basePriceGBP);
-        }
-
-        if (!amountEUR || amountEUR < 0.01) {
-            showAlert("Invalid amount", "Minimum is 0.01 EUR", "error");
+        if (isCustom && (!payload.amount || payload.amount < 0.01)) {
+            showAlert("Invalid amount", "Minimum is 0.01", "error");
             return;
-        }
-
-        // 🧪 SANDBOX — save intent
-        if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox") {
-            localStorage.setItem(
-                CHECKOUT_KEY,
-                JSON.stringify({
-                    email: user.email,
-                    amountEUR,
-                    createdAt: Date.now(),
-                    status: "pending",
-                })
-            );
         }
 
         try {
             const res = await fetch("/api/myaccept/create-payment", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ amountEUR, email: user.email }),
+                body: JSON.stringify(payload),
             });
 
             const data = await res.json();
 
             if (!res.ok || !data.redirectUrl) {
-                if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox") {
-                    localStorage.setItem(
-                        "sandbox_checkout",
-                        JSON.stringify({
-                            email: user.email,
-                            amountEUR,
-                            status: "pending",
-                            createdAt: Date.now(),
-                        })
-                    );
-                }
                 throw new Error(data.error || "Payment init failed");
+            }
+
+            if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox" && data.referenceId) {
+                localStorage.setItem(
+                    CHECKOUT_KEY,
+                    JSON.stringify({
+                        referenceId: data.referenceId,
+                        status: "pending",
+                    })
+                );
             }
 
             window.location.href = data.redirectUrl;
@@ -125,20 +139,17 @@ const PricingCard: React.FC<PricingCardProps> = ({
         }
     };
 
-    const tokensCalculated = useMemo(() => {
-        const gbpEquivalent = convertToGBP(customAmount);
-        return Math.floor(gbpEquivalent * TOKENS_PER_GBP);
-    }, [customAmount, convertToGBP]);
-
     return (
         <motion.div
             className={`${styles.card} ${styles[variant]}`}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}>
+            transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.15 }}
+        >
             {badgeTop && <span className={styles.badgeTop}>{badgeTop}</span>}
             <h3 className={styles.title}>{title}</h3>
+
             {isCustom ? (
                 <>
                     <div className={styles.inputWrapper}>
@@ -163,26 +174,24 @@ const PricingCard: React.FC<PricingCardProps> = ({
                     </div>
                     <p className={styles.dynamicPrice}>
                         {sign}
-                        {customAmount.toFixed(2)} {currency} ≈ {tokensCalculated} tokens
+                        {customAmount.toFixed(2)} {currency} {"\u2248"} {tokensCalculated} tokens
                     </p>
                 </>
             ) : (
                 <p className={styles.price}>
                     {sign}
-                    {convertedPrice.toFixed(2)}{" "}
-                    <span className={styles.tokens}>/ {tokens} tokens</span>
+                    {convertedPrice.toFixed(2)} <span className={styles.tokens}>/ {fixedTokens} tokens</span>
                 </p>
             )}
 
             <p className={styles.description}>{description}</p>
 
             <ul className={styles.features}>
-                {features.map((f, i) => (
-                    <li key={i}>{f}</li>
+                {features.map((feature, featureIndex) => (
+                    <li key={featureIndex}>{feature}</li>
                 ))}
             </ul>
 
-            {/* кнопка завжди внизу */}
             <div className={styles.buttonWrapper}>
                 <ButtonUI fullWidth onClick={handleBuy}>
                     {user ? buttonText : "Sign Up to Buy"}

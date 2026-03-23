@@ -347,8 +347,10 @@ const schema: PageSchema = {
                 {
                     type: "pricing",
                     variant: "starter",
+                    packageId: "starter",
+                    pricingMode: "fixed",
                     title: "Professional CV Creation",
-                    price: "€10",
+                    priceGBP: 10,
                     tokens: 1000,
                     badgeTop: "For Serious Applicants",
                     description: "Hand-crafted CV made by a specialist in 24 hours.",
@@ -363,8 +365,10 @@ const schema: PageSchema = {
                 {
                     type: "pricing",
                     variant: "pro",
+                    packageId: "pro",
+                    pricingMode: "fixed",
                     title: "AI CV Generator",
-                    price: "€25",
+                    priceGBP: 25,
                     tokens: 2500,
                     badgeTop: "Fast & Affordable",
                     description: "Instant AI-generated CV with rewriting and clean design.",
@@ -380,8 +384,10 @@ const schema: PageSchema = {
                 {
                     type: "pricing",
                     variant: "premium",
+                    packageId: "premium",
+                    pricingMode: "fixed",
                     title: "Cover Letter",
-                    price: "€50",
+                    priceGBP: 50,
                     tokens: 5000,
                     badgeTop: "Most Popular Add-on",
                     description:
@@ -399,9 +405,9 @@ const schema: PageSchema = {
                 {
                     type: "pricing",
                     variant: "custom",
+                    packageId: "custom",
+                    pricingMode: "custom",
                     title: "Custom Package",
-                    price: "dynamic",
-                    tokens: 0,
                     badgeTop: "Flexible Option",
                     description:
                         "Choose any combination of services and pay only for what you need.",

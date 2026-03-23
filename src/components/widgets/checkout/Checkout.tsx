@@ -1,17 +1,17 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from "./Checkout.module.scss";
 import { useCurrency } from "@/context/CurrencyContext";
 import { useCheckoutStore } from "@/utils/store";
+import { convertGBPToCurrency } from "@/resources/pricing";
 
 const Checkout = () => {
     const { plan, setPlan } = useCheckoutStore();
     const [activePlan, setActivePlan] = useState(plan);
-    const { currency, sign, convertFromGBP } = useCurrency();
+    const { currency, sign } = useCurrency();
     const [agreed, setAgreed] = useState(false);
 
-    // 🔄 При завантаженні — підтягуємо план із localStorage
     useEffect(() => {
         if (!plan) {
             const stored = localStorage.getItem("selectedPlan");
@@ -25,23 +25,22 @@ const Checkout = () => {
         }
     }, [plan, setPlan]);
 
-    if (!activePlan)
+    const convertedPrice = useMemo(
+        () => (activePlan ? convertGBPToCurrency(activePlan.price, currency) : 0),
+        [activePlan, currency]
+    );
+    const vat = useMemo(() => convertedPrice * 0.2, [convertedPrice]);
+    const total = useMemo(() => convertedPrice + vat, [convertedPrice, vat]);
+
+    if (!activePlan) {
         return (
             <div className={styles.checkoutEmpty}>
                 <p>
-                    No plan selected. Please go back to{" "}
-                    <a href="/pricing">Pricing</a>.
+                    No plan selected. Please go back to <a href="/pricing">Pricing</a>.
                 </p>
             </div>
         );
-
-    // 💱 Перерахунок ціни відповідно до поточної валюти
-    const convertedPrice = useMemo(() => {
-        return convertFromGBP(activePlan.price);
-    }, [activePlan.price, convertFromGBP, currency]);
-
-    const vat = useMemo(() => convertedPrice * 0.2, [convertedPrice]);
-    const total = useMemo(() => convertedPrice + vat, [convertedPrice, vat]);
+    }
 
     return (
         <div className={styles.checkout}>
@@ -51,7 +50,6 @@ const Checkout = () => {
             </div>
 
             <div className={styles.main}>
-                {/* LEFT SIDE */}
                 <div className={styles.summary}>
                     <h2>Order Summary</h2>
 
@@ -102,7 +100,6 @@ const Checkout = () => {
                     </p>
                 </div>
 
-                {/* RIGHT SIDE */}
                 <div className={styles.payment}>
                     <h2>Payment Details</h2>
                     <form>
@@ -118,7 +115,6 @@ const Checkout = () => {
                             <input type="text" placeholder="Postal code" />
                         </div>
 
-                        {/* ✅ Чекбокс согласия */}
                         <div className={styles.agreement}>
                             <label>
                                 <input
@@ -127,11 +123,7 @@ const Checkout = () => {
                                     onChange={(e) => setAgreed(e.target.checked)}
                                 />{" "}
                                 I agree to the{" "}
-                                <a
-                                    href="/terms"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                <a href="/terms" target="_blank" rel="noopener noreferrer">
                                     terms & conditions
                                 </a>
                                 .
