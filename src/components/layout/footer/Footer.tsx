@@ -204,7 +204,7 @@ const Footer: React.FC = () => {
                         )}
 
 
-                        {/* 🔹 Колонка соцмереж */}
+                        {/* Social links column */}
                         <div className={styles["footer__column"]}>
                             <div className={styles["footer__column-title"]}>Follow Us</div>
                             <div className={styles["footer__socials"]}>
@@ -297,7 +297,7 @@ const Footer: React.FC = () => {
 
             {footerStyles.type === "corporate" && (
                 <div className={clsx(styles["footer__inner"], styles["footer__inner--corporate"])}>
-                    {/* Верхній рядок: лого + 3 колонки */}
+                    {/* Logo + company columns grid */}
                     <div className={styles["footer__corporate-grid"]}>
                         <div className={styles["footer__corporate-logo"]}>
                             <SmartLink href={logo.href} className={styles["footer__logo"]} ariaLabel="Logo">
@@ -330,7 +330,7 @@ const Footer: React.FC = () => {
                         <PaymentMethods/>
                     </div>
 
-                    {/* Нижня частина */}
+                    {/* Bottom section */}
                     <div className={styles["footer__corporate-bottom"]}>
                         <div className={styles["footer__corporate-links"]}>
                             {columns.find(c => c.title === "Legal")?.links.map(link => (
