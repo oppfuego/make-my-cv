@@ -44,7 +44,7 @@
 }
 
 /* slide full height */
-:global(.swiper-slide) {
+.swiper :global(.swiper-slide) {
   height: 100%;
 }
 
@@ -162,13 +162,13 @@
 /* ===========================================
    PAGINATION DOTS (LOCAL)
    =========================================== */
-:global(.swiper-pagination-bullet) {
+.swiper :global(.swiper-pagination-bullet) {
   width: 12px;
   height: 12px;
   background: #cab6ff;
   opacity: 1;
 }
 
-:global(.swiper-pagination-bullet-active) {
+.swiper :global(.swiper-pagination-bullet-active) {
   background: #7a42ff;
 }

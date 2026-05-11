@@ -109,6 +109,11 @@ const Footer: React.FC = () => {
                         <a href={`tel:${contact.phone}`}>{contact.phone}</a>
                     </div>
                 )}
+                {legal.address && (
+                    <div className={styles["footer__legal-line"]}>
+                        {legal.address}
+                    </div>
+                )}
                 <LegalAddress/>
             </div>
         ) : null;
