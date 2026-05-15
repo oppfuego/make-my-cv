@@ -150,7 +150,7 @@ Choose a template, fill in details, let AI enhance your experience — and expor
                 "Start with AI now — no design skills needed. Create a clean, professional resume and get hired faster.",
             image: "image1",
             buttonText: "Start Building",
-            buttonLink: "/create",
+            buttonLink: "/templates",
         },
     ],
 };

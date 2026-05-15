@@ -261,7 +261,7 @@ const schema: PageSchema = {
             description: `${COMPANY_NAME} is more than a tool — it's a global career movement.`,
             image: "image5",
             buttonText: "Start Now",
-            buttonLink: "/create",
+            buttonLink: "/templates",
         },
     ],
 };
