@@ -174,13 +174,13 @@ const PricingCard: React.FC<PricingCardProps> = ({
                     </div>
                     <p className={styles.dynamicPrice}>
                         {sign}
-                        {customAmount.toFixed(2)} {currency} {"\u2248"} {tokensCalculated} tokens
+                        {customAmount.toFixed(2)} {currency} {"\u2248"} {tokensCalculated} points
                     </p>
                 </>
             ) : (
                 <p className={styles.price}>
                     {sign}
-                    {convertedPrice.toFixed(2)} <span className={styles.tokens}>/ {fixedTokens} tokens</span>
+                    {convertedPrice.toFixed(2)} <span className={styles.tokens}>/ {fixedTokens} points</span>
                 </p>
             )}
 

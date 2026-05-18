@@ -20,7 +20,7 @@ export const aiService = {
         if (!user) throw new Error("UserNotFound");
 
         const finalCost = cost ?? parseInt(ENV.AI_COST_PER_REQUEST || "30", 10);
-        if (user.tokens < finalCost) throw new Error("InsufficientTokens");
+        if (user.tokens < finalCost) throw new Error("InsufficientPoints");
 
         user.tokens -= finalCost;
         await user.save();

@@ -9,7 +9,7 @@ export default function ContactUsPage() {
     const user = useUser();
     const search = useSearchParams();
     const service = search.get("service");
-    const tokens = Number(search.get("tokens") || 30);
+    const tokens = Number(search.get("points") || search.get("tokens") || 30);
 
     if (!service) {
         return (
@@ -35,7 +35,7 @@ export default function ContactUsPage() {
                 service={service}
                 tokens={tokens}
                 title={`Request ${service}`}
-                description={`Submitting this request will deduct ${tokens} tokens from your balance.`}
+                description={`Submitting this request will deduct ${tokens} points from your balance.`}
             />
         </div>
     );

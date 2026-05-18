@@ -39,10 +39,10 @@ export const mailService = {
     }) {
         const transactionDate = input.transactionDate ?? new Date();
         const items: ConfirmationLineItem[] = [
-            { label: "Type", value: "Token purchase" },
-            { label: "Amount", value: `${input.amount} ${input.currency || "TOKENS"}` },
-            { label: "Tokens added", value: `${input.tokens}` },
-            { label: "New balance", value: `${input.balanceAfter} tokens` },
+            { label: "Type", value: "Point purchase" },
+            { label: "Amount", value: `${input.amount} ${input.currency || "POINTS"}` },
+            { label: "Points added", value: `${input.tokens}` },
+            { label: "New balance", value: `${input.balanceAfter} points` },
             { label: "Transaction date", value: transactionDate.toISOString().slice(0, 10) },
         ];
 
@@ -55,9 +55,9 @@ export const mailService = {
             `Hi ${name},`,
             "",
             "Your payment was completed successfully.",
-            `Amount: ${input.amount} ${input.currency || "TOKENS"}`,
-            `Tokens added: ${input.tokens}`,
-            `New balance: ${input.balanceAfter} tokens`,
+            `Amount: ${input.amount} ${input.currency || "POINTS"}`,
+            `Points added: ${input.tokens}`,
+            `New balance: ${input.balanceAfter} points`,
             `Transaction date: ${transactionDate.toISOString()}`,
             input.referenceKey ? `Reference: ${input.referenceKey}` : "",
         ]
@@ -92,7 +92,7 @@ export const mailService = {
         const lineItems: ConfirmationLineItem[] = [
             { label: "Order", value: input.orderId },
             { label: "Service", value: input.service },
-            { label: "Tokens used", value: `${input.tokensUsed}` },
+            { label: "Points used", value: `${input.tokensUsed}` },
             { label: "Transaction date", value: transactionDate.toISOString().slice(0, 10) },
         ];
 
@@ -101,7 +101,7 @@ export const mailService = {
             "",
             "Your order has been confirmed.",
             `Service: ${input.service}`,
-            `Tokens used: ${input.tokensUsed}`,
+            `Points used: ${input.tokensUsed}`,
             `Transaction date: ${transactionDate.toISOString()}`,
             `Summary: ${input.summary}`,
             `Items: ${input.items.join(", ")}`,

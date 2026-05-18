@@ -33,13 +33,13 @@ function isFixedPackageId(value: unknown): value is Exclude<TopUpPackageId, "cus
 function buildDescription(packageId: TopUpPackageId) {
     switch (packageId) {
         case "starter":
-            return "Starter token package";
+            return "Starter point package";
         case "pro":
-            return "Pro token package";
+            return "Pro point package";
         case "premium":
-            return "Premium token package";
+            return "Premium point package";
         default:
-            return "Custom token package";
+            return "Custom point package";
     }
 }
 

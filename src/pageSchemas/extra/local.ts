@@ -27,7 +27,7 @@ const schema: PageSchema = {
 We optimise your Google Business Profile, build local citations, and boost reputation to attract customers near you.`,
             image: "image8",
             align: "right",
-            primaryCta: { text: "Order Local Visibility", link: "/contact-us?service=Local%20SEO%20Optimisation&tokens=1500" },
+            primaryCta: { text: "Order Local Visibility", link: "/contact-us?service=Local%20SEO%20Optimisation&points=1500" },
         },
 
         // 💡 INTRO
@@ -114,7 +114,7 @@ We make sure your brand is visible, trusted, and chosen locally.`,
                         "Speed recommendations",
                         "Basic keyword analysis",
                     ],
-                    buttonText: "Buy Tokens",
+                    buttonText: "Buy Points",
                     buttonLink: "/pricing",
                 },
                 {

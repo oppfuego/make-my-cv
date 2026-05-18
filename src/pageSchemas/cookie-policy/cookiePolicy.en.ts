@@ -45,7 +45,7 @@ const cookiePolicyEn: PageSchema = {
                 "By interacting with our cookie banner or the preferences centre, you can manage consent to non-essential cookies as described below.",
                 `Controller: ${COMPANY_LEGAL_NAME} (Company No. ${COMPANY_NUMBER}), ${COMPANY_ADDRESS}.`,
                 `Contact: ${COMPANY_EMAIL}`,
-                "Context: The Service provides tools for creating and generating professional CVs/resumes, cover letters and related digital documents (including AI-assisted features) using a token-based system, with payments available via Visa and Mastercard in GBP (£), EUR (€) and USD ($). Cookies support secure sessions, preferences, analytics and—where enabled—marketing/attribution.",
+                "Context: The Service provides tools for creating and generating professional CVs/resumes, cover letters and related digital documents (including AI-assisted features) using a point-based system, with payments available via Visa and Mastercard in GBP (£), EUR (€) and USD ($). Cookies support secure sessions, preferences, analytics and—where enabled—marketing/attribution.",
             ],
         },
         {
@@ -70,7 +70,7 @@ const cookiePolicyEn: PageSchema = {
                 "Necessary / Essential – required for core functionality (authentication, security, session management, load balancing, consent logging). These do not require consent.",
                 "Functional – remember your choices (for example, language, theme, last viewed wallet/top-up options, last used CV/cover letter settings).",
                 "Performance / Analytics – help us understand how the Service is used, where errors occur and how fast pages load so we can improve reliability and usability. Depending on the tool and configuration, we rely either on your consent or, where appropriate, on our legitimate interests with strict privacy safeguards (for example, IP truncation, no cross-site tracking, aggregated reports).",
-                "Marketing / Advertising – used only if you enable them; they support campaign attribution, remarketing and measuring the effectiveness of our advertising (for example, determining which campaigns led users to create an account or purchase Tokens).",
+                "Marketing / Advertising – used only if you enable them; they support campaign attribution, remarketing and measuring the effectiveness of our advertising (for example, determining which campaigns led users to create an account or purchase Points).",
                 "Security / Anti-abuse – detect unusual activity, mitigate fraud and help protect against bots and automated abuse.",
                 "We comply with the UK GDPR and the Privacy and Electronic Communications Regulations (PECR) when placing and reading non-essential cookies.",
             ],

@@ -26,7 +26,7 @@ const schema: PageSchema = {
             description: `${COMPANY_NAME} helps your website grow beyond its borders — through powerful backlinks, brand mentions, and PR strategies that increase domain authority and visibility.`,
             image: "image10",
             align: "right",
-            primaryCta: { text: "Order Link Building", link: "/contact-us?service=Off-Page SEO&tokens=1800" },
+            primaryCta: { text: "Order Link Building", link: "/contact-us?service=Off-Page SEO&points=1800" },
         },
 
         // 💡 INTRO: why Off-Page matters
@@ -115,7 +115,7 @@ We build safe, relevant, and lasting backlinks that truly make a difference.`,
                         "Speed recommendations",
                         "Basic keyword analysis",
                     ],
-                    buttonText: "Buy Tokens",
+                    buttonText: "Buy Points",
                     buttonLink: "/pricing",
                 },
                 {

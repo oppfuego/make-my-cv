@@ -27,7 +27,7 @@ const schema: PageSchema = {
 Our experts manually analyse your site and prepare a detailed report with step-by-step recommendations.`,
             image: "image4",
             align: "right",
-            primaryCta: { text: "Order Audit", link: "/contact-us?service=Technical%20Website%20Audit&tokens=2000" },
+            primaryCta: { text: "Order Audit", link: "/contact-us?service=Technical%20Website%20Audit&points=2000" },
         },
 
         // 💡 INTRO: why it matters
@@ -115,7 +115,7 @@ Our audit uncovers the hidden issues that prevent Google from fully crawling, in
                         "Speed recommendations",
                         "Basic keyword analysis",
                     ],
-                    buttonText: "Buy Tokens",
+                    buttonText: "Buy Points",
                     buttonLink: "/pricing",
                 },
                 {
@@ -206,7 +206,7 @@ Our audit uncovers the hidden issues that prevent Google from fully crawling, in
             title: "Need a Technical SEO Audit?",
             description: `Our specialists will analyse your site, find technical barriers, and prepare a full optimisation plan — no AI, just real experts.`,
             buttonText: "Request Your Audit",
-            buttonLink: "/contact-us?service=Technical%20Website%20Audit&tokens=5"
+            buttonLink: "/contact-us?service=Technical%20Website%20Audit&points=5"
         },
 
         // 🚀 FINAL CTA Banner

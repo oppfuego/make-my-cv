@@ -77,7 +77,7 @@ export default function SuccessPage() {
                 <p style={styles.text}>
                     Your payment was completed successfully.
                     <br />
-                    Tokens have been added to your account.
+                    Points have been added to your account.
                 </p>
 
                 <button

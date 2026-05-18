@@ -131,9 +131,9 @@ export const cvService = {
         const totalCost = baseCost + extrasCost;
 
         // 🧾 Перевірка балансу
-        if (user.tokens < totalCost) throw new Error("InsufficientTokens");
+        if (user.tokens < totalCost) throw new Error("InsufficientPoints");
 
-        // 💳 Списуємо токени та записуємо транзакцію
+        // 💳 Списуємо points та записуємо транзакцію
         user.tokens -= totalCost;
         await user.save();
 
@@ -145,7 +145,7 @@ export const cvService = {
             user.tokens
         );
 
-        log("createOrder", `💸 Tokens spent & transaction recorded`, {
+        log("createOrder", `💸 Points spent & transaction recorded`, {
             totalCost,
             balanceAfter: user.tokens,
         });

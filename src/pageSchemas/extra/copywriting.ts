@@ -27,7 +27,7 @@ const schema: PageSchema = {
 Our SEO copywriters craft landing pages, blog posts, and product descriptions optimised for both users and search engines.`,
             image: "image12",
             align: "right",
-            primaryCta: { text: "Order SEO Copy", link: "/contact-us?service=SEO%20Copywriting&tokens=1000" },
+            primaryCta: { text: "Order SEO Copy", link: "/contact-us?service=SEO%20Copywriting&points=1000" },
         },
 
         // 💡 INTRO
@@ -114,7 +114,7 @@ We combine marketing psychology, keyword strategy, and storytelling to create pa
                         "Speed recommendations",
                         "Basic keyword analysis",
                     ],
-                    buttonText: "Buy Tokens",
+                    buttonText: "Buy Points",
                     buttonLink: "/pricing",
                 },
                 {

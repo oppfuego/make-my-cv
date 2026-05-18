@@ -21,7 +21,7 @@ export const seoRequestService = {
         if (!user) throw new Error("User not found");
 
         if (user.tokens < tokensUsed)
-            throw new Error(`Insufficient tokens (have ${user.tokens}, need ${tokensUsed})`);
+            throw new Error(`Insufficient points (have ${user.tokens}, need ${tokensUsed})`);
 
         user.tokens -= tokensUsed;
         await user.save();
@@ -42,7 +42,7 @@ New SEO Request Submitted:
 ----------------------------
 User: ${email}
 Service: ${service}
-Tokens Used: ${tokensUsed}
+Points Used: ${tokensUsed}
 Extras: ${extras?.length ? extras.join(", ") : "none"}
 Message: ${message || "(none)"}
         `;

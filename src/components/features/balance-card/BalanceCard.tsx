@@ -17,8 +17,8 @@ export default function BalanceCard() {
             <div className={styles.header}>
                 <GiTwoCoins className={styles.icon} />
                 <div>
-                    <h3>Token Balance</h3>
-                    <p>{user?.tokens ?? 0}<span> TOK</span></p>
+                    <h3>Point Balance</h3>
+                    <p>{user?.tokens ?? 0}<span> PTS</span></p>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@ export default function BalanceCard() {
                         size="lg"
                         hoverEffect="lift"
                     >
-                        Add Tokens
+                        Add Points
                     </ButtonUI>
                 </Link>
                 <LogoutButton icon={<FaSignOutAlt />} />

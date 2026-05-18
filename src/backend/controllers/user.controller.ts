@@ -14,12 +14,12 @@ export const userController = {
 
         const user = await userService.addTokens(userId, amount);
 
-        console.log("💳 Adding tokens for user:", userId);
+        console.log("💳 Adding points for user:", userId);
         await transactionService.record(user._id, user.email, amount, "add", user.tokens, {
-            description: "Token purchase completed",
+            description: "Point purchase completed",
             referenceKey: options?.referenceKey,
             metadata: {
-                currency: options?.currency || "TOKENS",
+                currency: options?.currency || "POINTS",
                 amountValue: options?.amountValue ?? amount,
             },
         });
@@ -30,7 +30,7 @@ export const userController = {
                 to: user.email,
                 firstName: user.firstName,
                 amount: options?.amountValue ?? amount,
-                currency: options?.currency || "TOKENS",
+                currency: options?.currency || "POINTS",
                 tokens: amount,
                 balanceAfter: user.tokens,
                 referenceKey: options?.referenceKey,
@@ -51,7 +51,7 @@ export const userController = {
         if (options?.referenceKey) {
             const existing = await transactionService.findByReference(options.referenceKey);
             if (existing) {
-                console.log("Skipping duplicate token top-up for reference:", options.referenceKey);
+                console.log("Skipping duplicate point top-up for reference:", options.referenceKey);
                 return;
             }
         }
@@ -67,7 +67,7 @@ export const userController = {
             "add",
             user.tokens,
             {
-                description: "Token purchase completed",
+                description: "Point purchase completed",
                 referenceKey: options?.referenceKey,
                 metadata: {
                     currency: options?.currency || "EUR",
@@ -96,13 +96,13 @@ export const userController = {
 
         const user = await userService.getUserById(userId);
         if (!user) throw new Error("User not found");
-        if ((user.tokens || 0) < amount) throw new Error("Not enough tokens");
+        if ((user.tokens || 0) < amount) throw new Error("Not enough points");
 
         user.tokens -= amount;
         await user.save();
 
         await transactionService.record(user._id, user.email, amount, "spend", user.tokens, {
-            description: reason || "Tokens spent",
+            description: reason || "Points spent",
         });
 
         return formatUser(user);

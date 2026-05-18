@@ -62,7 +62,7 @@ const privacyPolicySchema: PageSchema = {
                 "Career-document inputs: information contained in the CVs/resumes, cover letters and other documents you upload or enter (including any text, images, tables, metadata or other content that may include personal data), as well as job descriptions you provide, target roles, industries and any options or settings you choose for generation or rewriting.",
                 "Access grants (optional): where available, limited access tokens or keys for third-party tools or platforms that you choose to connect for integration, export or diagnostics (for example, cloud storage or productivity tools); you can revoke access at any time.",
                 "Billing: billing name and address, VAT details (if applicable) and other information needed for invoicing.",
-                "Wallet & Tokens: top-up amounts, chosen currency, token package details, and a history of Token consumption (for example, which services you spent Tokens on, such as Professional CV Creation, AI CV Generator or Cover Letter).",
+                "Wallet & Points: top-up amounts, chosen currency, point package details, and a history of Point consumption (for example, which services you spent Points on, such as Professional CV Creation, AI CV Generator or Cover Letter).",
                 "Support & communications: messages and attachments you send to us (including support tickets, feedback forms, surveys or emails).",
                 "Special-category data: We do not intentionally seek special-category data (such as health information, political opinions, religious beliefs or biometric data). If you voluntarily include such data in any CV, cover letter, other document or in your communications with us, we will process it only as necessary to provide the requested Service and only on the basis of your explicit consent (see section 3.2). Please avoid including special-category data where it is not strictly necessary.",
             ],
@@ -73,7 +73,7 @@ const privacyPolicySchema: PageSchema = {
             bullets: [
                 "Technical data: IP address, device and browser type, operating system, timezone, language, user agent and session identifiers.",
                 "Security telemetry: login attempts, authentication events, rate-limiting and anomaly logs, abuse/fraud signals and similar security-related information.",
-                "Usage & diagnostics: page views, clicks, navigation paths, feature usage (for example, which CV/cover letter tools you use), Token top-ups and deductions, task identifiers, error traces and performance metrics.",
+                "Usage & diagnostics: page views, clicks, navigation paths, feature usage (for example, which CV/cover letter tools you use), Point top-ups and deductions, task identifiers, error traces and performance metrics.",
             ],
         },
         {
@@ -108,7 +108,7 @@ const privacyPolicySchema: PageSchema = {
             bullets: [
                 "create, maintain and secure your Account;",
                 "provide the Service, including generating, rewriting and delivering CVs, cover letters and related Outputs;",
-                "operate Wallets and Tokens, process payments and issue invoices/receipts;",
+                "operate Wallets and Points, process payments and issue invoices/receipts;",
                 "communicate with you about your use of the Service, Orders and support requests.",
             ],
         },
@@ -195,7 +195,7 @@ const privacyPolicySchema: PageSchema = {
                 "We keep personal data only for as long as necessary for the purposes described in this Policy or as required by law. In particular:",
             bullets: [
                 "Career documents & Outputs: we retain CVs, cover letters and related Outputs for a limited period necessary to provide the Service (for example, to allow you to download results, view your history and troubleshoot issues) and then delete or anonymise them, unless you choose to store them for longer within your Account where that functionality is available. Retention periods may vary depending on the feature and will be kept no longer than necessary.",
-                "Wallet, Tokens & transactions: at least 24 months and up to 6 years where needed for disputes, tax, accounting or enterprise records.",
+                "Wallet, Points & transactions: at least 24 months and up to 6 years where needed for disputes, tax, accounting or enterprise records.",
                 "Account & profile data: for as long as your Account is active and for a reasonable period after closure (typically up to 24 months), unless a longer period is required for legal, security or business continuity reasons.",
                 "Logs & security telemetry: typically 6–24 months, depending on the purpose and risk level.",
                 "Where feasible, we minimise, pseudonymise or anonymise data as early as possible and then securely delete or irreversibly anonymise it once it is no longer needed.",

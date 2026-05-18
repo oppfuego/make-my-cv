@@ -44,7 +44,7 @@ export default function TransactionHistory() {
         <section className={styles.transactionsSection}>
             <div className={styles.header}>
                 <h3>Transaction History</h3>
-                <p>Track all your top-ups and token usage</p>
+                <p>Track all your top-ups and point usage</p>
             </div>
 
             <div className={styles.transactionsList}>
@@ -67,7 +67,7 @@ export default function TransactionHistory() {
                             <div className={styles.rowTop}>
                 <span className={styles.amount}>
                   {t.type === "add" ? "+" : "-"}
-                    {t.amount} tokens
+                    {t.amount} points
                 </span>
                                 <span
                                     className={`${styles.badge} ${

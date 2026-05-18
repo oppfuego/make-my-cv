@@ -90,8 +90,8 @@ const INDUSTRIES = [
 const LEVELS = ["Junior", "Mid-level", "Senior", "Lead"];
 
 const REVIEW_OPTIONS = [
-    { value: "default", label: "AI Instant (30 tokens)" },
-    { value: "manager", label: "Human Review (60 tokens)" },
+    { value: "default", label: "AI Instant (30 points)" },
+    { value: "manager", label: "Human Review (60 points)" },
 ];
 
 const EXTRAS = [
@@ -476,7 +476,7 @@ export default function ManualGenerator() {
                                                             <span>{e.icon}</span>
                                                             <div>{e.title}</div>
                                                             <small>
-                                                                +{e.cost} tokens
+                                                                +{e.cost} points
                                                             </small>
                                                         </button>
                                                     );
@@ -562,7 +562,7 @@ export default function ManualGenerator() {
                         {/* TOTAL PRICE */}
                         <footer className={styles.tokenBar}>
                             <p>Base: {BASE_COST[values.reviewType]} • Extras: +{calcExtrasCost(values.extras)}</p>
-                            <h4>Total: {total} tokens</h4>
+                            <h4>Total: {total} points</h4>
                         </footer>
                     </Form>
                 );

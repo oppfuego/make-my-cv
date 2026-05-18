@@ -51,7 +51,7 @@ const ContactForm: React.FC = () => {
             >
                 <Text
                     title="Need Help With Your CV?"
-                    description="Write to us if you’re experiencing issues with AI generation, templates, tokens or PDF export. Our support team responds within 12–24 hours."
+                    description="Write to us if you’re experiencing issues with AI generation, templates, points or PDF export. Our support team responds within 12–24 hours."
                     centerTitle
                     centerDescription
                     textGap="1rem"

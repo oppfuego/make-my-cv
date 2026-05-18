@@ -17,7 +17,7 @@ interface SeoRequestFormProps {
 
 interface ExtraOption {
     name: string;
-    price: number; // у токенах (1 токен = £0.01)
+    price: number; // у points (1 point = £0.01)
     desc: string;
     type?: "checkbox" | "file" | "number" | "text" | "textarea" | "url";
     min?: number;
@@ -87,7 +87,7 @@ export default function SeoRequestForm({
         setExtraValues((prev) => ({...prev, [name]: value}));
     };
 
-    // 🔢 Розрахунок загальної кількості токенів
+    // 🔢 Розрахунок загальної кількості points
     const totalTokens = useMemo(
         () =>
             tokens +
@@ -159,7 +159,7 @@ export default function SeoRequestForm({
                 <div className={styles.serviceInfo}>
                     <span>Service: {service}</span>
                     <span className={styles.tokens}>
-            💰 {totalTokens} tokens (~{sign}
+            💰 {totalTokens} points (~{sign}
                         {convertedPrice.toFixed(2)} {currency})
           </span>
                 </div>
@@ -191,7 +191,7 @@ export default function SeoRequestForm({
                                                 <p>{extra.desc}</p>
                                             </div>
                                             <span className={styles.extraPrice}>
-                        +{extra.price} tokens ({sign}
+                        +{extra.price} points ({sign}
                                                 {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)} {currency})
                       </span>
                                         </>
@@ -203,7 +203,7 @@ export default function SeoRequestForm({
                                             <label>
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
-                          +{extra.price} tokens ({sign}
+                          +{extra.price} points ({sign}
                                                     {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
@@ -225,7 +225,7 @@ export default function SeoRequestForm({
                                             <label>
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
-                          +{extra.price} tokens ({sign}
+                          +{extra.price} points ({sign}
                                                     {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
@@ -248,7 +248,7 @@ export default function SeoRequestForm({
                                             <label>
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
-                          +{extra.price} tokens ({sign}
+                          +{extra.price} points ({sign}
                                                     {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
@@ -268,7 +268,7 @@ export default function SeoRequestForm({
                                             <label>
                                                 {extra.name}{" "}
                                                 <span className={styles.extraPrice}>
-                          +{extra.price} tokens ({sign}
+                          +{extra.price} points ({sign}
                                                     {convertGBPToCurrency(extra.price * 0.01, currency).toFixed(2)}{" "}
                                                     {currency})
                         </span>
@@ -295,7 +295,7 @@ export default function SeoRequestForm({
                     fullWidth
                     color="secondary"
                     textColor="backgroundLight"
-                    text={`Send Request (${totalTokens} tokens ≈ ${sign}${convertedPrice.toFixed(
+                    text={`Send Request (${totalTokens} points ≈ ${sign}${convertedPrice.toFixed(
                         2
                     )} ${currency})`}
                 />

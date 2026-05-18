@@ -30,7 +30,7 @@ Choose a template, fill in details, let AI enhance your experience — and expor
             primaryCta: { text: "Start Building CV", link: "/dashboard" },
         },
 
-        // 🎨 PRICING (TOKEN PLANS)
+        // 🎨 PRICING (POINT PLANS)
         {
             type: "grid",
             columns: 4,

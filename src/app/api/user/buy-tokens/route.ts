@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({
             user,
-            info: `Converted ${amount} ${currency} -> ${tokens} tokens`,
+            info: `Converted ${amount} ${currency} -> ${tokens} points`,
         });
     } catch (err: any) {
         return NextResponse.json(

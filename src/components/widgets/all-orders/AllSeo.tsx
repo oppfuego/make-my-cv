@@ -86,7 +86,7 @@ const AllSeoRequests: React.FC = () => {
                     {formatTime(req.createdAt)}
                 </span>
                                 <span className={styles.tokens}>
-                  <FaCoins /> -{req.tokensUsed} tokens
+                  <FaCoins /> -{req.tokensUsed} points
                 </span>
                             </div>
 

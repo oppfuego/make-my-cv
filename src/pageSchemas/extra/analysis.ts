@@ -27,7 +27,7 @@ const schema: PageSchema = {
 and how to beat them. We analyse their SEO strategy, backlinks, content, and keywords to uncover growth opportunities for your brand.`,
             image: "image11",
             align: "right",
-            primaryCta: { text: "Order Competitor Audit", link: "/contact-us?service=Competitor%20Analysis&tokens=1700" },
+            primaryCta: { text: "Order Competitor Audit", link: "/contact-us?service=Competitor%20Analysis&points=1700" },
         },
 
         // 💡 INTRO
@@ -115,7 +115,7 @@ Our analysis gives you clarity — showing what works in your niche and how to o
                         "Speed recommendations",
                         "Basic keyword analysis",
                     ],
-                    buttonText: "Buy Tokens",
+                    buttonText: "Buy Points",
                     buttonLink: "/pricing",
                 },
                 {

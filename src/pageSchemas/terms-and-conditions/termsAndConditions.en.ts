@@ -5,13 +5,13 @@ const termsSchema: PageSchema = {
     meta: {
         title: "Terms and Conditions – MakeMyCV",
         description:
-            "Official Terms and Conditions for using makemy-cv.co.uk – tokens, CV services, refunds, liability, and user rights.",
+            "Official Terms and Conditions for using makemy-cv.co.uk – points, CV services, refunds, liability, and user rights.",
         keywords: [
             "terms and conditions",
             "makemycv",
             "cv builder",
             "resume generator",
-            "tokens",
+            "points",
             "refunds",
             "career documents",
         ],
@@ -38,8 +38,8 @@ const termsSchema: PageSchema = {
             title: "1. Introduction",
             bullets: [
                 "These Terms govern your use of makemy-cv.co.uk operated by DOMESTIC DREAMS LIMITED.",
-                "By using the Service or purchasing Tokens, you agree to these Terms.",
-                "The platform allows creating CVs, cover letters and career documents using a token system.",
+                "By using the Service or purchasing Points, you agree to these Terms.",
+                "The platform allows creating CVs, cover letters and career documents using a point system.",
                 "Services may be AI-generated, human-created, or a combination of both.",
                 "We do not guarantee employment outcomes or third-party acceptance."
             ],
@@ -50,12 +50,12 @@ const termsSchema: PageSchema = {
             title: "2. Definitions",
             bullets: [
                 "Account – your user profile.",
-                "Tokens / Wallet – prepaid credits used for paid features.",
+                "Points / Wallet – prepaid credits used for paid features.",
                 "Services – all tools including CV generation and rewriting.",
                 "Client Content – data you upload.",
                 "Documents / Outputs – generated materials.",
                 "Third-Party Platforms – external systems like job boards.",
-                "Order / Transaction – purchase of Tokens or services."
+                "Order / Transaction – purchase of Points or services."
             ],
         },
 
@@ -88,7 +88,7 @@ const termsSchema: PageSchema = {
             bullets: [
                 "Includes CV creation, cover letters, AI rewriting and templates.",
                 "Results depend on your input quality.",
-                "Revisions may require additional Tokens.",
+                "Revisions may require additional Points.",
                 "You are responsible for how documents are used.",
                 "Service is not intended for permanent storage."
             ],
@@ -117,13 +117,13 @@ const termsSchema: PageSchema = {
 
         {
             type: "text",
-            title: "8. Tokens & Payments",
+            title: "8. Points & Payments",
             bullets: [
                 "Payments via Visa and Mastercard.",
-                "Tokens are prepaid and have no monetary value.",
+                "Points are prepaid and have no monetary value.",
                 "Prices are shown at checkout and may change.",
-                "Tokens are consumed when features are used.",
-                "Consumed Tokens are non-refundable."
+                "Points are consumed when features are used.",
+                "Consumed Points are non-refundable."
             ],
         },
 
@@ -132,8 +132,8 @@ const termsSchema: PageSchema = {
             title: "9. Refunds & Chargebacks",
             bullets: [
                 "Digital services may start immediately after purchase.",
-                "Unused Tokens are generally non-refundable.",
-                "We may re-credit Tokens in case of technical issues.",
+                "Unused Points are generally non-refundable.",
+                "We may re-credit Points in case of technical issues.",
                 "Chargebacks may result in account suspension."
             ],
         },
@@ -209,7 +209,7 @@ const termsSchema: PageSchema = {
             title: "17. Termination",
             bullets: [
                 "We may suspend accounts for violations.",
-                "Unused Tokens are not refundable.",
+                "Unused Points are not refundable.",
                 "You may close your account anytime."
             ],
         },

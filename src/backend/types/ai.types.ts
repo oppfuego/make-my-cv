@@ -28,6 +28,6 @@ export interface GetAiOrderResponse {
 
 export type AiError =
     | { type: "UserNotFound"; message: string }
-    | { type: "InsufficientTokens"; message: string }
+    | { type: "InsufficientPoints"; message: string }
     | { type: "OpenAIError"; message: string }
     | { type: "GenericError"; message: string };

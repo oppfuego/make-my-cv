@@ -173,7 +173,7 @@ export const universalService = {
         if (!body || typeof body !== "object") throw new Error("Invalid request body");
         if (!body.category) throw new Error("Missing category");
         if (!body.fields || typeof body.fields !== "object") throw new Error("Missing fields");
-        if (!body.totalTokens || isNaN(body.totalTokens)) throw new Error("Invalid totalTokens value");
+        if (!body.totalTokens || isNaN(body.totalTokens)) throw new Error("Invalid total points value");
 
         if (body.planType === "instant") body.planType = "default";
         if (!["default", "reviewed"].includes(body.planType))
@@ -186,7 +186,7 @@ export const universalService = {
         const totalCost = Number(body.totalTokens) + languageCost;
 
         if (user.tokens < totalCost)
-            throw new Error(`Insufficient tokens (have ${user.tokens}, need ${totalCost})`);
+            throw new Error(`Insufficient points (have ${user.tokens}, need ${totalCost})`);
 
         // charge
         user.tokens -= totalCost;

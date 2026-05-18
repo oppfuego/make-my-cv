@@ -5,12 +5,12 @@ const refundPolicySchema: PageSchema = {
     meta: {
         title: "Refund / Return Policy – MakeMyCV",
         description:
-            "Official Refund / Return Policy for MakeMyCV: refunds for tokens, CV services, digital content, and consumer rights.",
+            "Official Refund / Return Policy for MakeMyCV: refunds for points, CV services, digital content, and consumer rights.",
         keywords: [
             "refund policy",
             "return policy",
             "makemycv",
-            "tokens",
+            "points",
             "CV builder",
             "digital content",
             "consumer rights",
@@ -19,7 +19,7 @@ const refundPolicySchema: PageSchema = {
         ogImage: {
             title: "MakeMyCV – Refund / Return Policy",
             description:
-                "Transparent refund and return policy for MakeMyCV token purchases and digital document services.",
+                "Transparent refund and return policy for MakeMyCV point purchases and digital document services.",
             bg: "#ffffff",
             color: "#000000",
         },
@@ -40,14 +40,14 @@ const refundPolicySchema: PageSchema = {
             bullets: [
                 "Refund requests are handled under this Policy and applicable UK consumer law.",
                 "Typical processing time is 5–10 business days after approval.",
-                "Any refund will not exceed the amount originally paid for the relevant Token top-up or paid feature.",
-                "Tokens already used for CVs, cover letters or other digital services are non-refundable.",
+                "Any refund will not exceed the amount originally paid for the relevant Point top-up or paid feature.",
+                "Points already used for CVs, cover letters or other digital services are non-refundable.",
                 "Wallet Credit is linked to your Account only and cannot be transferred or exchanged for cash.",
                 "Promotional, bonus or goodwill credits are non-refundable.",
                 "The Service provides digital tools and digital career documents only; there are no physical items to return.",
                 "To submit a request, email info@makemy-cv.co.uk with your account email, order reference and a description of the issue.",
                 "Accepted currencies: GBP (£), EUR (€), USD ($). Payment methods: Visa, Mastercard.",
-                "Reference exchange rate for Tokens: 100 Tokens = £1.00 / €1.17 / $1.29."
+                "Reference exchange rate for Points: 100 Points = £1.00 / €1.17 / $1.29."
             ],
         },
 
@@ -66,8 +66,8 @@ const refundPolicySchema: PageSchema = {
             type: "text",
             title: "3. Key definitions",
             bullets: [
-                "Wallet / Wallet Credit – prepaid Token balance in your Account used for paid features.",
-                "Tokens – units deducted from your Wallet when you use paid features.",
+                "Wallet / Wallet Credit – prepaid Point balance in your Account used for paid features.",
+                "Points – units deducted from your Wallet when you use paid features.",
                 "Documents / Outputs – digital documents and related files generated or prepared using your information.",
                 "Order / Transaction – a confirmed Wallet top-up or purchase of a paid feature.",
                 "Abuse / Fraud – activity that breaches the Terms, such as unauthorised payments or attempts to bypass limits."
@@ -79,9 +79,9 @@ const refundPolicySchema: PageSchema = {
             title: "4. General refund principles",
             bullets: [
                 "Any refund will not exceed the original amount paid for the relevant Order, minus non-recoverable processor fees where legally permitted.",
-                "By purchasing Tokens and using them to start a service, you agree that performance may begin immediately and statutory cooling-off rights may no longer apply where allowed by law.",
-                "Consumed Tokens are non-returnable and non-refundable.",
-                "If your inputs are incorrect, incomplete, outdated or misleading, additional revisions or regenerated versions will consume new Tokens and are not refundable.",
+                "By purchasing Points and using them to start a service, you agree that performance may begin immediately and statutory cooling-off rights may no longer apply where allowed by law.",
+                "Consumed Points are non-returnable and non-refundable.",
+                "If your inputs are incorrect, incomplete, outdated or misleading, additional revisions or regenerated versions will consume new Points and are not refundable.",
                 "Refunds are normally made in the original payment currency and to the original payment method.",
                 "We do not control or reimburse FX differences or card-provider fees.",
                 "Promotional, bonus or trial credits are non-refundable and may expire under separate promotion terms.",
@@ -91,12 +91,12 @@ const refundPolicySchema: PageSchema = {
 
         {
             type: "text",
-            title: "5. Wallet top-ups (Tokens)",
+            title: "5. Wallet top-ups (Points)",
             bullets: [
                 "Wallet top-ups are prepayments for access to digital features of the Service.",
                 "Your Wallet is not a bank account, payment account or e-money account.",
-                "Unused Token balances are generally not withdrawable and not redeemable for cash.",
-                "In exceptional cases such as technical errors or duplicate payments, unused Tokens may be refunded at our reasonable discretion.",
+                "Unused Point balances are generally not withdrawable and not redeemable for cash.",
+                "In exceptional cases such as technical errors or duplicate payments, unused Points may be refunded at our reasonable discretion.",
                 "If a top-up has been partly used, only the unused portion may be considered for refund, up to the original amount paid for that top-up.",
                 "Wallet Credit is personal to your Account and cannot be sold, gifted, exchanged or transferred."
             ],
@@ -106,8 +106,8 @@ const refundPolicySchema: PageSchema = {
             type: "text",
             title: "6. Cancellations of paid features",
             bullets: [
-                "If no Tokens have been consumed and no work or generation has begun, you may request cancellation and a refund.",
-                "Once performance begins, such as AI generation, specialist drafting or Token deduction, cancellation and refunds are generally not available.",
+                "If no Points have been consumed and no work or generation has begun, you may request cancellation and a refund.",
+                "Once performance begins, such as AI generation, specialist drafting or Point deduction, cancellation and refunds are generally not available.",
                 "Any non-excludable statutory consumer rights still apply."
             ],
         },
@@ -118,8 +118,8 @@ const refundPolicySchema: PageSchema = {
             bullets: [
                 "If you believe a Document or Output is materially defective due to a technical issue, contact us within 7 days of generation or delivery.",
                 "Please include screenshots, timestamps, file names and error messages where relevant.",
-                "If we confirm a technical fault on our side, our primary remedy is to re-run or re-deliver the affected service at no extra Token cost.",
-                "If a re-run is not reasonably possible, we may credit your Wallet with an equivalent number of Tokens.",
+                "If we confirm a technical fault on our side, our primary remedy is to re-run or re-deliver the affected service at no extra Point cost.",
+                "If a re-run is not reasonably possible, we may credit your Wallet with an equivalent number of Points.",
                 "Lack of interviews, offers or third-party acceptance is not by itself a defect in the Service and does not entitle you to a refund."
             ],
         },
@@ -144,7 +144,7 @@ const refundPolicySchema: PageSchema = {
             bullets: [
                 "If you initiate a chargeback or payment dispute, we may treat it as a formal dispute and provide supporting evidence to the payment provider.",
                 "We may temporarily suspend or limit your Account while the dispute is being investigated.",
-                "If a chargeback results in reversed funds, we may remove equivalent Wallet Credit or Tokens from your Account.",
+                "If a chargeback results in reversed funds, we may remove equivalent Wallet Credit or Points from your Account.",
                 "We may also seek recovery of any outstanding amounts lawfully due, including reasonable investigation and administrative costs.",
                 "In many cases, contacting support first leads to a faster resolution."
             ],
@@ -154,7 +154,7 @@ const refundPolicySchema: PageSchema = {
             type: "text",
             title: "10. Taxes and invoicing",
             bullets: [
-                "We issue electronic receipts and/or invoices for Token purchases and paid features.",
+                "We issue electronic receipts and/or invoices for Point purchases and paid features.",
                 "Applicable VAT or other indirect taxes are displayed where required based on your billing details and our tax obligations.",
                 "Where a refund is processed, the refunded amount may be net of taxes we are legally unable to reclaim, unless law requires those taxes to be refunded as well."
             ],
@@ -164,7 +164,7 @@ const refundPolicySchema: PageSchema = {
             type: "text",
             title: "11. Record-keeping and data protection",
             bullets: [
-                "We keep records relevant to refunds, chargebacks and disputes, including order identifiers, payment data, Token usage, timestamps, device or IP information and error traces.",
+                "We keep records relevant to refunds, chargebacks and disputes, including order identifiers, payment data, Point usage, timestamps, device or IP information and error traces.",
                 "These records are retained for at least 24 months, and up to 6 years for enterprise clients or disputed transactions.",
                 "Personal data is processed under the UK GDPR and the Data Protection Act 2018.",
                 "Further details are set out in our Privacy Policy."
@@ -175,10 +175,10 @@ const refundPolicySchema: PageSchema = {
             type: "text",
             title: "12. Illustrative examples",
             bullets: [
-                "Immediate performance: if you purchase Tokens and immediately generate CVs or cover letters, used Tokens are not refundable.",
-                "Not yet performed: if you purchase a Cover Letter package and cancel before any work starts and before any Tokens are deducted, we may refund the relevant amount.",
-                "Technical fault: if a generated file is empty or corrupted due to a system issue, we may re-run the generation or credit equivalent Tokens.",
-                "Unused top-up: if you top up your Wallet and never use the Tokens, we may at our discretion refund the unused amount minus non-recoverable processing fees.",
+                "Immediate performance: if you purchase Points and immediately generate CVs or cover letters, used Points are not refundable.",
+                "Not yet performed: if you purchase a Cover Letter package and cancel before any work starts and before any Points are deducted, we may refund the relevant amount.",
+                "Technical fault: if a generated file is empty or corrupted due to a system issue, we may re-run the generation or credit equivalent Points.",
+                "Unused top-up: if you top up your Wallet and never use the Points, we may at our discretion refund the unused amount minus non-recoverable processing fees.",
                 "No job offer: if you use the Service but do not receive interviews or offers, this alone does not entitle you to a refund."
             ],
         },

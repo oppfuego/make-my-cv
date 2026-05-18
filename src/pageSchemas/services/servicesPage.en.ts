@@ -4,7 +4,7 @@ import { COMPANY_NAME } from "@/resources/constants";
 const servicesSchema: PageSchema = {
     meta: {
         title: `Our Services — ${COMPANY_NAME}`,
-        description: `Explore ${COMPANY_NAME} services: personalized training plans, nutrition advice, progress tracking, and a flexible token system for fitness enthusiasts of all levels.`,
+        description: `Explore ${COMPANY_NAME} services: personalized training plans, nutrition advice, progress tracking, and a flexible point system for fitness enthusiasts of all levels.`,
         keywords: [
             `${COMPANY_NAME} services`,
             "fitness plans",
@@ -128,8 +128,8 @@ const servicesSchema: PageSchema = {
             cards: [
                 {
                     image: "image4",
-                    title: "Flexible Token System",
-                    description: "Buy tokens once and use them for workouts, nutrition, or extra features.",
+                    title: "Flexible Point System",
+                    description: "Buy points once and use them for workouts, nutrition, or extra features.",
                     buttonLink: "/pricing",
                     buttonText: "View Plans",
                 },
@@ -158,7 +158,7 @@ const servicesSchema: PageSchema = {
                 description: `Because fitness should be simple, motivating, and personalized. ${COMPANY_NAME} adapts to you — not the other way around.`,
                 bullets: [
                     "AI-assisted personalization",
-                    "Flexible pricing with tokens",
+                    "Flexible pricing with points",
                     "All-in-one solution: training + nutrition + tracking",
                 ],
                 centerTitle: true,
@@ -174,11 +174,11 @@ const servicesSchema: PageSchema = {
                     answer: "We offer training plans, nutrition guidance, progress tracking, and optional expert coaching.",
                 },
                 {
-                    question: "Do I need tokens to start?",
-                    answer: "You can try some features for free, but tokens unlock advanced workouts and nutrition plans.",
+                    question: "Do I need points to start?",
+                    answer: "You can try some features for free, but points unlock advanced workouts and nutrition plans.",
                 },
                 {
-                    question: "How flexible is the token system?",
+                    question: "How flexible is the point system?",
                     answer: "Very. You buy once and spend only on what you need — no wasted subscriptions.",
                 },
                 {

@@ -106,7 +106,7 @@ const AllOrders: React.FC = () => {
                                 </span>
 
                                 <span className={styles.tokens}>
-                                    <FaCoins /> -{order.totalTokens} tokens
+                                    <FaCoins /> -{order.totalTokens} points
                                 </span>
                             </div>
 
