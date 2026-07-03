@@ -13,6 +13,11 @@
   background-color: var(--background-light);
 
   // 💫 Декоративні світлі плями в холодних синіх тонах
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
   &::before,
   &::after {
     content: "";
@@ -21,6 +26,7 @@
     filter: blur(120px);
     opacity: 0.35;
     z-index: 0;
+    pointer-events: none;
     transition: all 0.8s ease;
   }
 
