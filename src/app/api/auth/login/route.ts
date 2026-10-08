@@ -17,10 +17,7 @@ export async function POST(req: NextRequest) {
         // ✅ Формуємо JSON-відповідь
         const res = NextResponse.json({ user }, { status: 200 });
 
-        // 🧹 очищаємо старі токени на всякий випадок
-        clearAuthCookies(res);
-
-        // 🍪 додаємо нові
+        // 🍪 додаємо нові токени в cookies
         attachAuthCookies(res, tokens.accessToken, tokens.refreshToken, 60 * 60 * 24 * 30);
 
         return res;

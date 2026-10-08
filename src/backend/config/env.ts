@@ -25,4 +25,9 @@ export const ENV = {
     SMTP_PASS: env("SMTP_PASS", ""),
     EMAIL_FROM: env("EMAIL_FROM", ""),
     RESEND_API: env("RESEND_API", ""),
+    COREFY_BASE_URL: env("COREFY_BASE_URL", "https://api.sterling-pay.com"),
+    COREFY_ACCOUNT_ID: env("COREFY_ACCOUNT_ID", "coma_d91RpUeuZYZCC7K1"),
+    COREFY_API_KEY: env("COREFY_API_KEY", "secret_key_demo"),
+    COREFY_WEBHOOK_SECRET: env("COREFY_WEBHOOK_SECRET", "sig_key_demo"),
+    COREFY_TEST_MODE: env("COREFY_TEST_MODE", "true") === "true",
 };

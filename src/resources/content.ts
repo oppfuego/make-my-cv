@@ -18,7 +18,7 @@ export const footerSocialLinks = [
 export const baseURL =
     typeof window !== "undefined"
         ? window.location.origin
-        : process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000";
+        : process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:1020";
 
 export const headerContent = {
     logo: {

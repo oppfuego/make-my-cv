@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import { ComponentType, ReactNode } from "react";
 import { UserProvider } from "@/context/UserContext";
-import { baseURL } from "@/resources/content";
 import { IUser, Nullable } from "@/types/user.types";
+import { ENV } from "@/backend/config/env";
+import { verifyAccessToken } from "@/backend/utils/jwt";
+import { authController } from "@/backend/controllers/auth.controller";
 
 interface WrappedComponentProps { children?: ReactNode; }
 
@@ -12,30 +14,34 @@ export function authWrapper<T extends WrappedComponentProps>(Component: Componen
         const c = await cookies();
 
         try {
-            // 🧩 1. Пробуємо перевірити поточний access_token
-            const res = await fetch(`${baseURL}/api/auth/me`, {
-                method: "GET",
-                headers: { Cookie: c.toString() },
-                cache: "no-store",
-            });
+            const accessToken = c.get(ENV.ACCESS_COOKIE_NAME || "access_token")?.value;
 
-            if (res.ok) {
-                const json = await res.json();
-                user = json.user;
-            } else {
-                // 🧩 2. Якщо 401 — не одразу refresh, спочатку перевіряємо чи є refresh_token
-                const refreshToken = c.get("refresh_token");
+            if (accessToken) {
+                try {
+                    const payload = await verifyAccessToken<{ sub?: string; id?: string; _id?: string }>(accessToken);
+                    const userId = payload.sub || payload.id || payload._id;
+                    if (userId) {
+                        const dbUser = await authController.me(userId);
+                        if (dbUser) {
+                            user = dbUser as unknown as IUser;
+                        }
+                    }
+                } catch {
+                    // Access token might be expired or invalid, will try refresh token below
+                }
+            }
+
+            // 🧩 Якщо access token не підійшов — пробуємо refresh token
+            if (!user) {
+                const refreshToken = c.get(ENV.REFRESH_COOKIE_NAME || "refresh_token")?.value;
                 if (refreshToken) {
-                    const r = await fetch(`${baseURL}/api/auth/refresh`, {
-                        method: "POST",
-                        headers: { Cookie: c.toString() },
-                        cache: "no-store",
-                    });
-                    if (r.ok) {
-                        const json = await r.json();
-                        user = json.user;
-                    } else {
-                        console.warn("authWrapper: refresh failed with", r.status);
+                    try {
+                        const refreshRes = await authController.refresh(refreshToken);
+                        if (refreshRes?.user) {
+                            user = refreshRes.user as unknown as IUser;
+                        }
+                    } catch (err) {
+                        // Refresh token expired or session revoked
                     }
                 }
             }

@@ -1,67 +1,66 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
-const CHECKOUT_KEY = "sandbox_checkout";
-
-export default function SuccessPage() {
+function SuccessContent() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [loading, setLoading] = useState(true);
+    const [orderInfo, setOrderInfo] = useState<{
+        orderId?: string;
+        referenceId?: string;
+        status?: string;
+        amount?: number;
+        currency?: string;
+    } | null>(null);
 
     useEffect(() => {
-        if (process.env.NEXT_PUBLIC_MYACCEPT_ENV !== "sandbox") {
+        const orderId = searchParams.get("order_id") || searchParams.get("orderId");
+        const ref = searchParams.get("ref") || searchParams.get("reference_id");
+        const invoiceId = searchParams.get("invoice_id") || searchParams.get("invoiceId");
+
+        if (ref || invoiceId || orderId) {
+            const query = new URLSearchParams();
+            if (ref) query.set("referenceId", ref);
+            if (invoiceId) query.set("invoiceId", invoiceId);
+            if (orderId && !ref) query.set("orderId", orderId);
+
+            fetch(`/api/corefy/status?${query.toString()}`)
+                .then((r) => r.json())
+                .then((res) => {
+                    if (res?.success) {
+                        if (
+                            res.status === "process_failed" ||
+                            res.status === "authorize_failed" ||
+                            res.status === "failed"
+                        ) {
+                            router.replace(`/checkout/failed?order_id=${res.orderId || orderId || ""}`);
+                            return;
+                        }
+
+                        if (res.status === "process_pending" || res.status === "pending") {
+                            // Can show pending or success
+                            setOrderInfo(res);
+                        } else {
+                            setOrderInfo(res);
+                        }
+                    }
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
+        } else {
             setLoading(false);
-            return;
         }
-
-        const raw = localStorage.getItem(CHECKOUT_KEY);
-        if (!raw) {
-            setLoading(false);
-            return;
-        }
-
-        const checkout = JSON.parse(raw) as { referenceId?: string; status?: string };
-
-        if (checkout.status === "failed") {
-            localStorage.removeItem(CHECKOUT_KEY);
-            router.replace("/checkout/failed");
-            return;
-        }
-
-        if (!checkout.referenceId) {
-            localStorage.removeItem(CHECKOUT_KEY);
-            router.replace("/checkout/failed");
-            return;
-        }
-
-        fetch("/api/myaccept/sandbox-confirm", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ referenceId: checkout.referenceId }),
-        })
-            .then((r) => r.json())
-            .then((res) => {
-                localStorage.removeItem(CHECKOUT_KEY);
-
-                if (!res?.ok) {
-                    router.replace("/checkout/failed");
-                    return;
-                }
-
-                setLoading(false);
-            })
-            .catch(() => {
-                localStorage.removeItem(CHECKOUT_KEY);
-                router.replace("/checkout/failed");
-            });
-    }, [router]);
+    }, [router, searchParams]);
 
     if (loading) {
         return (
             <div style={styles.wrapper}>
                 <div style={styles.card}>
-                    <p style={{ color: "#64748b" }}>Finalizing payment...</p>
+                    <p style={{ color: "#64748b" }}>Verifying your payment status...</p>
                 </div>
             </div>
         );
@@ -70,14 +69,20 @@ export default function SuccessPage() {
     return (
         <div style={styles.wrapper}>
             <div style={styles.card}>
-                <div style={styles.iconSuccess}>OK</div>
+                <div style={styles.iconSuccess}>✓</div>
 
                 <h1 style={styles.title}>Payment Successful</h1>
 
                 <p style={styles.text}>
-                    Your payment was completed successfully.
+                    Thank you! Your payment was processed successfully.
+                    {orderInfo?.orderId && (
+                        <>
+                            <br />
+                            <strong>Order Reference:</strong> {orderInfo.orderId}
+                        </>
+                    )}
                     <br />
-                    Points have been added to your account.
+                    Points have been credited to your account.
                 </p>
 
                 <button
@@ -95,6 +100,20 @@ export default function SuccessPage() {
                 </button>
             </div>
         </div>
+    );
+}
+
+export default function SuccessPage() {
+    return (
+        <Suspense fallback={
+            <div style={styles.wrapper}>
+                <div style={styles.card}>
+                    <p style={{ color: "#64748b" }}>Loading...</p>
+                </div>
+            </div>
+        }>
+            <SuccessContent />
+        </Suspense>
     );
 }
 
@@ -123,7 +142,7 @@ const styles: Record<string, React.CSSProperties> = {
         borderRadius: "50%",
         background: "linear-gradient(135deg, #22c55e, #16a34a)",
         color: "#fff",
-        fontSize: 24,
+        fontSize: 32,
         fontWeight: 700,
         display: "flex",
         alignItems: "center",

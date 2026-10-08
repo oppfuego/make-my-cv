@@ -2,6 +2,10 @@ export type SupportedCurrency = "GBP" | "EUR" | "USD";
 export type TopUpPackageId = "starter" | "pro" | "premium" | "custom";
 export type PricingMode = "fixed" | "custom";
 
+export function isSupportedCurrency(value: unknown): value is SupportedCurrency {
+    return value === "GBP" || value === "EUR" || value === "USD";
+}
+
 export interface FixedTopUpPackage {
     packageId: Exclude<TopUpPackageId, "custom">;
     pricingMode: "fixed";
