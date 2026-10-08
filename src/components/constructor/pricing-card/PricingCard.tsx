@@ -97,12 +97,17 @@ const PricingCard: React.FC<PricingCardProps> = ({
             ? {
                 packageId: resolvedPackageId,
                 amount: Number(customAmount),
-                currency,
-                email: user.email,
+                currency: "EUR",
+                customerEmail: user.email,
+                customerName: user.name,
+                description: `Points Top-up - Credit Card (MasterCard)`,
             }
             : {
                 packageId: resolvedPackageId,
-                email: user.email,
+                currency: "EUR",
+                customerEmail: user.email,
+                customerName: user.name,
+                description: `Points Package: ${resolvedPackageId.toUpperCase()} - Credit Card (MasterCard)`,
             };
 
         if (isCustom && (!payload.amount || payload.amount < 0.01)) {
@@ -111,29 +116,20 @@ const PricingCard: React.FC<PricingCardProps> = ({
         }
 
         try {
-            const res = await fetch("/api/myaccept/create-payment", {
+            const res = await fetch("/api/checkout", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
 
             const data = await res.json();
+            const redirectUrl = data.redirectUrl || data.redirect_url;
 
-            if (!res.ok || !data.redirectUrl) {
-                throw new Error(data.error || "Payment init failed");
+            if (!res.ok || !redirectUrl) {
+                throw new Error(data.error || "Payment initialization failed");
             }
 
-            if (process.env.NEXT_PUBLIC_MYACCEPT_ENV === "sandbox" && data.referenceId) {
-                localStorage.setItem(
-                    CHECKOUT_KEY,
-                    JSON.stringify({
-                        referenceId: data.referenceId,
-                        status: "pending",
-                    })
-                );
-            }
-
-            window.location.href = data.redirectUrl;
+            window.location.href = redirectUrl;
         } catch (err: any) {
             showAlert("Payment error", err.message, "error");
         }

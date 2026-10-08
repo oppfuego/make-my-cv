@@ -12,16 +12,16 @@ interface CurrencyContextType {
 }
 
 const CurrencyContext = createContext<CurrencyContextType>({
-    currency: "GBP",
+    currency: "EUR",
     setCurrency: () => {},
-    sign: "\u00A3",
+    sign: "€",
 });
 
 export const useCurrency = () => useContext(CurrencyContext);
 
 export const CurrencyProvider = ({ children }: { children: ReactNode }) => {
-    const [currency, setCurrency] = useState<Currency>("GBP");
-    const sign = getCurrencySign(currency);
+    const [currency, setCurrency] = useState<Currency>("EUR");
+    const sign = getCurrencySign(currency) || "€";
 
     return (
         <CurrencyContext.Provider value={{ currency, setCurrency, sign }}>

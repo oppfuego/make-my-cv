@@ -32,8 +32,9 @@ export async function signInOnSubmit(
 
         if (res.ok && data?.user) {
             showAlert("Login successful!", "", "success");
-            router.replace("/");
-            router.refresh();
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 300);
         } else {
             showAlert(data?.message || "Login failed", "", "error");
         }

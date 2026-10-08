@@ -3,7 +3,7 @@
 import React, { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function FailedContent() {
+function PendingContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const orderId = searchParams.get("order_id") || searchParams.get("ref");
@@ -11,12 +11,12 @@ function FailedContent() {
     return (
         <div style={styles.wrapper}>
             <div style={styles.card}>
-                <div style={styles.iconError}>!</div>
+                <div style={styles.iconPending}>⏳</div>
 
-                <h1 style={styles.title}>Payment Failed</h1>
+                <h1 style={styles.title}>Payment Pending</h1>
 
                 <p style={styles.text}>
-                    Unfortunately, your payment could not be completed.
+                    Your payment is currently being processed by your bank or payment provider.
                     {orderId && (
                         <>
                             <br />
@@ -24,14 +24,14 @@ function FailedContent() {
                         </>
                     )}
                     <br />
-                    No charges were made to your card.
+                    Once confirmed, your account balance will be automatically updated.
                 </p>
 
                 <button
                     style={styles.primaryButton}
-                    onClick={() => router.push("/pricing")}
+                    onClick={() => router.push("/dashboard")}
                 >
-                    Try Again
+                    Go to Dashboard
                 </button>
 
                 <button
@@ -45,7 +45,7 @@ function FailedContent() {
     );
 }
 
-export default function FailedPage() {
+export default function PendingPage() {
     return (
         <Suspense fallback={
             <div style={styles.wrapper}>
@@ -54,7 +54,7 @@ export default function FailedPage() {
                 </div>
             </div>
         }>
-            <FailedContent />
+            <PendingContent />
         </Suspense>
     );
 }
@@ -77,14 +77,14 @@ const styles: Record<string, React.CSSProperties> = {
         boxShadow:
             "0 20px 40px rgba(0,0,0,0.06), 0 8px 16px rgba(0,0,0,0.04)",
     },
-    iconError: {
+    iconPending: {
         width: 72,
         height: 72,
         margin: "0 auto 24px",
         borderRadius: "50%",
-        background: "linear-gradient(135deg, #ef4444, #dc2626)",
+        background: "linear-gradient(135deg, #f59e0b, #d97706)",
         color: "#fff",
-        fontSize: 34,
+        fontSize: 32,
         fontWeight: 700,
         display: "flex",
         alignItems: "center",
@@ -107,7 +107,7 @@ const styles: Record<string, React.CSSProperties> = {
         padding: "14px 16px",
         borderRadius: 12,
         border: "none",
-        background: "#ef4444",
+        background: "#f59e0b",
         color: "#fff",
         fontSize: 15,
         fontWeight: 600,

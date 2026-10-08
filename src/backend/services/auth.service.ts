@@ -41,11 +41,15 @@ export const authService = {
             dateOfBirth: getDateOfBirthAsDate(normalized.dateOfBirth),
         });
         const result = await this.issueTokensAndSession(user._id, user.email, user.role, undefined, undefined);
-        await sendEmail(
-            user.email,
-            "Welcome to MakeMyCV 🎉",
-            `Hi ${user.firstName || user.name}, thanks for registering at MakeMyCV.`
-        );
+        try {
+            await sendEmail(
+                user.email,
+                "Welcome to MakeMyCV 🎉",
+                `Hi ${user.firstName || user.name}, thanks for registering at MakeMyCV.`
+            );
+        } catch (mailErr) {
+            console.warn("⚠️ Welcome email could not be sent:", mailErr);
+        }
 
         return { user, ...result };
     },
