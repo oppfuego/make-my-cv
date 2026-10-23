@@ -1,262 +1,132 @@
-import { PageSchema } from "@/components/constructor/page-render/types";
-import {
-    COMPANY_ADDRESS,
-    COMPANY_EMAIL,
-    COMPANY_LEGAL_NAME,
-    COMPANY_NAME,
-    COMPANY_NUMBER,
-} from "@/resources/constants";
+import type { PageSchema } from "@/components/constructor/page-render/types";
 
+// Public policy copy from MakeMyCV_Updated_Policies_2026-10-22.md.
+// Internal implementation notes are intentionally excluded.
 const privacyPolicySchema: PageSchema = {
     meta: {
-        title: `Privacy Policy – ${COMPANY_NAME}`,
-        description:
-            "We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains what personal data we collect, why we use it, how long we keep it, and how you can exercise your rights when using makemy-cv.co.uk and related services.",
-        keywords: [
-            "privacy policy",
-            "GDPR",
-            "data protection",
-            "makemycv",
-            "personal data",
-            "uk gdpr",
-        ],
+        title: "Privacy Policy – MakeMyCV",
+        description: "How MakeMyCV processes Account information, CV content, AI requests, payments and documents, including retention and your privacy rights.",
+        keywords: ["MakeMyCV", "privacy policy", "Points", "career documents"],
         canonical: "/privacy-policy",
         ogImage: {
-            title: `${COMPANY_NAME} – Privacy Policy`,
-            description:
-                `Privacy Policy for ${COMPANY_NAME}: personal data, retention, transfers, and rights under UK GDPR.`,
+            title: "MakeMyCV – Privacy Policy",
+            description: "How MakeMyCV processes Account information, CV content, AI requests, payments and documents, including retention and your privacy rights.",
             bg: "#ffffff",
             color: "#000000",
         },
     },
-
     blocks: [
         {
-            type: "text",
-            title: "Privacy Policy",
-            description: "Effective date: 1 September 2025",
-        },
-        {
-            type: "text",
-            title: "1. Introduction",
-            description:
-                "We respect your privacy and are committed to protecting your personal data. This Privacy Policy explains what personal data we collect, why we use it, how long we keep it, and how you can exercise your rights when using makemy-cv.co.uk and related services (the “Service”).",
-            bullets: [
-                `Controller: ${COMPANY_LEGAL_NAME} (Company No. ${COMPANY_NUMBER}), ${COMPANY_ADDRESS} (“${COMPANY_NAME}”, “we”, “us”, “our”).`,
-                `Contact: ${COMPANY_EMAIL}`,
-                "Scope & age: This Policy applies to all users of the Service (including business customers and their authorised staff). The Service is intended for individuals aged 18 and over.",
-                "By using the Service, you acknowledge that your personal data will be processed in accordance with this Privacy Policy and applicable data protection laws, including the UK GDPR and the Data Protection Act 2018.",
-            ],
-        },
-        {
-            type: "text",
-            title: "2. Personal data we collect",
-            description:
-                "We collect only the data we need to operate, secure and improve the Service.",
-        },
-        {
-            type: "text",
-            title: "2.1 Data you provide directly",
-            bullets: [
-                "Account & identity: name (or display name), company name, role, email address, telephone number, preferred language.",
-                "Career-document inputs: information contained in the CVs/resumes, cover letters and other documents you upload or enter (including any text, images, tables, metadata or other content that may include personal data), as well as job descriptions you provide, target roles, industries and any options or settings you choose for generation or rewriting.",
-                "Access grants (optional): where available, limited access tokens or keys for third-party tools or platforms that you choose to connect for integration, export or diagnostics (for example, cloud storage or productivity tools); you can revoke access at any time.",
-                "Billing: billing name and address, VAT details (if applicable) and other information needed for invoicing.",
-                "Wallet & Points: top-up amounts, chosen currency, point package details, and a history of Point consumption (for example, which services you spent Points on, such as Professional CV Creation, AI CV Generator or Cover Letter).",
-                "Support & communications: messages and attachments you send to us (including support tickets, feedback forms, surveys or emails).",
-                "Special-category data: We do not intentionally seek special-category data (such as health information, political opinions, religious beliefs or biometric data). If you voluntarily include such data in any CV, cover letter, other document or in your communications with us, we will process it only as necessary to provide the requested Service and only on the basis of your explicit consent (see section 3.2). Please avoid including special-category data where it is not strictly necessary.",
-            ],
-        },
-        {
-            type: "text",
-            title: "2.2 Data collected automatically",
-            bullets: [
-                "Technical data: IP address, device and browser type, operating system, timezone, language, user agent and session identifiers.",
-                "Security telemetry: login attempts, authentication events, rate-limiting and anomaly logs, abuse/fraud signals and similar security-related information.",
-                "Usage & diagnostics: page views, clicks, navigation paths, feature usage (for example, which CV/cover letter tools you use), Point top-ups and deductions, task identifiers, error traces and performance metrics.",
-            ],
-        },
-        {
-            type: "text",
-            title: "2.3 Data from third parties",
-            description:
-                "Where necessary to provide and secure the Service, we may receive limited personal data from:",
-            bullets: [
-                "Payment processors: transaction references, status codes, partial card data (e.g. last 4 digits, card type) and fraud-prevention signals. We do not receive or store full card numbers or CVV codes.",
-                "Connected platforms: where you authorise integrations, we may receive limited metrics or configuration data from those platforms to enable the Service (for example, to support exports, imports or confirm that a connection works correctly).",
-                "Fraud-prevention and verification providers: risk scores, checks and alerts.",
-                "Professional advisers and insurers: information necessary for legal, tax, compliance or insurance purposes.",
-            ],
-        },
-        {
-            type: "text",
-            title: "2.4 User-Generated Content (UGC)",
-            description:
-                "User-Generated Content (for example, CVs/resumes, cover letters, texts you enter, notes or comments) may contain personal data about you or third parties. You are responsible for ensuring that you have an appropriate lawful basis, notices and permissions to include any third-party personal data in your UGC.",
-        },
-        {
-            type: "text",
-            title: "3. Why we process your data & legal bases (UK GDPR)",
-            description:
-                "We process personal data under the UK GDPR and the Data Protection Act 2018 on the following legal bases:",
-        },
-        {
-            type: "text",
-            title: "3.1 Performance of a contract",
-            description:
-                "To enter into and perform our contract with you, we process personal data to:",
-            bullets: [
-                "create, maintain and secure your Account;",
-                "provide the Service, including generating, rewriting and delivering CVs, cover letters and related Outputs;",
-                "operate Wallets and Points, process payments and issue invoices/receipts;",
-                "communicate with you about your use of the Service, Orders and support requests.",
-            ],
-        },
-        {
-            type: "text",
-            title: "3.2 Consent (including marketing & special-category data)",
-            description:
-                "We may rely on your consent to:",
-            bullets: [
-                "process any special-category data that you voluntarily provide in UGC or communications;",
-                "send marketing emails and newsletters where you opt in (for example, tips on improving your CV, new features, promotions);",
-                "use your feedback, testimonials or content for marketing or product-improvement purposes where you explicitly agree.",
-                "You may withdraw your consent at any time via the settings (where available) or by contacting us (see section 12). Withdrawal does not affect the lawfulness of processing prior to withdrawal.",
-            ],
-        },
-        {
-            type: "text",
-            title: "3.3 Legitimate interests",
-            description:
-                "We may process personal data where necessary for our legitimate interests, provided that your interests and fundamental rights do not override those interests. This includes:",
-            bullets: [
-                "keeping the Service secure (fraud detection, abuse prevention, logging, rate-limiting and incident response);",
-                "measuring and improving performance, usability and user experience (using aggregated or pseudonymised analytics where feasible);",
-                "sending essential, non-marketing communications (for example, service, security or policy updates);",
-                "limited B2B outreach to existing or potential business customers about products or services related to the Service, subject to your right to object at any time (see section 8).",
-            ],
-        },
-        {
-            type: "text",
-            title: "3.4 Legal obligation",
-            description:
-                "We may process personal data where necessary to comply with legal obligations, including:",
-            bullets: [
-                "tax, accounting and corporate record-keeping;",
-                "responding to lawful requests from public authorities, courts or regulators;",
-                "fulfilling our obligations under applicable consumer protection and data protection laws.",
-            ],
-        },
-        {
-            type: "text",
-            title: "4. Automated processing, profiling and AI",
-            bullets: [
-                "The Service uses automated processing and algorithms, including AI, to handle your inputs (for example, generating or rewriting CV and cover letter content, suggesting bullet points, structuring sections or aggregating data for usage statistics).",
-                "Limited profiling may be used to tailor aspects of the Service (for example, detecting unusual usage patterns for fraud-prevention or applying usage limits).",
-                "We do not make decisions with legal or similarly significant effects solely based on automated decision-making. AI features are designed to assist you by providing suggestions; you remain in control of the final content of your CVs and cover letters.",
-                "You may request human review of any decision that you believe has been taken solely by automated means by contacting us.",
-            ],
-        },
-        {
-            type: "text",
-            title: "5. Sharing and international transfers",
-            description:
-                "We share personal data only as necessary to operate, secure and improve the Service or to comply with legal obligations. This may include:",
-            bullets: [
-                "Payment processing: providers that process Visa and Mastercard payments and related anti-fraud measures.",
-                "Hosting & IT: secure cloud infrastructure, content delivery networks, storage/backups, monitoring and error-tracking services.",
-                "Product & support tooling: analytics platforms (aggregated or pseudonymised where feasible), helpdesk ticketing, email or SMS delivery, customer feedback and A/B testing tools, and where applicable, AI and language-model providers used to power CV/cover letter generation, rewriting and related features.",
-                "Professional advisers & insurers: legal, accounting, compliance and insurance providers.",
-                "Corporate transactions: if we are involved in a merger, acquisition, financing or sale of all or part of our business, personal data may be transferred as part of that transaction, subject to appropriate safeguards.",
-                "Some of our service providers are located outside the UK/EEA. Where personal data is transferred internationally, we implement appropriate safeguards such as:",
-                "UK adequacy regulations (where the destination country has been recognised as providing an adequate level of protection);",
-                "the UK or EU Standard Contractual Clauses (SCCs); and",
-                "additional technical and organisational measures where appropriate.",
-                "We do not sell your personal data.",
-            ],
-        },
-        {
-            type: "text",
-            title: "6. Cookies and similar technologies",
-            description:
-                "We use cookies and similar technologies (including localStorage and sessionStorage) to:",
-            bullets: [
-                "run essential functions of the Service (for example, login sessions, security and preferences);",
-                "remember your settings (such as language or currency);",
-                "measure performance and reliability;",
-                "where you consent, enable analytics and, if applicable, marketing or attribution.",
-                "Essential cookies are necessary for core functionality and security and cannot be disabled through our consent tools. For more details on the types of cookies we use and how you can manage your preferences, please see our Cookies Policy (linked in the footer of the website).",
-            ],
-        },
-        {
-            type: "text",
-            title: "7. Retention",
-            description:
-                "We keep personal data only for as long as necessary for the purposes described in this Policy or as required by law. In particular:",
-            bullets: [
-                "Career documents & Outputs: we retain CVs, cover letters and related Outputs for a limited period necessary to provide the Service (for example, to allow you to download results, view your history and troubleshoot issues) and then delete or anonymise them, unless you choose to store them for longer within your Account where that functionality is available. Retention periods may vary depending on the feature and will be kept no longer than necessary.",
-                "Wallet, Points & transactions: at least 24 months and up to 6 years where needed for disputes, tax, accounting or enterprise records.",
-                "Account & profile data: for as long as your Account is active and for a reasonable period after closure (typically up to 24 months), unless a longer period is required for legal, security or business continuity reasons.",
-                "Logs & security telemetry: typically 6–24 months, depending on the purpose and risk level.",
-                "Where feasible, we minimise, pseudonymise or anonymise data as early as possible and then securely delete or irreversibly anonymise it once it is no longer needed.",
-            ],
-        },
-        {
-            type: "text",
-            title: "8. Your rights",
-            description:
-                "Subject to certain legal conditions and limitations, you have the following rights regarding your personal data:",
-            bullets: [
-                "Right of access – to obtain confirmation as to whether we process your personal data and to receive a copy.",
-                "Right to rectification – to request correction of inaccurate or incomplete personal data.",
-                "Right to erasure (“right to be forgotten”) – to request deletion of your personal data where there is no longer a legal basis for us to retain it.",
-                "Right to restriction of processing – to request that we restrict processing in certain circumstances.",
-                "Right to data portability – to receive certain personal data in a structured, commonly used and machine-readable format and to transmit it to another controller where technically feasible.",
-                "Right to object – to object, on grounds relating to your particular situation, to processing based on our legitimate interests, and to object at any time to processing for direct marketing.",
-                "Right to withdraw consent – where processing is based on your consent, you have the right to withdraw that consent at any time (for example, for marketing communications or special-category data).",
-                `How to exercise your rights: You can exercise your rights by emailing ${COMPANY_EMAIL} from your Account email address. We may need to request additional information to verify your identity.`,
-                "We aim to respond within one month of receiving your request. This period may be extended by up to two further months for complex or numerous requests, in which case we will inform you of the extension and reasons.",
-            ],
-        },
-        {
-            type: "text",
-            title: "9. Security",
-            description:
-                "We implement appropriate technical and organisational measures designed to protect personal data against unauthorised access, loss, misuse or alteration. These measures include, where appropriate:",
-            bullets: [
-                "access controls, role-based permissions and multi-factor authentication for administrative interfaces;",
-                "encryption in transit (HTTPS/TLS) and, where appropriate, at rest;",
-                "network segregation, firewalls and regular backups;",
-                "logging, monitoring and incident-response procedures;",
-                "vendor due diligence and contractual obligations for processors.",
-                "No system can be guaranteed to be 100% secure, but we continuously improve our controls and will promptly investigate and, where required, notify you and relevant authorities of any personal data breach.",
-            ],
-        },
-        {
-            type: "text",
-            title: "10. Children’s data",
-            description:
-                `The Service is intended for users aged 18+. We do not knowingly collect personal data from children. If you believe that a child has provided personal data to us, please contact ${COMPANY_EMAIL} so that we can investigate and, where appropriate, delete the data and close any related Account.`,
-        },
-        {
-            type: "text",
-            title: "11. Changes to this Policy",
-            bullets: [
-                "We may update this Privacy Policy from time to time to reflect changes in the Service, applicable law or our data protection practices.",
-                "Material changes will be notified by email (where appropriate) and/or via a prominent notice within the Service. Updated versions will be effective from the date indicated at the top of this Policy and will apply prospectively.",
-            ],
-        },
-        {
-            type: "text",
-            title: "12. Contact & complaints",
-            bullets: [
-                "Controller:",
-                `${COMPANY_LEGAL_NAME}`,
-                ...String(COMPANY_ADDRESS).split(", ").map((line) => line.trim()),
-                `Email (privacy): ${COMPANY_EMAIL}`,
-                "If you have questions or concerns about how we handle your personal data, please contact us first so we can try to resolve the issue.",
-                "If you are not satisfied with our response, you have the right to lodge a complaint with the Information Commissioner’s Office (ICO) in the UK. If you are resident in the EU, you may also have the right to complain to your local supervisory authority.",
-            ],
+            type: "custom",
+            component: "PolicyContent",
+            content: `
+<h1>Privacy Policy</h1>
+<p>Effective date: 22 October 2026</p>
+<h2>1. Who is responsible for your information</h2>
+<p>1.1. <strong>DOMESTIC DREAMS LIMITED</strong>, company number <strong>15925893</strong>, with its registered office at <strong>11 Dunraven Place, Bridgend, Mid Glamorgan, CF31 1JF, United Kingdom</strong>, is the controller of personal information processed in operating MakeMyCV at <a href="https://www.makemy-cv.co.uk/">https://www.makemy-cv.co.uk/</a>.</p>
+<p>1.2. Contact <strong><a href="mailto:info@makemy-cv.co.uk">info@makemy-cv.co.uk</a></strong> about privacy, deletion requests, access requests or concerns. You may also contact us at <strong><a href="tel:+447418638973">+44 7418 638973</a></strong> or by post at the address above.</p>
+<p>1.3. This Policy explains processing for Accounts, Points payments, specialist services, AI features, PDF delivery and support. The Service is intended for people aged 18 and over.</p>
+<h2>2. Information we process</h2>
+<h3>2.1 Account information</h3>
+<p>Your email address, login credentials in the form used by our authentication system, name and contact details you provide, Account identifiers and relevant Account settings.</p>
+<h3>2.2 CV content and service inputs</h3>
+<p>Information you type or upload, such as your name and contact details, employment and education history, qualifications, skills, achievements, professional interests, existing CVs, cover letters, job descriptions, LinkedIn text and instructions. Uploaded documents may also contain photographs, metadata or information about other people.</p>
+<h3>2.3 Outputs and order records</h3>
+<p>Generated or specialist-prepared documents, reports, PDFs, order references, selected services, Points deductions, processing status and relevant records of delivery or correction.</p>
+<h3>2.4 Payments and Points</h3>
+<p>Points purchases, balances and usage, billing details, transaction currencies and amounts, payment references, payment status, refunds and dispute records. Payment providers process card information. We do not store your full card number or card security code; we may receive limited transaction details needed to confirm or investigate a payment.</p>
+<h3>2.5 Communications</h3>
+<p>Messages, attachments and information you provide when contacting us about support, complaints, refunds or privacy rights.</p>
+<h3>2.6 Technical and security information</h3>
+<p>Information needed to operate and protect the Service, including IP address, browser or device information, authentication events, service errors and relevant transaction or security logs. We do not use this information for advertising profiles or behavioural advertising, and we do not use advertising or visitor-analytics tracking tools on the Service.</p>
+<h2>3. Purposes and legal bases</h2>
+<p>We use personal information for the following purposes:</p>
+<div data-policy-table role="region" aria-label="3. Purposes and legal bases" tabindex="0">
+<table>
+<thead><tr><th scope="col">Purpose</th><th scope="col">Information involved</th><th scope="col">Principal legal basis</th></tr></thead>
+<tbody>
+<tr><td>Create and operate your Account</td><td>Account and authentication information</td><td>Performance of our contract with you, or steps you request before entering it</td></tr>
+<tr><td>Prepare, generate and deliver your selected services</td><td>CV inputs, uploaded files, instructions, relevant profile information and Outputs</td><td>Performance of our contract with you</td></tr>
+<tr><td>Process Points purchases, orders and refunds</td><td>Billing, payment, Points and order information</td><td>Performance of our contract; legal obligation where required for financial records</td></tr>
+<tr><td>Answer support requests and correct work</td><td>Communications, relevant inputs, Outputs and order details</td><td>Performance of our contract; legitimate interests in resolving enquiries where no contract applies</td></tr>
+<tr><td>Protect Accounts, investigate misuse and maintain technical reliability</td><td>Necessary technical, transaction and security records</td><td>Legitimate interests in preventing fraud and protecting the Service; legal obligation where applicable</td></tr>
+<tr><td>Maintain required records and respond to lawful requests</td><td>Relevant financial, complaint and compliance information</td><td>Legal obligation</td></tr>
+<tr><td>Establish, exercise or defend legal claims</td><td>Information relevant to the particular claim</td><td>Legitimate interests in resolving disputes and protecting legal rights</td></tr>
+</tbody>
+</table>
+</div>
+<p>Our legitimate interests do not automatically override your rights. You may object to processing based on legitimate interests as explained in section 10.</p>
+<p>Where a business orders a service for another person, processing that person&#x27;s information requires an appropriate legal basis in its own right; a contract with the business does not automatically make the individual a contracting party. We assess the relevant basis, including legitimate interests where appropriate, and the need to provide privacy information to that person.</p>
+<p>We do not treat acceptance of this Policy as blanket consent. Where a particular activity requires consent, it must be obtained for that activity and can be withdrawn without affecting earlier lawful processing.</p>
+<h2>4. How AI features process personal information</h2>
+<p>4.1. We use <strong>third-party providers of artificial intelligence and language-model processing</strong> to support features such as CV generation and rewriting, cover letters, LinkedIn text, job adaptation, ATS-related analysis, achievement enhancement and skills analysis.</p>
+<p>4.2. When an AI feature is used, relevant information from your request is transmitted to an external AI service for processing. This can include the text of uploaded CVs and other documents, your professional history, skills, instructions, job descriptions and the context needed to generate or analyse the requested content. <strong>If those materials contain your name, contact details or other personal information, that information may be included in the processing.</strong> We do not represent that all submissions are anonymised before transmission.</p>
+<p>4.3. The provider processes the request and returns generated text or analysis to MakeMyCV so that we can prepare and deliver your Output. Relevant requests and responses may also be processed to investigate a reported error, maintain security or resolve abuse, subject to the applicable purpose and legal basis.</p>
+<p>4.4. AI processing involves an external provider even where the final result is shown only in your private dashboard. It is different from making your CV public or sending it to employers. You should nevertheless avoid including unnecessary personal or sensitive information in your inputs.</p>
+<p>4.5. Provider-side processing locations, retention and any additional permitted processing depend on the service configuration and applicable contractual arrangements. You may contact us for information about the providers involved in processing your data and the applicable arrangements, including retention and international transfers. We will supply information required by applicable data protection law.</p>
+<p>4.6. Using the Service is not, by itself, permission to repurpose your CV for unrelated AI-model training. Any separate use for model development or training would need an appropriate legal basis and any additional information or consent required by law. This Policy does not grant a blanket licence for such a purpose.</p>
+<p>4.7. We do not use the Service to make hiring decisions about you. AI Outputs are assistance for preparing documents; employers and recruiters make their own decisions. You remain responsible for reviewing an Output before using it, and you can contact us about an error or concern.</p>
+<h2>5. Human specialists and other recipients</h2>
+<p>5.1. <strong>Professional CV Creation is performed by a human specialist.</strong> The specialist needs access to the information and instructions relevant to that order to prepare the CV. Necessary access may also be required to correct the work or resolve a support issue. Your documents are not made accessible to other customers.</p>
+<p>5.2. In addition to specialists and the AI providers described above, information may be processed by:</p>
+<ul>
+<li><strong>Hosting, database and infrastructure providers</strong>, which support storage and operation of the website, Account records and documents;</li>
+<li><strong>Email and delivery providers</strong>, which transmit PDFs and essential order or Account communications;</li>
+<li><strong>Payment and fraud-prevention providers</strong>, which process card payments, refunds and relevant payment checks;</li>
+<li><strong>Authorised support personnel and technical providers</strong>, to the extent needed to resolve the issue concerned or maintain security;</li>
+<li><strong>Professional advisers, authorities and dispute-handling parties</strong>, where necessary for legal obligations, claims or payment disputes.</li>
+</ul>
+<p>5.3. We restrict access to what is necessary for the relevant task. A provider acting on our instructions must process information under applicable data protection obligations. A provider that determines its own purposes, for example for certain payment or legal compliance functions, may act as a separate controller for that processing.</p>
+<p>5.4. We do not sell your CV or personal information. We do not provide CVs to employers or recruiters as part of the listed services and do not share personal information for third-party advertising.</p>
+<p>5.5. If the business is transferred, information needed to continue the Service may form part of the transfer. Any such disclosure remains subject to applicable data protection requirements and the purposes for which the information is held.</p>
+<h2>6. International processing</h2>
+<p>6.1. External providers may process information outside the United Kingdom and, where relevant, outside the European Economic Area. This can include AI inference, infrastructure or email processing.</p>
+<p>6.2. Restricted international transfers require a lawful transfer mechanism. Depending on the destination and applicable law, this may be an adequacy decision or regulation, the UK International Data Transfer Agreement, the UK Addendum to EU Standard Contractual Clauses, or EU Standard Contractual Clauses for a transfer subject to EU GDPR, together with any required assessments and supplementary measures.</p>
+<p>6.3. Contact <a href="mailto:info@makemy-cv.co.uk">info@makemy-cv.co.uk</a> to request details of transfers relevant to your information and the applicable safeguards, including how to obtain a copy where required. This section does not suggest that all processing occurs in the UK or that every provider uses the same mechanism.</p>
+<h2>7. Sensitive information and information about others</h2>
+<p>7.1. We do not ask you to provide health information, political opinions, religious beliefs or other special-category information for ordinary CV preparation. Do not include it unless it is genuinely necessary for the service you request. Do not upload identity documents, financial account credentials or payment-card information as part of a CV brief.</p>
+<p>7.2. Uploading sensitive information does not automatically constitute valid explicit consent. If such information is brought to our attention, we will assess whether it is needed and whether a lawful basis and the additional legal condition required for that information exist. We may ask you to remove it, delete it where appropriate or obtain valid additional permission before processing it further.</p>
+<p>7.3. If you include another person&#x27;s information, such as a referee&#x27;s contact details, ensure that you are entitled to provide it and that the person has been appropriately informed. Remove details that are unnecessary. This does not remove our own responsibilities when we process that information.</p>
+<h2>8. Storage and retention</h2>
+<p>8.1. CV inputs, Outputs and related Account records are stored in the systems and databases used to provide the Service. We keep saved documents while they are needed to provide your Account history, document access and related support. We do not promise permanent archiving or retain all categories of information for a single blanket period.</p>
+<p>8.2. Retention is determined by the purpose for which the information is still needed, the status of your Account and orders, your deletion requests, legal record-keeping requirements and any ongoing dispute. In particular:</p>
+<ul>
+<li><strong>Saved CVs, documents and Outputs:</strong> retained as needed for the document-access and support functions of your Account. You may request deletion without necessarily closing the Account;</li>
+<li><strong>Account details:</strong> retained as needed to operate the Account, including administration of any remaining paid Points. A non-expiring Points balance does not, by itself, require us to keep all of your CV content;</li>
+<li><strong>Payment and financial records:</strong> retained for the period required by applicable accounting, tax and record-keeping law, with limited additional retention where necessary for a specific dispute or claim;</li>
+<li><strong>Support and complaint records:</strong> retained as needed to resolve the matter and maintain an appropriate record of its outcome or a related claim;</li>
+<li><strong>Technical and security records:</strong> retained for as long as needed to investigate faults, protect Accounts and address identified security risks, rather than for advertising or visitor profiling.</li>
+</ul>
+<p>8.3. You may request deletion or Account closure at <strong><a href="mailto:info@makemy-cv.co.uk">info@makemy-cv.co.uk</a></strong>. We assess and action valid erasure requests without undue delay and respond within the applicable legal timeframe. We explain if particular records must be retained and restrict their use to the remaining lawful purpose.</p>
+<p>8.4. Information in restricted backups may remain until it is overwritten or deleted through the backup cycle. It must not be used for ordinary service purposes after deletion from active systems, and a restoration must not reintroduce information that should remain deleted. Your own downloaded or emailed copies remain under your control.</p>
+<p>8.5. Retention by external providers is also relevant. You may ask us about their applicable arrangements and how a deletion request is addressed across the recipients involved in your service.</p>
+<h2>9. Cookies and technical security</h2>
+<p>9.1. We use cookies and similar technologies for the operation, authentication, security and necessary transaction functions of the Service, as described in our Cookies Policy. We do not use them for advertising, remarketing or visitor analytics.</p>
+<p>9.2. We use appropriate technical and organisational measures to protect personal information, including limiting access to the relevant purpose and protecting authenticated Account access. The measures applied depend on the system and processing involved. No online system can be guaranteed completely secure.</p>
+<p>9.3. Contact us promptly if you suspect unauthorised access or accidental disclosure. We will investigate and make any notifications required by law.</p>
+<h2>10. Your rights</h2>
+<p>Depending on the circumstances and applicable law, you may have rights to:</p>
+<ul>
+<li>access your personal information and obtain a copy;</li>
+<li>correct inaccurate or incomplete information;</li>
+<li>request erasure;</li>
+<li>restrict processing;</li>
+<li>receive certain information in a portable format;</li>
+<li>object to processing based on legitimate interests;</li>
+<li>withdraw consent where consent is the basis for processing;</li>
+<li>obtain the protections applicable to relevant solely automated decisions.</li>
+</ul>
+<p><strong>You may object to processing based on legitimate interests on grounds relating to your particular situation.</strong> You may also object to direct marketing at any time if we ever undertake it; no advertising-tracking or marketing-data use is introduced by this Policy.</p>
+<p>Send requests to <strong><a href="mailto:info@makemy-cv.co.uk">info@makemy-cv.co.uk</a></strong>. We may need proportionate information to verify identity or clarify the request. Using the Account email helps, but is not the only means of making a valid request.</p>
+<p>We normally respond within one month. Where the law allows additional time because a request is complex or because of the number of requests, we will explain the extension. These rights are subject to applicable conditions; for example, erasure may not extend to financial records we must retain by law.</p>
+<h2>11. Children</h2>
+<p>The Service is intended for people aged 18 and over. If you believe a child has submitted personal information, contact us so that we can investigate and take appropriate steps, including deleting information or closing an Account where necessary.</p>
+<h2>12. Complaints and changes</h2>
+<p>12.1. Contact us if you have a concern about personal information. You also have the right to complain to the <strong>Information Commissioner&#x27;s Office</strong> in the UK at <strong><a href="https://ico.org.uk/make-a-complaint/">https://ico.org.uk/make-a-complaint/</a></strong>. Where EU GDPR applies, you may also complain to the competent supervisory authority in the EEA. You do not have to obtain our permission before contacting a regulator.</p>
+<p>12.2. We will update this Policy when our processing changes. We will explain material changes through an appropriate notice and provide any additional notice or request for consent required before a new use begins. A change to this Policy does not itself authorise an incompatible new use of existing CV data.</p>
+<h2>13. Contact</h2>
+<p><strong>DOMESTIC DREAMS LIMITED</strong><br />Company number: <strong>15925893</strong><br />Registered office: <strong>11 Dunraven Place, Bridgend, Mid Glamorgan, CF31 1JF, United Kingdom</strong><br />Email: <strong><a href="mailto:info@makemy-cv.co.uk">info@makemy-cv.co.uk</a></strong><br />Telephone: <strong><a href="tel:+447418638973">+44 7418 638973</a></strong></p>
+`,
         },
     ],
 };

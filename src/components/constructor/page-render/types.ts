@@ -11,6 +11,12 @@ export type TextBlock = {
     centerBullets?: boolean;
 };
 
+export type PolicyContentBlock = {
+    type: "custom";
+    component: "PolicyContent";
+    content: string;
+};
+
 export type ContactFormBlock = {
     type: "custom";
     component: "ContactForm";
@@ -320,6 +326,7 @@ export type TestimonialsSliderBlock = {
 // ---------------- Union Types ----------------
 
 export type CustomBlock =
+    | PolicyContentBlock
     | MissionBannerBlock
     | ValuesIconsBlock
     | StoryTimelineBlock
