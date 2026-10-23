@@ -1,0 +1,88 @@
+.policyContent {
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+
+  h1, h2, h3 {
+    color: var(--secondary-color);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: 1.6rem;
+  }
+
+  h3 {
+    margin: 1.5rem 0 0.75rem;
+    font-size: 1.2rem;
+  }
+
+  p, ul {
+    margin: 0 0 1rem;
+  }
+
+  ul {
+    padding-left: 1.5rem;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  a:focus-visible, [data-policy-table]:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 3px;
+  }
+
+  [data-policy-table] {
+    max-width: 100%;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    min-width: 36rem;
+    border-collapse: collapse;
+    font-size: 1rem;
+  }
+
+  th, td {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    background: var(--surface-muted);
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
+}

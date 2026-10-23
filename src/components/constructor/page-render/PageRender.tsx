@@ -10,6 +10,7 @@ import Grid from "../grid/Grid";
 import Slider from "../slider/Slider";
 import FAQ from "../faq/FAQ";
 import PricingCard from "../pricing-card/PricingCard";
+import PolicyContent from "../policy-content/PolicyContent";
 import HighlightStrip from "../highlight-strip/HighlightStrip";
 import Marquee from "../marquee/Marquee";
 import Timeline from "../timeline/Timeline";
@@ -60,6 +61,9 @@ function resolveMedia(key?: string) {
 
 function RenderCustom(b: CustomBlock) {
     switch (b.component) {
+        case "PolicyContent":
+            return <PolicyContent content={b.content} />;
+
         case "MissionBanner":
             return (
                 <MissionBanner
